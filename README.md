@@ -1,7 +1,7 @@
 # Exercise Horizon 2026
 
 A minimal static landing page for Exercise Horizon 2026 (Perth Airport,
-Emergency Operations). Its main job is **hosting files** — chiefly the
+Emergency Operations). Its main job is **hosting relevant files** — chiefly the
 calendar (`.ics`) file that the "Add to Calendar" button in the participant
 emails points at.
 
