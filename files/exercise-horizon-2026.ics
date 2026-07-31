@@ -1,0 +1,44 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Perth Airport//Exercise Horizon 2026//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Exercise Horizon 2026
+X-WR-TIMEZONE:Australia/Perth
+BEGIN:VEVENT
+UID:exercise-horizon-2026@perthairport.com.au
+DTSTAMP:20260731T100421Z
+SEQUENCE:0
+DTSTART;VALUE=DATE:20260917
+DTEND;VALUE=DATE:20260918
+X-MICROSOFT-CDO-ALLDAYEVENT:TRUE
+SUMMARY:Exercise Horizon 2026
+LOCATION:Forster Park Community Centre\, Forster Park\, Belmont WA 6104
+DESCRIPTION:Your attendance at Exercise Horizon 2026 is confirmed.\n\nLocat
+ ion: Forster Park Community Centre (across the road from parking).\nParkin
+ g: Belmont Sports & Recreation Club\, 400 Abernethy Rd\, Cloverdale WA 610
+ 5.\n\nYour specific role\, reporting time and location have NOT yet been a
+ ssigned. These are allocated by the Emergency Operations team and will be 
+ sent to you closer to the exercise date.\n\nBring: enclosed footwear\, a r
+ eusable water bottle\, older clothing you don't mind getting dirty (casual
+ ty roles only)\, and any personal medication you may need.\n\nQuestions: E
+ mergency.Exercise@perthairport.com.au
+URL:https://nicholaspagonis.github.io/Exercise-Horizon-2026
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+X-MICROSOFT-CDO-BUSYSTATUS:FREE
+CLASS:PUBLIC
+ORGANIZER;CN="Exercise Planning, Emergency Operations":mailto:Emergency.Exe
+ rcise@perthairport.com.au
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Exercise Horizon 2026
+TRIGGER:-P6DT15H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Exercise Horizon 2026
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

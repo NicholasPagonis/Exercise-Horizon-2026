@@ -1,0 +1,60 @@
+{
+  "_comment": "Single source of truth for the site and the .ics file. Edit this, then run: python3 scripts/build.py",
+
+  "event": {
+    "name": "Exercise Horizon 2026",
+    "date": "2026-09-17",
+    "all_day": true,
+    "start": "07:30",
+    "end": "14:00",
+    "timezone": "Australia/Perth",
+    "status": "CONFIRMED",
+    "busy": false,
+    "uid": "exercise-horizon-2026@perthairport.com.au",
+    "sequence": 0,
+    "location": "Forster Park Community Centre, Forster Park, Belmont WA 6104",
+    "location_short": "Forster Park Community Centre",
+    "parking_name": "Belmont Sports & Recreation Club",
+    "parking_address": "400 Abernethy Rd, Cloverdale WA 6105",
+    "description": [
+      "Your attendance at Exercise Horizon 2026 is confirmed.",
+      "",
+      "Location: Forster Park Community Centre (across the road from parking).",
+      "Parking: Belmont Sports & Recreation Club, 400 Abernethy Rd, Cloverdale WA 6105.",
+      "",
+      "Your specific role, reporting time and location have NOT yet been assigned. These are allocated by the Emergency Operations team and will be sent to you closer to the exercise date.",
+      "",
+      "Bring: enclosed footwear, a reusable water bottle, older clothing you don't mind getting dirty (casualty roles only), and any personal medication you may need.",
+      "",
+      "Questions: Emergency.Exercise@perthairport.com.au"
+    ],
+    "reminders": ["-P6DT15H", "-PT15H"]
+  },
+
+  "contact": {
+    "team": "Exercise Planning, Emergency Operations",
+    "organisation": "Perth Airport",
+    "email": "Emergency.Exercise@perthairport.com.au",
+    "phone": "0439 237 973"
+  },
+
+  "site": {
+    "base_url": "https://nicholaspagonis.github.io/Exercise-Horizon-2026",
+    "tagline": "Participant information and downloads"
+  },
+
+  "downloads": [
+    {
+      "path": "files/exercise-horizon-2026.ics",
+      "label": "Add to Calendar",
+      "description": "Calendar file (.ics) for Outlook, Google Calendar, Apple Calendar",
+      "primary": true
+    },
+    {
+      "path": "assets/parking-map.jpg",
+      "label": "Parking Map",
+      "description": "Walking route from Belmont Sports & Recreation Club to Forster Park",
+      "primary": false
+    }
+  ]
+}
