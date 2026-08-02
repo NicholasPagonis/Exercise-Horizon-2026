@@ -142,7 +142,7 @@ Other fields worth knowing:
 | `reminders` | A list of `{"trigger", "label"}` objects, or bare RFC 5545 trigger strings. Triggers are relative to the start, so `-P7D` on an 07:00 event fires 07:00 seven days earlier. Currently two weeks, one week and one day out. |
 | `status` | `CONFIRMED`, `TENTATIVE` or `CANCELLED`. Publishing with `CANCELLED` plus a bumped `sequence` withdraws the event from calendars that imported it. |
 | `categories` | `CATEGORIES`, for people who filter or colour-code their calendar. |
-| `contact.organizer_cn` | The `ORGANIZER` display name, kept separate from `contact.team` so the calendar and the page can name different groups. Commas are quoted per RFC 5545 (`CN="Exercise Planning, Perth Airport"`) rather than backslash-escaped — parameter values quote, only TEXT values escape. |
+| `contact.organizer_cn` | The `ORGANIZER` display name, kept separate from `contact.team` so the calendar and the page can name different groups. **Avoid commas.** They are quoted correctly (`CN="A, B"`, since parameter values quote rather than backslash-escape), but Apple Calendar reads a comma in a `CN` as `Last, First` and reorders the name — `Exercise Planning, Perth Airport` displayed as *Perth Exercise Planning* on iOS. |
 
 `CREATED` and `LAST-MODIFIED` are emitted alongside `DTSTAMP`. All three carry
 the build clock, so the build masks them when deciding whether to rewrite the
