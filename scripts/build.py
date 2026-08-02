@@ -312,6 +312,9 @@ def build_page(cfg: dict, template: str) -> str:
         "BUILT_ON": dt.date.today().isoformat(),
     }
 
+    # The hero is a CSS background now, so it has no width/height attributes -
+    # sizing it here anyway makes the build fail loudly if the file goes
+    # missing, instead of the banner silently 404ing its background.
     for key, rel in [("LOGO", "assets/perth-airport-logo-white.png"),
                      ("HERO", "assets/hero.jpg"),
                      ("MAP", "assets/parking-map.jpg")]:
