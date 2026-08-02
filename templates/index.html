@@ -33,11 +33,12 @@
 html{overflow-x:clip}
 body{margin:0;min-height:100vh;font-family:"Lab Grotesque","Open Sans",Arial,Helvetica,sans-serif;font-weight:300;font-synthesis:none;color:var(--black);background:radial-gradient(circle at top right,rgba(133,201,204,.45),transparent 34rem),linear-gradient(135deg,#f7f8f8 0%,#fff 46%,#eef7f8 100%)}
 
-/* ---- brand bar + header --------------------------------------------- */
-.logobar{background:var(--white);padding:1.15rem clamp(1rem,4vw,4rem);border-bottom:1px solid rgba(10,73,99,.08)}
-.logo{display:block;width:190px;max-width:52vw;height:auto}
-
-header{background:var(--teal);color:var(--white);padding:2.25rem clamp(1rem,4vw,4rem) 4.75rem;position:relative;overflow:hidden;min-height:clamp(330px,33vw,560px);display:flex;flex-direction:column;justify-content:center}
+/* ---- header ---------------------------------------------------------- */
+/* Two rows: the reversed logo pinned to the top, the heading block centred
+   in whatever height is left. No white bar - the banner is the whole thing. */
+header{background:var(--teal);color:var(--white);padding:2.25rem clamp(1rem,4vw,4rem) 4.75rem;position:relative;overflow:hidden;min-height:clamp(330px,33vw,560px);display:grid;grid-template-rows:auto 1fr;align-items:start}
+.logo{position:relative;z-index:2;display:block;width:190px;max-width:44vw;height:auto}
+.header__body{align-self:center}
 
 /* Graphic thread - layering approach, per the PAPL brand guidelines.
    The image is cropped to a quadrilateral (two triangles forming a 'point',
@@ -50,7 +51,7 @@ header{background:var(--teal);color:var(--white);padding:2.25rem clamp(1rem,4vw,
    spans the banner's full height at every width rather than sitting inset
    within the header padding.
    The facets themselves are never recreated, tiled or repeated. */
-.header__body{position:relative;z-index:1;max-width:min(52%,660px)}
+.header__body{position:relative;z-index:1;max-width:min(52%,660px);align-self:center}
 /* Anchored to all four edges of the banner, so the composition spans its
    full height rather than sitting inset within the padding. */
 .header__art{position:absolute;top:0;right:0;bottom:0;width:47%;pointer-events:none}
@@ -215,11 +216,8 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
 </style></head>
 
 <body>
-<div class="logobar">
-  <img class="logo" src="assets/perth-airport-logo.png" width="{{LOGO_W}}" height="{{LOGO_H}}" alt="Perth Airport">
-</div>
-
 <header>
+  <img class="logo" src="assets/perth-airport-logo-white.png" width="{{LOGO_W}}" height="{{LOGO_H}}" alt="Perth Airport">
   <div class="header__body">
     <div class="brandline">{{CONTACT_ORG}} &middot; {{CONTACT_TEAM}}</div>
     <h1>{{EVENT_NAME}}</h1>

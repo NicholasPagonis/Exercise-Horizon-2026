@@ -78,13 +78,17 @@ the emphasis is load-bearing, an underline) rather than weight. **If you add a
 Medium or Bold weight later, add the `@font-face` rule before using
 `font-weight: 500`+ anywhere**, or the text will silently render at Regular.
 
-The Perth Airport logo sits on a white bar above the teal header. The email's
-copy of the logo is on a flat pale-teal field, so it was alpha-matted off that
-background rather than cropped; it is 318px wide, which is sharp at the 190px
-it displays at but not much beyond. If you have the official logo from the
-brand library, drop it in as `assets/perth-airport-logo.png` and it will be
-used as-is. A reversed (white) logo would allow dropping the white bar and
-placing the logo directly on the teal.
+The banner runs from the top of the page — there is no white logo bar. The
+logo on it is `assets/perth-airport-logo-white.png`, a **reversed (all-white)**
+mark generated from the alpha channel of `perth-airport-logo.png` with a 0.55
+gamma applied, which thickens the star; matted straight it came out noticeably
+thinner than the wordmark. Both files are 318px wide — sharp at the 190px they
+display at, not much beyond. Drop the official reversed logo in at the same
+path when you have it; `build.py` reads the dimensions off the file, so nothing
+else needs changing.
+
+`perth-airport-logo.png` (full colour) is no longer referenced by the page but
+is kept for use on light backgrounds.
 
 ## Making a change
 

@@ -312,7 +312,7 @@ def build_page(cfg: dict, template: str) -> str:
         "BUILT_ON": dt.date.today().isoformat(),
     }
 
-    for key, rel in [("LOGO", "assets/perth-airport-logo.png"),
+    for key, rel in [("LOGO", "assets/perth-airport-logo-white.png"),
                      ("HERO", "assets/hero.jpg"),
                      ("MAP", "assets/parking-map.jpg")]:
         w, h = image_size(ROOT / rel)
