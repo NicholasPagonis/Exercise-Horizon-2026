@@ -60,13 +60,14 @@ elsewhere on the page — which is why the footer is a plain rule and the old
 floating background shard is gone. If you need a variation, the guidelines
 direct advanced compositions through the Brand & Marketing team.
 
-`assets/hero.jpg` is the supplied photograph, resized to 1600×1067 and saved
-at quality 82 — 198 KB, down from the 3.78 MB original. That covers a 2×
-display at the widest the frame ever renders (~770 CSS px on a 1920 viewport).
-The full-resolution original remains in git history at commit 36557fb if it is
-ever needed. If you replace it, re-check `.art__frame`'s `object-position`,
-which is tuned so the steep left edge of the frame does not cut through the
-firefighter.
+`assets/hero.jpg` is the supplied photograph, cropped to 3000×2000 from the
+left edge of the 3607×2405 original and resized to 1600×1067 at quality 82 —
+193 KB. The crop is what positions the firefighter inside the frame: the image
+and the art box are near enough the same aspect that `object-fit` has only
+about 40px of horizontal play, so `object-position` alone cannot move the
+subject meaningfully. To shift him further right, widen the crop's right
+margin; to shift him left, start the crop further right. The full-resolution
+original is in git history at commit 36557fb.
 
 **Typography is Lab Grotesque, self-hosted, with no web fallback in normal
 use.** Only Light (300) and Regular (400) are licensed here, so the page builds
