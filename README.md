@@ -19,10 +19,37 @@ index.html                     generated — do not edit by hand
 files/
   exercise-horizon-2026.ics    generated — the calendar file
 assets/
-  banner.png                   header artwork from the email
-  footer.png                   footer band
+  perth-airport-logo.png       masked out of the email banner
   parking-map.jpg              walking route, Belmont S&RC -> Forster Park
+  fonts/                       Lab Grotesque Light + Regular (woff2 + woff)
 ```
+
+## Brand
+
+Built to the PAPL design language taken from the Ground Transport parking
+price calculator: 22px card radius, the `0 18px 50px rgba(10,73,99,.14)`
+ocean shadow, clip-path shard motifs, pill actions, and the Ocean / Coast /
+Hovea / Pindan palette. Teal `#19807c` — the accent from the Exercise Horizon
+email — is the dominant colour, so it takes the header and primary actions
+where the calculator uses Ocean; the rest of the PAPL palette is unchanged and
+supports it.
+
+**Typography is Lab Grotesque, self-hosted, with no web fallback in normal
+use.** Only Light (300) and Regular (400) are licensed here, so the page builds
+its hierarchy from those two weights plus size, colour and letter-spacing.
+`font-synthesis: none` is set globally, which stops browsers inventing a fake
+bold from Regular — that is why `<strong>` is styled with colour (and, where
+the emphasis is load-bearing, an underline) rather than weight. **If you add a
+Medium or Bold weight later, add the `@font-face` rule before using
+`font-weight: 500`+ anywhere**, or the text will silently render at Regular.
+
+The Perth Airport logo sits on a white bar above the teal header. The email's
+copy of the logo is on a flat pale-teal field, so it was alpha-matted off that
+background rather than cropped; it is 318px wide, which is sharp at the 190px
+it displays at but not much beyond. If you have the official logo from the
+brand library, drop it in as `assets/perth-airport-logo.png` and it will be
+used as-is. A reversed (white) logo would allow dropping the white bar and
+placing the logo directly on the teal.
 
 ## Making a change
 
