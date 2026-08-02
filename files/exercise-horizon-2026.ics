@@ -5,40 +5,60 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 X-WR-CALNAME:Exercise Horizon 2026
 X-WR-TIMEZONE:Australia/Perth
+BEGIN:VTIMEZONE
+TZID:Australia/Perth
+X-LIC-LOCATION:Australia/Perth
+BEGIN:STANDARD
+TZOFFSETFROM:+0800
+TZOFFSETTO:+0800
+TZNAME:AWST
+DTSTART:19700101T000000
+END:STANDARD
+END:VTIMEZONE
 BEGIN:VEVENT
-UID:exercise-horizon-2026@perthairport.com.au
-DTSTAMP:20260802T043341Z
-SEQUENCE:1
-DTSTART;VALUE=DATE:20260917
-DTEND;VALUE=DATE:20260918
-X-MICROSOFT-CDO-ALLDAYEVENT:TRUE
-SUMMARY:Exercise Horizon 2026
+UID:emergency.exercise@perthairport.com.au
+DTSTAMP:20260802T051751Z
+CREATED:20260802T051751Z
+LAST-MODIFIED:20260802T051751Z
+SEQUENCE:2
+DTSTART;TZID=Australia/Perth:20260917T070000
+DTEND;TZID=Australia/Perth:20260917T140000
+SUMMARY:[AWAITING EXTRA INFO] Exercise Horizon 2026
 LOCATION:Forster Park Community Centre\, Forster Park\, Belmont WA 6104
-DESCRIPTION:Your attendance at Exercise Horizon 2026 is confirmed.\n\nLocat
- ion: Forster Park Community Centre (across the road from parking).\nParkin
- g: Belmont Sports & Recreation Club\, 400 Abernethy Rd\, Cloverdale WA 610
- 5.\n\nYour specific role\, reporting time and location have NOT yet been a
- ssigned. These are allocated by the Emergency Operations team and will be 
- sent to you closer to the exercise date.\n\nBring: enclosed footwear\, a r
- eusable water bottle\, older clothing you don't mind getting dirty (casual
- ty roles only)\, and any personal medication you may need.\n\nQuestions: E
- mergency.Exercise@perthairport.com.au
+DESCRIPTION:Your attendance at Exercise Horizon 2026 is confirmed.\n\nThe e
+ xercise runs 07:00 to 14:00 AWST. Your own role and reporting time within 
+ that window have NOT yet been assigned - these are allocated by the Emerge
+ ncy Operations team and will be emailed to you closer to the date. The cal
+ endar entry stays marked [AWAITING EXTRA INFO] until then.\n\nLocation: Fo
+ rster Park Community Centre (across the road from parking).\nParking: Belm
+ ont Sports & Recreation Club\, 400 Abernethy Rd\, Cloverdale WA 6105.\n\nB
+ ring: enclosed footwear\, a reusable water bottle\, older clothing you don
+ 't mind getting dirty (casualty roles only)\, and any personal medication 
+ you may need.\n\nFull details\, parking map and role descriptions: https:/
+ /nicholaspagonis.github.io/Exercise-Horizon-2026\nQuestions: Emergency.Exe
+ rcise@perthairport.com.au
 URL:https://nicholaspagonis.github.io/Exercise-Horizon-2026
 STATUS:CONFIRMED
-TRANSP:TRANSPARENT
-X-MICROSOFT-CDO-BUSYSTATUS:FREE
+TRANSP:OPAQUE
+X-MICROSOFT-CDO-BUSYSTATUS:BUSY
 CLASS:PUBLIC
-ORGANIZER;CN=Emergency Operations:mailto:Emergency.Exercise@perthairport.co
- m.au
+ORGANIZER;CN="Exercise Planning, Perth Airport":mailto:Emergency.Exercise@p
+ erthairport.com.au
+CATEGORIES:Exercise,Perth Airport
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Exercise Horizon 2026
-TRIGGER:-P6DT15H
+DESCRIPTION:Exercise Horizon 2026 is in two weeks
+TRIGGER:-P14D
 END:VALARM
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Exercise Horizon 2026
-TRIGGER:-PT15H
+DESCRIPTION:Exercise Horizon 2026 is in one week
+TRIGGER:-P7D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Exercise Horizon 2026 is tomorrow
+TRIGGER:-P1D
 END:VALARM
 END:VEVENT
 END:VCALENDAR

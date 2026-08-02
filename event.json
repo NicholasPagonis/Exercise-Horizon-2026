@@ -3,37 +3,45 @@
 
   "event": {
     "name": "Exercise Horizon 2026",
+    "ics_summary": "[AWAITING EXTRA INFO] Exercise Horizon 2026",
     "date": "2026-09-17",
-    "all_day": true,
-    "start": "07:30",
+    "all_day": false,
+    "start": "07:00",
     "end": "14:00",
     "timezone": "Australia/Perth",
     "status": "CONFIRMED",
-    "busy": false,
-    "uid": "exercise-horizon-2026@perthairport.com.au",
-    "sequence": 1,
+    "busy": true,
+    "uid": "emergency.exercise@perthairport.com.au",
+    "sequence": 2,
     "location": "Forster Park Community Centre, Forster Park, Belmont WA 6104",
     "location_short": "Forster Park Community Centre",
     "parking_name": "Belmont Sports & Recreation Club",
     "parking_address": "400 Abernethy Rd, Cloverdale WA 6105",
     "parking_url": "https://maps.app.goo.gl/RZnJ9SYvuB9BgTGt8",
+    "categories": ["Exercise", "Perth Airport"],
     "description": [
       "Your attendance at Exercise Horizon 2026 is confirmed.",
+      "",
+      "The exercise runs 07:00 to 14:00 AWST. Your own role and reporting time within that window have NOT yet been assigned - these are allocated by the Emergency Operations team and will be emailed to you closer to the date. The calendar entry stays marked [AWAITING EXTRA INFO] until then.",
       "",
       "Location: Forster Park Community Centre (across the road from parking).",
       "Parking: Belmont Sports & Recreation Club, 400 Abernethy Rd, Cloverdale WA 6105.",
       "",
-      "Your specific role, reporting time and location have NOT yet been assigned. These are allocated by the Emergency Operations team and will be sent to you closer to the exercise date.",
-      "",
       "Bring: enclosed footwear, a reusable water bottle, older clothing you don't mind getting dirty (casualty roles only), and any personal medication you may need.",
       "",
+      "Full details, parking map and role descriptions: https://nicholaspagonis.github.io/Exercise-Horizon-2026",
       "Questions: Emergency.Exercise@perthairport.com.au"
     ],
-    "reminders": ["-P6DT15H", "-PT15H"]
+    "reminders": [
+      { "trigger": "-P14D", "label": "Exercise Horizon 2026 is in two weeks" },
+      { "trigger": "-P7D", "label": "Exercise Horizon 2026 is in one week" },
+      { "trigger": "-P1D", "label": "Exercise Horizon 2026 is tomorrow" }
+    ]
   },
 
   "contact": {
     "team": "Emergency Operations",
+    "organizer_cn": "Exercise Planning, Perth Airport",
     "organisation": "Perth Airport",
     "email": "Emergency.Exercise@perthairport.com.au",
     "phone": "0439 237 973"

@@ -70,21 +70,22 @@ they are stated once.
 
 ## The calendar file
 
-Currently generated as an **all-day** event on **Thursday 17 September 2026** —
-which matches the email's position that role, reporting time and location are
-assigned later and sent separately. An all-day entry marks the date without
-committing anyone to hours that have not been set.
+A timed `VEVENT` on **Thursday 17 September 2026, 07:00–14:00 AWST**, in
+`Australia/Perth` with a `VTIMEZONE` block. Set `"all_day": true` to fall back
+to a date-only entry that marks the day without committing to hours.
 
-To switch to a timed event once times are known, set in `event.json`:
+The summary is deliberately **not** the same string as the page title:
 
 ```json
-"all_day": false,
-"start": "07:30",
-"end": "14:00"
+"name":        "Exercise Horizon 2026",
+"ics_summary": "[AWAITING EXTRA INFO] Exercise Horizon 2026"
 ```
 
-The generator then emits a timed `VEVENT` in `Australia/Perth` with a
-`VTIMEZONE` block.
+`name` drives the page and `X-WR-CALNAME`; `ics_summary` drives the event's
+`SUMMARY`, so the prefix appears in people's calendars without appearing as
+the page heading. **Drop the prefix from `ics_summary` once roles and reporting
+times go out**, bump `sequence`, and republish — imported entries will rename
+themselves.
 
 ### Re-issuing after the date changes
 
@@ -97,9 +98,16 @@ Other fields worth knowing:
 
 | Field | Effect |
 | --- | --- |
-| `busy` | `false` marks the day free (`TRANSP:TRANSPARENT`). Set `true` to block the calendar out. |
-| `reminders` | RFC 5545 triggers relative to the start. Defaults fire 09:00 a week before and 09:00 the day before. |
+| `busy` | `true` blocks the calendar out (`TRANSP:OPAQUE`, Outlook busy). `false` marks it free — useful for a date-marker entry. |
+| `reminders` | A list of `{"trigger", "label"}` objects, or bare RFC 5545 trigger strings. Triggers are relative to the start, so `-P7D` on an 07:00 event fires 07:00 seven days earlier. Currently two weeks, one week and one day out. |
 | `status` | `CONFIRMED`, `TENTATIVE` or `CANCELLED`. Publishing with `CANCELLED` plus a bumped `sequence` withdraws the event from calendars that imported it. |
+| `categories` | `CATEGORIES`, for people who filter or colour-code their calendar. |
+| `contact.organizer_cn` | The `ORGANIZER` display name, kept separate from `contact.team` so the calendar and the page can name different groups. Commas are quoted per RFC 5545 (`CN="Exercise Planning, Perth Airport"`) rather than backslash-escaped — parameter values quote, only TEXT values escape. |
+
+`CREATED` and `LAST-MODIFIED` are emitted alongside `DTSTAMP`. All three carry
+the build clock, so the build masks them when deciding whether to rewrite the
+file — meaning they change only when the event content actually changes, and a
+no-op rebuild still leaves the tree clean.
 
 ## Adding another file to host
 
