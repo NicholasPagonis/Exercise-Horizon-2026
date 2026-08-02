@@ -55,6 +55,10 @@ p{margin:0 0 .85rem;line-height:1.5}
 p:last-child{margin-bottom:0}
 a{color:var(--teal-deep)}
 strong{font-weight:400;color:var(--teal-deep)}
+/* Inherits the surrounding colour so it stays consistent in both the ocean
+   detail list and the teal body copy; the underline is what marks it a link. */
+.maplink{color:inherit;text-decoration:underline;text-underline-offset:.16em;text-decoration-thickness:.08em;text-decoration-color:var(--coast)}
+.maplink:hover,.maplink:focus-visible{text-decoration-color:var(--teal)}
 .underline{text-decoration:underline;text-underline-offset:.16em;text-decoration-thickness:.08em;text-decoration-color:var(--coast)}
 .muted{color:#4a5558;line-height:1.45}
 
@@ -174,8 +178,10 @@ footer:before{content:"";display:block;width:3.4rem;height:.5rem;margin:0 auto 1
     <section class="card" aria-labelledby="getting-there">
       <h2 id="getting-there">Getting there</h2>
       <p>
-        Park at <strong>{{PARKING_NAME}}</strong>, {{PARKING_ADDRESS}}, then walk
-        across the road to {{LOCATION}}. The route is marked on the map below.
+        Park at <strong><a class="maplink" href="{{PARKING_URL}}" target="_blank"
+        rel="noopener">{{PARKING_NAME}}</a></strong>, {{PARKING_ADDRESS}}, then
+        walk across the road to {{LOCATION}}. The route is marked on the map
+        below.
       </p>
       <figure>
         <img class="map" src="assets/parking-map.jpg" width="1183" height="884"
@@ -346,7 +352,7 @@ footer:before{content:"";display:block;width:3.4rem;height:.5rem;margin:0 auto 1
 
     <ul class="detail-list">
       <li><span>Location</span><strong>{{LOCATION_FULL}}</strong></li>
-      <li><span>Parking</span><strong>{{PARKING_NAME}}<br>{{PARKING_ADDRESS}}</strong></li>
+      <li><span>Parking</span><strong><a class="maplink" href="{{PARKING_URL}}" target="_blank" rel="noopener">{{PARKING_NAME}}</a><br>{{PARKING_ADDRESS}}</strong></li>
     </ul>
 
     <div class="notice">
