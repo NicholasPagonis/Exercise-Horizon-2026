@@ -61,7 +61,6 @@ header{background:var(--teal);color:var(--white);padding:2.25rem clamp(1rem,4vw,
    corner would leave a sliver of dark banner above it in the top right. */
 .art__frame{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:10% 50%;clip-path:polygon(19% 14.4%,80% 0,100% 0,100% 100%,43.9% 100%)}
 
-.brandline{font-weight:400;font-size:.9rem;letter-spacing:.02em;opacity:.9;margin-bottom:.85rem}
 h1{font-weight:400;line-height:1.05;font-size:clamp(2.1rem,5vw,4.6rem);margin:0;max-width:900px;letter-spacing:-.015em}
 .subtitle{max-width:780px;font-size:clamp(1rem,1.7vw,1.25rem);line-height:1.45;margin:1rem 0 0;color:rgba(255,255,255,.92)}
 
@@ -217,9 +216,10 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
 
 <body>
 <header>
-  <img class="logo" src="assets/perth-airport-logo-white.png" width="318" height="79" alt="Perth Airport">
+  <img class="logo" src="assets/perth-airport-logo-white.png" width="640" height="149" alt="Perth Airport">
   <div class="header__body">
-    <!--<div class="brandline">Perth Airport &middot; Emergency Operations</div>-->
+    <!-- Brandline retired: the reversed logo on the banner already says
+         Perth Airport, so the line above the title was repeating it. -->
     <h1>Exercise Horizon 2026</h1>
     <p class="subtitle">Participant information and downloads</p>
   </div>

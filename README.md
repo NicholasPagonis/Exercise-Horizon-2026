@@ -78,17 +78,13 @@ the emphasis is load-bearing, an underline) rather than weight. **If you add a
 Medium or Bold weight later, add the `@font-face` rule before using
 `font-weight: 500`+ anywhere**, or the text will silently render at Regular.
 
-The banner runs from the top of the page — there is no white logo bar. The
-logo on it is `assets/perth-airport-logo-white.png`, a **reversed (all-white)**
-mark generated from the alpha channel of `perth-airport-logo.png` with a 0.55
-gamma applied, which thickens the star; matted straight it came out noticeably
-thinner than the wordmark. Both files are 318px wide — sharp at the 190px they
-display at, not much beyond. Drop the official reversed logo in at the same
-path when you have it; `build.py` reads the dimensions off the file, so nothing
-else needs changing.
-
-`perth-airport-logo.png` (full colour) is no longer referenced by the page but
-is kept for use on light backgrounds.
+The banner runs from the top of the page — there is no white logo bar, and no
+brandline above the title, since the reversed logo already says Perth Airport.
+`assets/perth-airport-logo-white.png` is the official reversed mark, resized to
+640px wide: it displays at 190px, so 640 covers a 3x screen while the 2194px
+original was 11.5x oversampled. `perth-airport-logo.png` (full colour) is no
+longer used by the page but is kept for light backgrounds. `build.py` reads
+both files' dimensions off disk, so replacing either needs no other change.
 
 ## Making a change
 
