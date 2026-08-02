@@ -104,11 +104,19 @@ ol.steps li:before{content:counter(step);position:absolute;left:0;top:-.1em;widt
 
 /* table-layout:fixed + wrapping stops the long contact email forcing the
    whole grid track wider than a narrow viewport. */
-/* ---- roles ----------------------------------------------------------- */
-.roles{display:grid;gap:1.5rem;margin:1.35rem 0 0}
-.role{padding-left:1.15rem;border-left:3px solid var(--teal20)}
-.role h3{margin-bottom:.45rem}
-.role p{margin-bottom:0;line-height:1.55}
+/* ---- roles accordion -------------------------------------------------- */
+/* Native <details>/<summary>: keyboard and screen-reader accessible as a
+   disclosure widget with no JavaScript on the page. */
+.accordion{margin:1.35rem 0 0;border:1px solid var(--mist);border-radius:14px;background:var(--white);overflow:hidden}
+.accordion details+details{border-top:1px solid var(--mist)}
+.accordion summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 1.3rem;cursor:pointer;color:var(--ocean);list-style:none;transition:background .15s}
+.accordion summary::-webkit-details-marker{display:none}
+.accordion summary:hover{background:var(--coast20)}
+.accordion details[open]>summary{color:var(--teal-deep)}
+.accordion summary::after{content:"";flex:none;width:.46rem;height:.46rem;margin-right:.2rem;border-right:1.5px solid var(--teal);border-bottom:1.5px solid var(--teal);transform:translateY(-.14rem) rotate(45deg);transition:transform .18s}
+.accordion details[open]>summary::after{transform:translateY(.1rem) rotate(-135deg)}
+.acc__body{padding:0 1.3rem 1.3rem}
+.acc__body p{line-height:1.55}
 .role__meta{margin:.6rem 0 0;font-size:.88rem;line-height:1.45;color:#536165}
 .role__meta span{color:var(--teal-deep)}
 .subsection{margin-top:1.85rem;padding-top:1.5rem;border-top:1px solid #e6ecee}
@@ -156,6 +164,12 @@ footer:before{content:"";display:block;width:3.4rem;height:.5rem;margin:0 auto 1
   main{width:100%;margin:0;grid-template-columns:1fr;gap:1rem}
   .card{box-shadow:none;border:1px solid #ccc;break-inside:avoid;backdrop-filter:none}
   .key-card{position:static}
+  /* Force every role open on paper - a collapsed accordion would print as
+     three empty rows. ::details-content covers engines that hide the panel
+     via content-visibility; the display rule covers the rest. */
+  details::details-content{content-visibility:visible!important}
+  details>*:not(summary){display:block!important}
+  .accordion summary::after{display:none}
 }
 </style></head>
 
@@ -199,9 +213,10 @@ footer:before{content:"";display:block;width:3.4rem;height:.5rem;margin:0 auto 1
         Operations team and sent to you closer to the exercise date.
       </p>
 
-      <div class="roles">
-        <article class="role">
-          <h3>Patient</h3>
+      <div class="accordion">
+        <details>
+          <summary>Patient</summary>
+          <div class="acc__body">
           <p>
             You play a simulated casualty at the centre of the scenario. Report
             to the check-in point at Forster Park for moulage (injury makeup) &mdash;
@@ -215,10 +230,12 @@ footer:before{content:"";display:block;width:3.4rem;height:.5rem;margin:0 auto 1
             <span>Cards:</span> patient card only, with your details and injury
             information. <span>Linked family member:</span> none.
           </p>
-        </article>
+          </div>
+        </details>
 
-        <article class="role">
-          <h3>Patient and Passenger</h3>
+        <details>
+          <summary>Patient and Passenger</summary>
+          <div class="acc__body">
           <p>
             A combined role: treated in the field, then reunified with a family
             member. You start at Forster Park with the other patients, take your
@@ -232,10 +249,12 @@ footer:before{content:"";display:block;width:3.4rem;height:.5rem;margin:0 auto 1
             card holding your identity and reunification details.
             <span>Linked family member:</span> one.
           </p>
-        </article>
+          </div>
+        </details>
 
-        <article class="role">
-          <h3>Family / Friend</h3>
+        <details>
+          <summary>Family / Friend</summary>
+          <div class="acc__body">
           <p>
             You represent the loved ones arriving at the airport for news of
             someone on the aircraft, which is what puts the reunification process
@@ -249,7 +268,8 @@ footer:before{content:"";display:block;width:3.4rem;height:.5rem;margin:0 auto 1
             <span>Cards:</span> a single red family/friend card with the details
             you need to complete the match. <span>Linked passenger:</span> one.
           </p>
-        </article>
+          </div>
+        </details>
       </div>
 
       <div class="subsection">
