@@ -51,8 +51,13 @@ composition supplied by the brand team:
 Both shapes use percentage `clip-path` and the composition is anchored to all
 four edges of the teal banner, so it spans the banner's **full height** at
 every width — the frame meets the banner's top-right and bottom-right corners,
-and the Coast band runs to the bottom edge. Below 900px it moves under the
-heading as a 16:9 band bleeding to both edges — same shapes, same angles.
+and the Coast band runs to the bottom edge.
+
+**Below 900px the composition is dropped entirely.** On a phone it pushed the
+downloads — the reason people open this page — well below the fold. The frame
+is a CSS `background-image` rather than an `<img>` specifically so that
+`display: none` also skips the request; a hidden `<img>` is still downloaded.
+Phones therefore never fetch the 198 KB hero at all.
 
 Deliberately **not** done, per the guidelines: the facets are never recreated,
 modified, tiled, overlapped or given effects, and the shapes are not repeated
