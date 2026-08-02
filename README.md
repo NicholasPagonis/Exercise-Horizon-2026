@@ -37,19 +37,21 @@ supports it.
 ### Graphic thread
 
 The header carries the page's **one** graphic-thread composition, built to the
-layering approach in the 2025 brand guidelines:
+layering approach in the 2025 brand guidelines and matching the reference
+composition supplied by the brand team:
 
-- The image is cropped to a **quadrilateral** — two triangles forming a
-  "point", one of the shapes deconstructed from the facets — kept simple but
-  irregular.
-- A **single-colour triangle sits behind** the frame at a different angle, in
-  Coast at 34%. The guidelines call for 20–40% tints so the shape complements
-  rather than becomes the focal point.
+- The image is cropped to a **quadrilateral** with a steep left edge — two
+  triangles forming a "point", one of the shapes deconstructed from the
+  facets — bleeding off the right.
+- A **single-colour Coast quadrilateral sits behind** it on a deliberately
+  opposed angle, so it shows only at two opposite ends: a wedge above the
+  frame's top edge and a band below its lower-left corner.
 - The left of the header stays a **large unobstructed content area**.
 
-Both shapes use percentage `clip-path`, so below 900px the same two shapes
-re-proportion into a banner beneath the heading rather than being swapped or
-dropped.
+Both shapes use percentage `clip-path` on a box locked to the reference's
+798×662 ratio, so the composition holds its proportions at every width. Below
+900px it moves under the heading at 16:9 — same shapes, same angles, only the
+aspect flattens.
 
 Deliberately **not** done, per the guidelines: the facets are never recreated,
 modified, tiled, overlapped or given effects, and the shapes are not repeated
@@ -57,10 +59,12 @@ elsewhere on the page — which is why the footer is a plain rule and the old
 floating background shard is gone. If you need a variation, the guidelines
 direct advanced compositions through the Brand & Marketing team.
 
-`assets/hero.jpg` is currently the 634px copy recovered from the email banner,
-which is soft above about 500px wide. **Replace it with the original photograph
-at the same path** — the frame is `object-fit: cover`, so no CSS changes are
-needed.
+`assets/hero.jpg` is a 554×360 region recovered from the email banner — the
+largest crop of it that is free of the banner's own white and pale-teal
+corners, which otherwise bleed into the frame. It is soft above about 500px
+wide. **Replace it with the original photograph at the same path**; the frame
+is `object-fit: cover`, so no CSS changes are needed, though
+`.art__frame`'s `object-position` may want re-centring on the new crop.
 
 **Typography is Lab Grotesque, self-hosted, with no web fallback in normal
 use.** Only Light (300) and Regular (400) are licensed here, so the page builds

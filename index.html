@@ -37,19 +37,22 @@ body{margin:0;min-height:100vh;font-family:"Lab Grotesque","Open Sans",Arial,Hel
 .logobar{background:var(--white);padding:1.15rem clamp(1rem,4vw,4rem);border-bottom:1px solid rgba(10,73,99,.08)}
 .logo{display:block;width:190px;max-width:52vw;height:auto}
 
-header{background:var(--teal);color:var(--white);padding:2.25rem clamp(1rem,4vw,4rem) 4.75rem;position:relative;overflow:hidden}
+header{background:var(--teal);color:var(--white);padding:2.25rem clamp(1rem,4vw,4rem) 4.75rem;position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.68fr);gap:clamp(1rem,3vw,2.75rem);align-items:center}
 
 /* Graphic thread - layering approach, per the PAPL brand guidelines.
-   One composition only: an image frame cropped to a quadrilateral (two
-   triangles forming a 'point', a shape deconstructed from the facets),
-   paired with a single-colour triangle sitting BEHIND it at a different
-   angle. Coast at 34% keeps it a tint rather than a focal point, and the
-   left half of the header stays a large unobstructed content area.
+   The image is cropped to a quadrilateral (two triangles forming a 'point',
+   a shape deconstructed from the facets) with a steep left edge. A single
+   solid Coast quadrilateral sits BEHIND it on a counter-angle, so it shows
+   only at two opposite ends - a wedge above the frame's top edge and a
+   band below its lower-left corner. Angles are deliberately opposed rather
+   than mirrored, per "vary angles dynamically to avoid repetition".
+   Percentages are taken from the reference composition on a 798x662 box,
+   so the art keeps that aspect ratio at every width.
    The facets themselves are never recreated, tiled or repeated. */
-.header__body{position:relative;z-index:1;max-width:min(54%,660px)}
-.header__art{position:absolute;top:0;right:0;bottom:0;width:46%;pointer-events:none}
-.art__shape{position:absolute;inset:0;background:var(--coast);opacity:.34;clip-path:polygon(6% 14%,100% 0,84% 100%)}
-.art__frame{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:38% 50%;clip-path:polygon(28% 0,100% 7%,100% 92%,10% 82%)}
+.header__body{position:relative;z-index:1}
+.header__art{position:relative;aspect-ratio:798/662;margin-right:calc(clamp(1rem,4vw,4rem)*-1);pointer-events:none}
+.art__shape{position:absolute;inset:0;background:var(--coast);clip-path:polygon(43.2% 0,58.6% 0,43.9% 100%,17.5% 100%)}
+.art__frame{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:10% 50%;clip-path:polygon(19% 14.4%,100% 0,100% 100%,43.9% 100%)}
 
 .brandline{font-weight:400;font-size:.9rem;letter-spacing:.02em;opacity:.9;margin-bottom:.85rem}
 h1{font-weight:400;line-height:1.05;font-size:clamp(2.1rem,5vw,4.6rem);margin:0;max-width:900px;letter-spacing:-.015em}
@@ -158,14 +161,12 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
 /* Below 900px the art stops being a side panel and becomes a banner under
    the heading. The clip-paths are percentage-based, so the same two shapes
    re-proportion themselves rather than being swapped out or dropped. */
+/* Below 900px the art stops being a side column and sits under the heading,
+   full width. Same two shapes and the same angles - only the aspect ratio
+   flattens, so the composition is never swapped out or dropped. */
 @media(max-width:900px){
-  .header__body{max-width:none}
-  /* relative, not static: the shape and frame are absolutely positioned, so
-     a static parent would anchor them to <header> and drop the photo over
-     the heading. */
-  .header__art{position:relative;top:auto;right:auto;bottom:auto;width:auto;aspect-ratio:16/6;margin:1.6rem 0 0}
-  .art__shape{clip-path:polygon(0 22%,100% 0,92% 100%)}
-  .art__frame{clip-path:polygon(14% 0,100% 10%,100% 100%,2% 86%)}
+  header{display:block}
+  .header__art{aspect-ratio:16/9;margin:1.75rem calc(clamp(1rem,4vw,4rem)*-1) 0}
 }
 
 @media(max-width:880px){
@@ -217,7 +218,7 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
   </div>
   <div class="header__art">
     <span class="art__shape" aria-hidden="true"></span>
-    <img class="art__frame" src="assets/hero.jpg" width="634" height="446"
+    <img class="art__frame" src="assets/hero.jpg" width="554" height="360"
          alt="Airport firefighters in breathing apparatus working an aircraft fuselage during a Perth Airport emergency exercise.">
   </div>
 </header>
