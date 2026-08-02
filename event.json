@@ -12,7 +12,7 @@
     "status": "CONFIRMED",
     "busy": true,
     "uid": "emergency.exercise@perthairport.com.au",
-    "sequence": 2,
+    "sequence": 3,
     "location": "Forster Park Community Centre, Forster Park, Belmont WA 6104",
     "location_short": "Forster Park Community Centre",
     "parking_name": "Belmont Sports & Recreation Club",
@@ -41,7 +41,7 @@
 
   "contact": {
     "team": "Emergency Operations",
-    "organizer_cn": "Exercise Planning, Perth Airport",
+    "organizer_cn": "Perth Airport Exercise Planning",
     "organisation": "Perth Airport",
     "email": "Emergency.Exercise@perthairport.com.au",
     "phone": "0439 237 973"
