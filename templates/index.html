@@ -80,8 +80,6 @@ strong{font-weight:400;color:var(--teal-deep)}
 .detail-list span{color:#536165;flex:none}
 .detail-list strong{color:var(--ocean);text-align:right;font-weight:400}
 
-.tbc{display:inline-block;padding:.1rem .7rem;border-radius:999px;background:var(--teal20);color:var(--teal-deep);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
-
 .notice{margin-top:1.15rem;padding:.85rem 1rem;border-radius:14px;background:#fcf3e2;border-left:5px solid #f2c26d;font-size:.94rem;line-height:1.42}
 .source{margin-top:1rem;color:#536165;font-size:.86rem;line-height:1.45}
 
@@ -95,13 +93,23 @@ figcaption{margin-top:.7rem;font-size:.88rem;line-height:1.45;color:#536165}
 @media(min-width:640px){.columns{grid-template-columns:1fr 1fr}}
 ul.ticks{margin:0;padding:0;list-style:none;display:grid;gap:.55rem}
 ul.ticks li{position:relative;padding-left:1.5rem;line-height:1.45}
-ul.ticks li:before{content:"";position:absolute;left:.1rem;top:.55em;width:.48rem;height:.48rem;background:var(--teal);clip-path:polygon(0 32%,72% 0,100% 68%,28% 100%)}
+ul.ticks li:before{content:"";position:absolute;left:.15rem;top:.55em;width:.42rem;height:.42rem;background:var(--teal);border-radius:50%}
 ol.steps{margin:0;padding:0;list-style:none;counter-reset:step;display:grid;gap:1.05rem}
 ol.steps li{position:relative;padding-left:2.4rem;line-height:1.5;counter-increment:step}
 ol.steps li:before{content:counter(step);position:absolute;left:0;top:-.1em;width:1.7rem;height:1.7rem;border-radius:999px;background:var(--teal20);color:var(--teal-deep);display:grid;place-items:center;font-size:.9rem}
 
 /* table-layout:fixed + wrapping stops the long contact email forcing the
    whole grid track wider than a narrow viewport. */
+/* ---- roles ----------------------------------------------------------- */
+.roles{display:grid;gap:1.5rem;margin:1.35rem 0 0}
+.role{padding-left:1.15rem;border-left:3px solid var(--teal20)}
+.role h3{margin-bottom:.45rem}
+.role p{margin-bottom:0;line-height:1.55}
+.role__meta{margin:.6rem 0 0;font-size:.88rem;line-height:1.45;color:#536165}
+.role__meta span{color:var(--teal-deep)}
+.subsection{margin-top:1.85rem;padding-top:1.5rem;border-top:1px solid #e6ecee}
+.subsection h3{margin-bottom:.55rem}
+
 .mini-table{width:100%;border-collapse:collapse;font-size:.94rem;table-layout:fixed}
 .mini-table td{overflow-wrap:anywhere}
 .mini-table th,.mini-table td{text-align:left;padding:.7rem .55rem;border-bottom:1px solid #e7eef0;vertical-align:top}
@@ -175,6 +183,95 @@ footer:before{content:"";display:block;width:3.4rem;height:.5rem;margin:0 auto 1
              alt="Aerial map showing the walking route from Belmont Sports &amp; Recreation Club parking, north across Abernethy Road, to Forster Park.">
         <figcaption>Walking route from the parking area to {{LOCATION}}.</figcaption>
       </figure>
+    </section>
+
+    <section class="card" aria-labelledby="roles">
+      <h2 id="roles">Roles</h2>
+      <p>
+        Volunteers take one of three roles. They differ in where you start, what
+        time you arrive, whether you go out to the airfield, and which cards you
+        are issued. Your own role is allocated by the Emergency Operations team
+        and sent to you closer to the exercise date.
+      </p>
+
+      <div class="roles">
+        <article class="role">
+          <h3>Patient</h3>
+          <p>
+            You play a simulated casualty at the centre of the aircraft accident
+            scenario. You are assigned a patient number and a start time, then
+            report to the check-in point at Forster Park where the moulage
+            (injury makeup) team applies realistic injuries. Start times are
+            staggered by how much moulage your injuries need, with the heaviest
+            makeup done first. From there you move out to the airfield incident
+            site, where St John WA, ARFFS, DFES and other responders triage,
+            treat and move you as they would in a real emergency. Depending on
+            your assigned injury you are either transported to a notional
+            hospital or cleared on scene.
+          </p>
+          <p class="role__meta">
+            <span>Cards:</span> patient card only, carrying your details and
+            injury information. <span>Linked family member:</span> none.
+          </p>
+        </article>
+
+        <article class="role">
+          <h3>Patient and Passenger</h3>
+          <p>
+            A combined role for volunteers who are treated in the field and then
+            reunified with a family member. You start at Forster Park alongside
+            the other patients, receive your moulage and move out to the airfield
+            as a casualty. Your injuries are deliberately non-critical (a
+            Priority 3), so once you are assessed and cleared you take on your
+            passenger identity, board a bus and return to the Survivor Reception
+            at Forster Park to be matched with your allocated family member or
+            friend.
+          </p>
+          <p class="role__meta">
+            <span>Cards:</span> two &mdash; your patient card, and a green
+            passenger (PAX) card holding your identity and reunification
+            details. <span>Linked family member:</span> one, for the
+            reunification serial.
+          </p>
+        </article>
+
+        <article class="role">
+          <h3>Family / Friend</h3>
+          <p>
+            You represent the loved ones who arrive at the airport seeking news
+            of someone on the aircraft, and your role tests the reunification
+            process. Unlike the patients you do not go to the airfield, and you
+            arrive later in the day &mdash; from around 11am to midday &mdash;
+            reporting to Forster Park where the Volunteer Coordinators brief you.
+            You wait at the Survivor Reception to be reunified with your matched
+            passenger once they are discharged and transported back.
+          </p>
+          <p class="role__meta">
+            <span>Cards:</span> a single red family/friend card with the details
+            you need to complete the match. <span>Linked passenger:</span> one.
+          </p>
+        </article>
+      </div>
+
+      <div class="subsection">
+        <h3>Reunification</h3>
+        <p>
+          Reunification is the serial that brings the two halves of the exercise
+          back together, and it runs at the Survivor Reception at Forster Park.
+          Passengers who have been treated and cleared at the airfield are bussed
+          back from the incident site, while the family and friends who arrived
+          late morning are waiting there to receive them.
+        </p>
+        <p>
+          Each Patient and Passenger volunteer is matched to exactly one Family /
+          Friend volunteer. The pair complete the match using their cards: the
+          green PAX card carries the passenger&rsquo;s identity and reunification
+          details, and the red family/friend card carries the details needed to
+          confirm it. Because the pairing is one-to-one, both halves of a pair
+          need to be there for the serial to run &mdash; so if your availability
+          changes, let the Emergency Operations team know as early as you can.
+        </p>
+      </div>
     </section>
 
     <section class="card" aria-labelledby="what-to-bring">
@@ -257,8 +354,6 @@ footer:before{content:"";display:block;width:3.4rem;height:.5rem;margin:0 auto 1
     </div>
 
     <ul class="detail-list">
-      <li><span>Your role</span><strong><span class="tbc">To be advised</span></strong></li>
-      <li><span>Arrival time</span><strong><span class="tbc">To be advised</span></strong></li>
       <li><span>Location</span><strong>{{LOCATION_FULL}}</strong></li>
       <li><span>Parking</span><strong>{{PARKING_NAME}}<br>{{PARKING_ADDRESS}}</strong></li>
     </ul>
