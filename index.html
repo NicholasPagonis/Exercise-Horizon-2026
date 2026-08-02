@@ -14,7 +14,7 @@
 <meta property="og:description" content="Thursday 17 September 2026 &ndash; Forster Park Community Centre. Calendar file, parking map and participant information.">
 <meta property="og:url" content="https://nicholaspagonis.github.io/Exercise-Horizon-2026/">
 <meta property="og:image" content="https://nicholaspagonis.github.io/Exercise-Horizon-2026/assets/parking-map.jpg">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2319807c'/%3E%3Cpath d='M9 16.5l5 5 9-11' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="shortcut icon" href="https://perthairport.com.au/assets/dist/images/favicon.ico">
 <link rel="preload" href="assets/fonts/LabGrotesque-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/LabGrotesque-Light.woff2" as="font" type="font/woff2" crossorigin>
 <style>
@@ -29,27 +29,49 @@
 
 *{box-sizing:border-box}
 /* clip, not hidden - overflow:hidden on an ancestor kills position:sticky,
-   which the key card relies on. Contains the off-canvas .thread shard. */
+   which the key card relies on. */
 html{overflow-x:clip}
-body{margin:0;min-height:100vh;font-family:"Lab Grotesque","Open Sans",Arial,Helvetica,sans-serif;font-weight:400;font-synthesis:none;color:var(--black);background:radial-gradient(circle at top right,rgba(133,201,204,.45),transparent 34rem),linear-gradient(135deg,#f7f8f8 0%,#fff 46%,#eef7f8 100%)}
-.thread{position:fixed;right:-7rem;bottom:-8rem;width:28rem;height:28rem;background:linear-gradient(135deg,rgba(25,128,124,.34),rgba(10,73,99,.10));clip-path:polygon(0 32%,72% 0,100% 68%,28% 100%);z-index:-1;transform:rotate(-10deg)}
+body{margin:0;min-height:100vh;font-family:"Lab Grotesque","Open Sans",Arial,Helvetica,sans-serif;font-weight:300;font-synthesis:none;color:var(--black);background:radial-gradient(circle at top right,rgba(133,201,204,.45),transparent 34rem),linear-gradient(135deg,#f7f8f8 0%,#fff 46%,#eef7f8 100%)}
 
-/* ---- brand bar + header --------------------------------------------- */
-.logobar{background:var(--white);padding:1.15rem clamp(1rem,4vw,4rem);border-bottom:1px solid rgba(10,73,99,.08)}
-.logo{display:block;width:190px;max-width:52vw;height:auto}
+/* ---- header ---------------------------------------------------------- */
+/* Two rows: the reversed logo pinned to the top, the heading block centred
+   in whatever height is left. No white bar - the banner is the whole thing. */
+header{background:var(--teal);color:var(--white);padding:2.25rem clamp(1rem,4vw,4rem) 4.75rem;position:relative;overflow:hidden;min-height:clamp(330px,33vw,560px);display:grid;grid-template-rows:auto 1fr;align-items:start}
+.logo{position:relative;z-index:2;display:block;width:190px;max-width:44vw;height:auto}
+.header__body{align-self:center}
 
-header{background:var(--teal);color:var(--white);padding:2.25rem clamp(1rem,4vw,4rem) 4.75rem;position:relative;overflow:hidden}
-header:after{content:"";position:absolute;right:-5rem;top:-6rem;width:20rem;height:20rem;background:rgba(133,201,204,.22);clip-path:polygon(0 0,100% 25%,78% 100%,18% 72%);transform:rotate(12deg)}
-.brandline{font-size:.9rem;letter-spacing:.02em;opacity:.9;margin-bottom:.85rem}
-h1{font-weight:300;line-height:1.05;font-size:clamp(2.1rem,5vw,4.6rem);margin:0;max-width:900px;letter-spacing:-.015em}
+/* Graphic thread - layering approach, per the PAPL brand guidelines.
+   The image is cropped to a quadrilateral (two triangles forming a 'point',
+   a shape deconstructed from the facets) with a steep left edge. A single
+   solid Coast quadrilateral sits BEHIND it on a counter-angle, so it shows
+   only at two opposite ends - a wedge above the frame's top edge and a
+   band below its lower-left corner. Angles are deliberately opposed rather
+   than mirrored, per "vary angles dynamically to avoid repetition".
+   The composition is anchored to all four edges of the teal banner, so it
+   spans the banner's full height at every width rather than sitting inset
+   within the header padding.
+   The facets themselves are never recreated, tiled or repeated. */
+.header__body{position:relative;z-index:1;max-width:min(52%,660px);align-self:center}
+/* Anchored to all four edges of the banner, so the composition spans its
+   full height rather than sitting inset within the padding. */
+.header__art{position:absolute;top:0;right:0;bottom:0;width:47%;pointer-events:none}
+.art__shape{position:absolute;inset:0;background:var(--coast);clip-path:polygon(43.2% 0,80% 0,43.9% 100%,17.5% 100%)}
+/* The top edge climbs to the banner's top at 80% - the same x where the Coast
+   wedge ends - then runs flat to the right edge. A single diagonal to the
+   corner would leave a sliver of dark banner above it in the top right. */
+.art__frame{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:10% 50%;clip-path:polygon(19% 14.4%,80% 0,100% 0,100% 100%,43.9% 100%)}
+
+h1{font-weight:400;line-height:1.05;font-size:clamp(2.1rem,5vw,4.6rem);margin:0;max-width:900px;letter-spacing:-.015em}
 .subtitle{max-width:780px;font-size:clamp(1rem,1.7vw,1.25rem);line-height:1.45;margin:1rem 0 0;color:rgba(255,255,255,.92)}
 
 /* ---- layout ---------------------------------------------------------- */
-main{width:min(1180px,calc(100% - 2rem));margin:-2.5rem auto 3rem;display:grid;grid-template-columns:minmax(0,1.06fr) minmax(320px,.78fr);gap:1.25rem;align-items:start}
+/* position+z-index so the cards paint above the header's absolutely
+   positioned art where they overlap it. */
+main{position:relative;z-index:1;width:min(1180px,calc(100% - 2rem));margin:-2.5rem auto 3rem;display:grid;grid-template-columns:minmax(0,1.06fr) minmax(320px,.78fr);gap:1.25rem;align-items:start}
 .stack{display:grid;gap:1.25rem;align-content:start;min-width:0}
 .card{background:rgba(255,255,255,.94);border:1px solid rgba(10,73,99,.10);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(1.1rem,2.5vw,2rem);backdrop-filter:blur(10px);min-width:0}
 
-h2{margin:0 0 1rem;color:var(--teal-deep);font-weight:300;font-size:clamp(1.4rem,2.6vw,1.85rem);letter-spacing:-.01em}
+h2{margin:0 0 1rem;color:var(--teal-deep);font-weight:400;font-size:clamp(1.4rem,2.6vw,1.85rem);letter-spacing:-.01em}
 h3{margin:0 0 .65rem;color:var(--ocean);font-weight:400;font-size:1rem;letter-spacing:.01em}
 p{margin:0 0 .85rem;line-height:1.5}
 p:last-child{margin-bottom:0}
@@ -64,12 +86,12 @@ strong{font-weight:400;color:var(--teal-deep)}
 
 /* ---- key card (sticky) ----------------------------------------------- */
 .key-card{position:sticky;top:1rem}
-.eyebrow{margin:0 0 .5rem;color:var(--teal);font-size:.82rem;letter-spacing:.14em;text-transform:uppercase}
-.date-big{font-size:clamp(2rem,4.6vw,2.85rem);line-height:1;font-weight:300;color:var(--ocean);letter-spacing:-.035em;margin:.15rem 0 .5rem}
+.eyebrow{font-weight:400;margin:0 0 .5rem;color:var(--teal);font-size:.82rem;letter-spacing:.14em;text-transform:uppercase}
+.date-big{font-size:clamp(2rem,4.6vw,2.85rem);line-height:1;font-weight:400;color:var(--ocean);letter-spacing:-.035em;margin:.15rem 0 .5rem}
 .date-meta{color:#4a5558;line-height:1.45;margin:0 0 1.35rem}
 
 .downloads{display:grid;gap:1rem;margin:0 0 1.35rem}
-.dl{display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:999px;padding:.95rem 1.35rem;text-decoration:none;font-size:1.02rem;transition:transform .15s,box-shadow .15s}
+.dl{font-weight:400;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-radius:999px;padding:.95rem 1.35rem;text-decoration:none;font-size:1.02rem;transition:transform .15s,box-shadow .15s}
 .dl:hover,.dl:focus-visible{transform:translateY(-1px)}
 .dl__meta{flex:none;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;opacity:.85;font-variant-numeric:tabular-nums}
 .dl--primary{background:var(--teal);color:var(--white);box-shadow:0 10px 24px rgba(25,128,124,.28)}
@@ -84,7 +106,11 @@ strong{font-weight:400;color:var(--teal-deep)}
 .detail-list span{color:#536165;flex:none}
 .detail-list strong{color:var(--ocean);text-align:right;font-weight:400}
 
-.notice{margin-top:1.15rem;padding:.85rem 1rem;border-radius:14px;background:#fcf3e2;border-left:5px solid #f2c26d;font-size:.94rem;line-height:1.42}
+/* A border-left tapers where it meets the corner radius, so the accent reads
+   as a crescent. An absolutely positioned band clipped by the card's own
+   radius keeps both edges straight while the card stays rounded. */
+.notice{position:relative;overflow:hidden;margin-top:1.15rem;padding:.85rem 1rem .85rem calc(1rem + 5px);border-radius:14px;background:#fcf3e2;font-size:.94rem;line-height:1.42}
+.notice:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:#f2c26d}
 .source{margin-top:1rem;color:#536165;font-size:.86rem;line-height:1.45}
 
 /* ---- map ------------------------------------------------------------- */
@@ -109,7 +135,7 @@ ol.steps li:before{content:counter(step);position:absolute;left:0;top:-.1em;widt
    disclosure widget with no JavaScript on the page. */
 .accordion{margin:1.35rem 0 0;border:1px solid var(--mist);border-radius:14px;background:var(--white);overflow:hidden}
 .accordion details+details{border-top:1px solid var(--mist)}
-.accordion summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 1.3rem;cursor:pointer;color:var(--ocean);list-style:none;transition:background .15s}
+.accordion summary{font-weight:400;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 1.3rem;cursor:pointer;color:var(--ocean);list-style:none;transition:background .15s}
 .accordion summary::-webkit-details-marker{display:none}
 .accordion summary:hover{background:var(--coast20)}
 .accordion details[open]>summary{color:var(--teal-deep)}
@@ -118,7 +144,7 @@ ol.steps li:before{content:counter(step);position:absolute;left:0;top:-.1em;widt
 .acc__body{padding:0 1.3rem 1.3rem}
 .acc__body p{line-height:1.55}
 .role__meta{margin:.6rem 0 0;font-size:.88rem;line-height:1.45;color:#536165}
-.role__meta span{color:var(--teal-deep)}
+.role__meta span{font-weight:400;color:var(--teal-deep)}
 .subsection{margin-top:1.85rem;padding-top:1.5rem;border-top:1px solid #e6ecee}
 .subsection h3{margin-bottom:.55rem}
 
@@ -130,13 +156,28 @@ ol.steps li:before{content:counter(step);position:absolute;left:0;top:-.1em;widt
 
 /* ---- contact / footer ------------------------------------------------ */
 .contact{display:grid;gap:.35rem;line-height:1.5}
-footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;color:#536165;font-size:.84rem;line-height:1.6;text-align:center}
-footer:before{content:"";display:block;width:3.4rem;height:.5rem;margin:0 auto 1.1rem;background:linear-gradient(90deg,var(--teal),var(--coast));clip-path:polygon(0 32%,72% 0,100% 68%,28% 100%)}
+/* No shard here: the guidelines warn against using the shapes repetitively,
+   so the header composition is the page's single graphic-thread moment. */
+footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem;border-top:1px solid var(--mist);color:#536165;font-size:.84rem;line-height:1.6;text-align:center}
 
 :focus-visible{outline:2px solid var(--teal);outline-offset:3px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 
 /* ---- responsive ------------------------------------------------------ */
+/* Below 900px the art stops being a side panel and becomes a banner under
+   the heading. The clip-paths are percentage-based, so the same two shapes
+   re-proportion themselves rather than being swapped out or dropped. */
+/* Below 900px the art stops being a side column and sits under the heading,
+   full width. Same two shapes and the same angles - only the aspect ratio
+   flattens, so the composition is never swapped out or dropped. */
+@media(max-width:900px){
+  header{display:block;min-height:0}
+  .header__body{max-width:none}
+  /* Stacked, so "full banner height" no longer applies - the art becomes a
+     16:9 band under the heading, bleeding to both edges. */
+  .header__art{position:relative;top:auto;right:auto;bottom:auto;width:auto;aspect-ratio:16/9;margin:1.75rem calc(clamp(1rem,4vw,4rem)*-1) 0}
+}
+
 @media(max-width:880px){
   /* minmax(0,1fr), not 1fr: an auto-minimum track refuses to shrink below
      its contents and pushes the cards past a narrow viewport. */
@@ -174,16 +215,19 @@ footer:before{content:"";display:block;width:3.4rem;height:.5rem;margin:0 auto 1
 </style></head>
 
 <body>
-<div class="thread" aria-hidden="true"></div>
-
-<div class="logobar">
-  <img class="logo" src="assets/perth-airport-logo.png" width="318" height="79" alt="Perth Airport">
-</div>
-
 <header>
-  <div class="brandline">Perth Airport &middot; Emergency Operations</div>
-  <h1>Exercise Horizon 2026</h1>
-  <p class="subtitle">Participant information and downloads</p>
+  <img class="logo" src="assets/perth-airport-logo-white.png" width="640" height="149" alt="Perth Airport">
+  <div class="header__body">
+    <!-- Brandline retired: the reversed logo on the banner already says
+         Perth Airport, so the line above the title was repeating it. -->
+    <h1>Exercise Horizon 2026</h1>
+    <p class="subtitle">Participant information and downloads</p>
+  </div>
+  <div class="header__art">
+    <span class="art__shape" aria-hidden="true"></span>
+    <img class="art__frame" src="assets/hero.jpg" width="1600" height="1067"
+         alt="Airport firefighters in breathing apparatus working an aircraft fuselage during a Perth Airport emergency exercise.">
+  </div>
 </header>
 
 <main>
@@ -364,7 +408,7 @@ footer:before{content:"";display:block;width:3.4rem;height:.5rem;margin:0 auto 1
   <aside class="card key-card" aria-labelledby="key-details">
     <p class="eyebrow" id="key-details">Exercise date</p>
     <div class="date-big"><time datetime="2026-09-17">17 September 2026</time></div>
-    <p class="date-meta">Thursday &middot; Forster Park Community Centre</p>
+    <p class="date-meta">Thursday &middot; 07:00 &ndash; 14:00 AWST</p>
 
     <div class="downloads">
       <div class="dl-item">
@@ -389,8 +433,10 @@ footer:before{content:"";display:block;width:3.4rem;height:.5rem;margin:0 auto 1
     </ul>
 
     <div class="notice">
-      Your role, reporting time and location are assigned by the Emergency
-      Operations team and will be emailed to you closer to the exercise date.
+      The exercise runs 07:00 &ndash; 14:00 AWST. Your own role and reporting time within
+      that window are assigned by the Emergency Operations team and will be
+      emailed to you closer to the date &mdash; until then the calendar entry
+      stays marked <strong>[AWAITING EXTRA INFO]</strong>.
     </div>
 
     <p class="source">

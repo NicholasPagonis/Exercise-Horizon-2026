@@ -34,6 +34,41 @@ email — is the dominant colour, so it takes the header and primary actions
 where the calculator uses Ocean; the rest of the PAPL palette is unchanged and
 supports it.
 
+### Graphic thread
+
+The header carries the page's **one** graphic-thread composition, built to the
+layering approach in the 2025 brand guidelines and matching the reference
+composition supplied by the brand team:
+
+- The image is cropped to a **quadrilateral** with a steep left edge — two
+  triangles forming a "point", one of the shapes deconstructed from the
+  facets — bleeding off the right.
+- A **single-colour Coast quadrilateral sits behind** it on a deliberately
+  opposed angle, so it shows only at two opposite ends: a wedge above the
+  frame's top edge and a band below its lower-left corner.
+- The left of the header stays a **large unobstructed content area**.
+
+Both shapes use percentage `clip-path` and the composition is anchored to all
+four edges of the teal banner, so it spans the banner's **full height** at
+every width — the frame meets the banner's top-right and bottom-right corners,
+and the Coast band runs to the bottom edge. Below 900px it moves under the
+heading as a 16:9 band bleeding to both edges — same shapes, same angles.
+
+Deliberately **not** done, per the guidelines: the facets are never recreated,
+modified, tiled, overlapped or given effects, and the shapes are not repeated
+elsewhere on the page — which is why the footer is a plain rule and the old
+floating background shard is gone. If you need a variation, the guidelines
+direct advanced compositions through the Brand & Marketing team.
+
+`assets/hero.jpg` is the supplied photograph, cropped to 3000×2000 from the
+left edge of the 3607×2405 original and resized to 1600×1067 at quality 82 —
+193 KB. The crop is what positions the firefighter inside the frame: the image
+and the art box are near enough the same aspect that `object-fit` has only
+about 40px of horizontal play, so `object-position` alone cannot move the
+subject meaningfully. To shift him further right, widen the crop's right
+margin; to shift him left, start the crop further right. The full-resolution
+original is in git history at commit 36557fb.
+
 **Typography is Lab Grotesque, self-hosted, with no web fallback in normal
 use.** Only Light (300) and Regular (400) are licensed here, so the page builds
 its hierarchy from those two weights plus size, colour and letter-spacing.
@@ -43,13 +78,13 @@ the emphasis is load-bearing, an underline) rather than weight. **If you add a
 Medium or Bold weight later, add the `@font-face` rule before using
 `font-weight: 500`+ anywhere**, or the text will silently render at Regular.
 
-The Perth Airport logo sits on a white bar above the teal header. The email's
-copy of the logo is on a flat pale-teal field, so it was alpha-matted off that
-background rather than cropped; it is 318px wide, which is sharp at the 190px
-it displays at but not much beyond. If you have the official logo from the
-brand library, drop it in as `assets/perth-airport-logo.png` and it will be
-used as-is. A reversed (white) logo would allow dropping the white bar and
-placing the logo directly on the teal.
+The banner runs from the top of the page — there is no white logo bar, and no
+brandline above the title, since the reversed logo already says Perth Airport.
+`assets/perth-airport-logo-white.png` is the official reversed mark, resized to
+640px wide: it displays at 190px, so 640 covers a 3x screen while the 2194px
+original was 11.5x oversampled. `perth-airport-logo.png` (full colour) is no
+longer used by the page but is kept for light backgrounds. `build.py` reads
+both files' dimensions off disk, so replacing either needs no other change.
 
 ## Making a change
 
@@ -70,21 +105,22 @@ they are stated once.
 
 ## The calendar file
 
-Currently generated as an **all-day** event on **Thursday 17 September 2026** —
-which matches the email's position that role, reporting time and location are
-assigned later and sent separately. An all-day entry marks the date without
-committing anyone to hours that have not been set.
+A timed `VEVENT` on **Thursday 17 September 2026, 07:00–14:00 AWST**, in
+`Australia/Perth` with a `VTIMEZONE` block. Set `"all_day": true` to fall back
+to a date-only entry that marks the day without committing to hours.
 
-To switch to a timed event once times are known, set in `event.json`:
+The summary is deliberately **not** the same string as the page title:
 
 ```json
-"all_day": false,
-"start": "07:30",
-"end": "14:00"
+"name":        "Exercise Horizon 2026",
+"ics_summary": "[AWAITING EXTRA INFO] Exercise Horizon 2026"
 ```
 
-The generator then emits a timed `VEVENT` in `Australia/Perth` with a
-`VTIMEZONE` block.
+`name` drives the page and `X-WR-CALNAME`; `ics_summary` drives the event's
+`SUMMARY`, so the prefix appears in people's calendars without appearing as
+the page heading. **Drop the prefix from `ics_summary` once roles and reporting
+times go out**, bump `sequence`, and republish — imported entries will rename
+themselves.
 
 ### Re-issuing after the date changes
 
@@ -97,9 +133,16 @@ Other fields worth knowing:
 
 | Field | Effect |
 | --- | --- |
-| `busy` | `false` marks the day free (`TRANSP:TRANSPARENT`). Set `true` to block the calendar out. |
-| `reminders` | RFC 5545 triggers relative to the start. Defaults fire 09:00 a week before and 09:00 the day before. |
+| `busy` | `true` blocks the calendar out (`TRANSP:OPAQUE`, Outlook busy). `false` marks it free — useful for a date-marker entry. |
+| `reminders` | A list of `{"trigger", "label"}` objects, or bare RFC 5545 trigger strings. Triggers are relative to the start, so `-P7D` on an 07:00 event fires 07:00 seven days earlier. Currently two weeks, one week and one day out. |
 | `status` | `CONFIRMED`, `TENTATIVE` or `CANCELLED`. Publishing with `CANCELLED` plus a bumped `sequence` withdraws the event from calendars that imported it. |
+| `categories` | `CATEGORIES`, for people who filter or colour-code their calendar. |
+| `contact.organizer_cn` | The `ORGANIZER` display name, kept separate from `contact.team` so the calendar and the page can name different groups. Commas are quoted per RFC 5545 (`CN="Exercise Planning, Perth Airport"`) rather than backslash-escaped — parameter values quote, only TEXT values escape. |
+
+`CREATED` and `LAST-MODIFIED` are emitted alongside `DTSTAMP`. All three carry
+the build clock, so the build masks them when deciding whether to rewrite the
+file — meaning they change only when the event content actually changes, and a
+no-op rebuild still leaves the tree clean.
 
 ## Adding another file to host
 

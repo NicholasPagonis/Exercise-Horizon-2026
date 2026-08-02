@@ -107,6 +107,11 @@ def build_ics(cfg: dict, stamp: dt.datetime) -> str:
     all_day = bool(ev["all_day"])
     tzid = ev["timezone"]
 
+    # The calendar entry may carry a status prefix the web page should not,
+    # e.g. "[AWAITING EXTRA INFO] ...", so SUMMARY is overridable.
+    summary = ev.get("ics_summary") or ev["name"]
+    utc = stamp.strftime("%Y%m%dT%H%M%SZ")
+
     lines = [
         "BEGIN:VCALENDAR",
         "VERSION:2.0",
@@ -123,7 +128,9 @@ def build_ics(cfg: dict, stamp: dt.datetime) -> str:
     lines += [
         "BEGIN:VEVENT",
         f"UID:{ev['uid']}",
-        f"DTSTAMP:{stamp.strftime('%Y%m%dT%H%M%SZ')}",
+        f"DTSTAMP:{utc}",
+        f"CREATED:{utc}",
+        f"LAST-MODIFIED:{utc}",
         f"SEQUENCE:{int(ev['sequence'])}",
     ]
 
@@ -146,8 +153,9 @@ def build_ics(cfg: dict, stamp: dt.datetime) -> str:
         ]
 
     busy = bool(ev.get("busy", False))
+    organizer_cn = contact.get("organizer_cn") or contact["team"]
     lines += [
-        f"SUMMARY:{ics_escape(ev['name'])}",
+        f"SUMMARY:{ics_escape(summary)}",
         f"LOCATION:{ics_escape(ev['location'])}",
         f"DESCRIPTION:{ics_escape(chr(10).join(ev['description']))}",
         f"URL:{site['base_url']}",
@@ -156,16 +164,27 @@ def build_ics(cfg: dict, stamp: dt.datetime) -> str:
         f"X-MICROSOFT-CDO-BUSYSTATUS:{'BUSY' if busy else 'FREE'}",
         "CLASS:PUBLIC",
         (
-            f"ORGANIZER;CN={ics_param(contact['team'])}:"
+            f"ORGANIZER;CN={ics_param(organizer_cn)}:"
             f"mailto:{contact['email']}"
         ),
     ]
 
-    for trigger in ev.get("reminders", []):
+    if ev.get("categories"):
+        lines.append(
+            "CATEGORIES:" + ",".join(ics_escape(c) for c in ev["categories"])
+        )
+
+    for reminder in ev.get("reminders", []):
+        # Accept a bare trigger string or {"trigger": ..., "label": ...}.
+        if isinstance(reminder, str):
+            trigger, label = reminder, summary
+        else:
+            trigger = reminder["trigger"]
+            label = reminder.get("label") or summary
         lines += [
             "BEGIN:VALARM",
             "ACTION:DISPLAY",
-            f"DESCRIPTION:{ics_escape(ev['name'])}",
+            f"DESCRIPTION:{ics_escape(label)}",
             f"TRIGGER:{trigger}",
             "END:VALARM",
         ]
@@ -181,6 +200,39 @@ def build_ics(cfg: dict, stamp: dt.datetime) -> str:
 # --------------------------------------------------------------------------
 # Landing page
 # --------------------------------------------------------------------------
+
+def image_size(path: Path) -> tuple[int, int]:
+    """Read pixel dimensions from a PNG or JPEG header. Stdlib only.
+
+    Used so the width/height attributes are read off the actual file at build
+    time - swap in a different-sized logo or hero and the markup corrects
+    itself instead of advertising a stale aspect ratio.
+    """
+    data = path.read_bytes()
+
+    if data[:8] == b"\x89PNG\r\n\x1a\n":
+        return (
+            int.from_bytes(data[16:20], "big"),
+            int.from_bytes(data[20:24], "big"),
+        )
+
+    if data[:2] == b"\xff\xd8":  # JPEG
+        i = 2
+        while i < len(data) - 9:
+            if data[i] != 0xFF:
+                i += 1
+                continue
+            marker = data[i + 1]
+            # SOFn frame headers carry the dimensions; C4/C8/CC are not SOF.
+            if 0xC0 <= marker <= 0xCF and marker not in (0xC4, 0xC8, 0xCC):
+                return (
+                    int.from_bytes(data[i + 7:i + 9], "big"),
+                    int.from_bytes(data[i + 5:i + 7], "big"),
+                )
+            i += 2 + int.from_bytes(data[i + 2:i + 4], "big")
+
+    raise SystemExit(f"error: cannot read image dimensions from {path.name}")
+
 
 def human_size(num_bytes: int) -> str:
     if num_bytes < 1024:
@@ -260,6 +312,12 @@ def build_page(cfg: dict, template: str) -> str:
         "BUILT_ON": dt.date.today().isoformat(),
     }
 
+    for key, rel in [("LOGO", "assets/perth-airport-logo-white.png"),
+                     ("HERO", "assets/hero.jpg"),
+                     ("MAP", "assets/parking-map.jpg")]:
+        w, h = image_size(ROOT / rel)
+        values[f"{key}_W"], values[f"{key}_H"] = str(w), str(h)
+
     page = re.sub(
         r"\{\{\s*(\w+)\s*\}\}",
         lambda m: values[m.group(1)] if m.group(1) in values else m.group(0),
@@ -302,7 +360,9 @@ def main() -> int:
     write_if_changed(
         ICS_OUT,
         build_ics(cfg, stamp),
-        ignore=re.compile(r"^DTSTAMP:.*$\r?\n?", re.MULTILINE),
+        # These three carry the build clock. Masking them for the comparison
+        # means they only actually change when the event content does.
+        ignore=re.compile(r"^(DTSTAMP|CREATED|LAST-MODIFIED):.*$\r?\n?", re.MULTILINE),
     )
     write_if_changed(PAGE_OUT, build_page(cfg, TEMPLATE.read_text(encoding="utf-8")))
     return 0
