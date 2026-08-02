@@ -141,4 +141,4 @@ and briefing notes first.
 
 ## Contact
 
-Exercise Planning, Emergency Operations — Emergency.Exercise@perthairport.com.au
+Emergency Operations, Perth Airport — Emergency.Exercise@perthairport.com.au

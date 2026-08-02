@@ -11,11 +11,12 @@
     "status": "CONFIRMED",
     "busy": false,
     "uid": "exercise-horizon-2026@perthairport.com.au",
-    "sequence": 0,
+    "sequence": 1,
     "location": "Forster Park Community Centre, Forster Park, Belmont WA 6104",
     "location_short": "Forster Park Community Centre",
     "parking_name": "Belmont Sports & Recreation Club",
     "parking_address": "400 Abernethy Rd, Cloverdale WA 6105",
+    "parking_url": "https://maps.app.goo.gl/RZnJ9SYvuB9BgTGt8",
     "description": [
       "Your attendance at Exercise Horizon 2026 is confirmed.",
       "",
@@ -32,7 +33,7 @@
   },
 
   "contact": {
-    "team": "Exercise Planning, Emergency Operations",
+    "team": "Emergency Operations",
     "organisation": "Perth Airport",
     "email": "Emergency.Exercise@perthairport.com.au",
     "phone": "0439 237 973"

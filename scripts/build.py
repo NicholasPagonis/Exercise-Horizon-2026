@@ -249,6 +249,7 @@ def build_page(cfg: dict, template: str) -> str:
         "LOCATION_FULL": html.escape(ev["location"]),
         "PARKING_NAME": html.escape(ev["parking_name"]),
         "PARKING_ADDRESS": html.escape(ev["parking_address"]),
+        "PARKING_URL": html.escape(ev["parking_url"], quote=True),
         "CONTACT_TEAM": html.escape(contact["team"]),
         "CONTACT_ORG": html.escape(contact["organisation"]),
         "CONTACT_EMAIL": html.escape(contact["email"]),
