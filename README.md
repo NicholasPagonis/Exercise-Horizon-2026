@@ -48,10 +48,11 @@ composition supplied by the brand team:
   frame's top edge and a band below its lower-left corner.
 - The left of the header stays a **large unobstructed content area**.
 
-Both shapes use percentage `clip-path` on a box locked to the reference's
-798×662 ratio, so the composition holds its proportions at every width. Below
-900px it moves under the heading at 16:9 — same shapes, same angles, only the
-aspect flattens.
+Both shapes use percentage `clip-path` and the composition is anchored to all
+four edges of the teal banner, so it spans the banner's **full height** at
+every width — the frame meets the banner's top-right and bottom-right corners,
+and the Coast band runs to the bottom edge. Below 900px it moves under the
+heading as a 16:9 band bleeding to both edges — same shapes, same angles.
 
 Deliberately **not** done, per the guidelines: the facets are never recreated,
 modified, tiled, overlapped or given effects, and the shapes are not repeated
