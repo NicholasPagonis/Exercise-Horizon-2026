@@ -214,16 +214,16 @@ def download_cards(downloads: list[dict]) -> str:
 
         suffix = path.suffix.lstrip(".").upper()
         meta = f"{suffix} &middot; {human_size(path.stat().st_size)}"
-        classes = "download download--primary" if item.get("primary") else "download"
+        variant = "dl--primary" if item.get("primary") else "dl--secondary"
 
         cards.append(
-            f'        <a class="{classes}" href="{html.escape(item["path"])}" download>\n'
-            f'          <span class="download__text">\n'
-            f'            <span class="download__label">{html.escape(item["label"])}</span>\n'
-            f'            <span class="download__desc">{html.escape(item["description"])}</span>\n'
-            f'          </span>\n'
-            f'          <span class="download__meta">{meta}</span>\n'
-            f"        </a>"
+            f'      <div class="dl-item">\n'
+            f'        <a class="dl {variant}" href="{html.escape(item["path"])}" download>\n'
+            f'          <span class="dl__label">{html.escape(item["label"])}</span>\n'
+            f'          <span class="dl__meta">{meta}</span>\n'
+            f"        </a>\n"
+            f'        <p class="dl__desc">{html.escape(item["description"])}</p>\n'
+            f"      </div>"
         )
     return "\n".join(cards)
 
@@ -241,6 +241,8 @@ def build_page(cfg: dict, template: str) -> str:
         "EVENT_NAME": html.escape(ev["name"]),
         "TAGLINE": html.escape(site["tagline"]),
         "DATE_LONG": html.escape(format_date(date)),
+        "DATE_BIG": f"{date.day} {date.strftime('%B %Y')}",
+        "DATE_WEEKDAY": date.strftime("%A"),
         "DATE_ISO": date.isoformat(),
         "TIME_TEXT": time_text,
         "LOCATION": html.escape(ev["location_short"]),
