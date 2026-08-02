@@ -29,23 +29,36 @@
 
 *{box-sizing:border-box}
 /* clip, not hidden - overflow:hidden on an ancestor kills position:sticky,
-   which the key card relies on. Contains the off-canvas .thread shard. */
+   which the key card relies on. */
 html{overflow-x:clip}
 body{margin:0;min-height:100vh;font-family:"Lab Grotesque","Open Sans",Arial,Helvetica,sans-serif;font-weight:300;font-synthesis:none;color:var(--black);background:radial-gradient(circle at top right,rgba(133,201,204,.45),transparent 34rem),linear-gradient(135deg,#f7f8f8 0%,#fff 46%,#eef7f8 100%)}
-.thread{position:fixed;right:-7rem;bottom:-8rem;width:28rem;height:28rem;background:linear-gradient(135deg,rgba(25,128,124,.34),rgba(10,73,99,.10));clip-path:polygon(0 32%,72% 0,100% 68%,28% 100%);z-index:-1;transform:rotate(-10deg)}
 
 /* ---- brand bar + header --------------------------------------------- */
 .logobar{background:var(--white);padding:1.15rem clamp(1rem,4vw,4rem);border-bottom:1px solid rgba(10,73,99,.08)}
 .logo{display:block;width:190px;max-width:52vw;height:auto}
 
 header{background:var(--teal);color:var(--white);padding:2.25rem clamp(1rem,4vw,4rem) 4.75rem;position:relative;overflow:hidden}
-header:after{content:"";position:absolute;right:-5rem;top:-6rem;width:20rem;height:20rem;background:rgba(133,201,204,.22);clip-path:polygon(0 0,100% 25%,78% 100%,18% 72%);transform:rotate(12deg)}
+
+/* Graphic thread - layering approach, per the PAPL brand guidelines.
+   One composition only: an image frame cropped to a quadrilateral (two
+   triangles forming a 'point', a shape deconstructed from the facets),
+   paired with a single-colour triangle sitting BEHIND it at a different
+   angle. Coast at 34% keeps it a tint rather than a focal point, and the
+   left half of the header stays a large unobstructed content area.
+   The facets themselves are never recreated, tiled or repeated. */
+.header__body{position:relative;z-index:1;max-width:min(54%,660px)}
+.header__art{position:absolute;top:0;right:0;bottom:0;width:46%;pointer-events:none}
+.art__shape{position:absolute;inset:0;background:var(--coast);opacity:.34;clip-path:polygon(6% 14%,100% 0,84% 100%)}
+.art__frame{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:38% 50%;clip-path:polygon(28% 0,100% 7%,100% 92%,10% 82%)}
+
 .brandline{font-weight:400;font-size:.9rem;letter-spacing:.02em;opacity:.9;margin-bottom:.85rem}
 h1{font-weight:400;line-height:1.05;font-size:clamp(2.1rem,5vw,4.6rem);margin:0;max-width:900px;letter-spacing:-.015em}
 .subtitle{max-width:780px;font-size:clamp(1rem,1.7vw,1.25rem);line-height:1.45;margin:1rem 0 0;color:rgba(255,255,255,.92)}
 
 /* ---- layout ---------------------------------------------------------- */
-main{width:min(1180px,calc(100% - 2rem));margin:-2.5rem auto 3rem;display:grid;grid-template-columns:minmax(0,1.06fr) minmax(320px,.78fr);gap:1.25rem;align-items:start}
+/* position+z-index so the cards paint above the header's absolutely
+   positioned art where they overlap it. */
+main{position:relative;z-index:1;width:min(1180px,calc(100% - 2rem));margin:-2.5rem auto 3rem;display:grid;grid-template-columns:minmax(0,1.06fr) minmax(320px,.78fr);gap:1.25rem;align-items:start}
 .stack{display:grid;gap:1.25rem;align-content:start;min-width:0}
 .card{background:rgba(255,255,255,.94);border:1px solid rgba(10,73,99,.10);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(1.1rem,2.5vw,2rem);backdrop-filter:blur(10px);min-width:0}
 
@@ -134,13 +147,27 @@ ol.steps li:before{content:counter(step);position:absolute;left:0;top:-.1em;widt
 
 /* ---- contact / footer ------------------------------------------------ */
 .contact{display:grid;gap:.35rem;line-height:1.5}
-footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;color:#536165;font-size:.84rem;line-height:1.6;text-align:center}
-footer:before{content:"";display:block;width:3.4rem;height:.5rem;margin:0 auto 1.1rem;background:linear-gradient(90deg,var(--teal),var(--coast));clip-path:polygon(0 32%,72% 0,100% 68%,28% 100%)}
+/* No shard here: the guidelines warn against using the shapes repetitively,
+   so the header composition is the page's single graphic-thread moment. */
+footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem;border-top:1px solid var(--mist);color:#536165;font-size:.84rem;line-height:1.6;text-align:center}
 
 :focus-visible{outline:2px solid var(--teal);outline-offset:3px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 
 /* ---- responsive ------------------------------------------------------ */
+/* Below 900px the art stops being a side panel and becomes a banner under
+   the heading. The clip-paths are percentage-based, so the same two shapes
+   re-proportion themselves rather than being swapped out or dropped. */
+@media(max-width:900px){
+  .header__body{max-width:none}
+  /* relative, not static: the shape and frame are absolutely positioned, so
+     a static parent would anchor them to <header> and drop the photo over
+     the heading. */
+  .header__art{position:relative;top:auto;right:auto;bottom:auto;width:auto;aspect-ratio:16/6;margin:1.6rem 0 0}
+  .art__shape{clip-path:polygon(0 22%,100% 0,92% 100%)}
+  .art__frame{clip-path:polygon(14% 0,100% 10%,100% 100%,2% 86%)}
+}
+
 @media(max-width:880px){
   /* minmax(0,1fr), not 1fr: an auto-minimum track refuses to shrink below
      its contents and pushes the cards past a narrow viewport. */
@@ -178,16 +205,21 @@ footer:before{content:"";display:block;width:3.4rem;height:.5rem;margin:0 auto 1
 </style></head>
 
 <body>
-<div class="thread" aria-hidden="true"></div>
-
 <div class="logobar">
   <img class="logo" src="assets/perth-airport-logo.png" width="318" height="79" alt="Perth Airport">
 </div>
 
 <header>
-  <div class="brandline">{{CONTACT_ORG}} &middot; {{CONTACT_TEAM}}</div>
-  <h1>{{EVENT_NAME}}</h1>
-  <p class="subtitle">{{TAGLINE}}</p>
+  <div class="header__body">
+    <div class="brandline">{{CONTACT_ORG}} &middot; {{CONTACT_TEAM}}</div>
+    <h1>{{EVENT_NAME}}</h1>
+    <p class="subtitle">{{TAGLINE}}</p>
+  </div>
+  <div class="header__art">
+    <span class="art__shape" aria-hidden="true"></span>
+    <img class="art__frame" src="assets/hero.jpg" width="634" height="446"
+         alt="Airport firefighters in breathing apparatus working an aircraft fuselage during a Perth Airport emergency exercise.">
+  </div>
 </header>
 
 <main>

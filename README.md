@@ -34,6 +34,34 @@ email — is the dominant colour, so it takes the header and primary actions
 where the calculator uses Ocean; the rest of the PAPL palette is unchanged and
 supports it.
 
+### Graphic thread
+
+The header carries the page's **one** graphic-thread composition, built to the
+layering approach in the 2025 brand guidelines:
+
+- The image is cropped to a **quadrilateral** — two triangles forming a
+  "point", one of the shapes deconstructed from the facets — kept simple but
+  irregular.
+- A **single-colour triangle sits behind** the frame at a different angle, in
+  Coast at 34%. The guidelines call for 20–40% tints so the shape complements
+  rather than becomes the focal point.
+- The left of the header stays a **large unobstructed content area**.
+
+Both shapes use percentage `clip-path`, so below 900px the same two shapes
+re-proportion into a banner beneath the heading rather than being swapped or
+dropped.
+
+Deliberately **not** done, per the guidelines: the facets are never recreated,
+modified, tiled, overlapped or given effects, and the shapes are not repeated
+elsewhere on the page — which is why the footer is a plain rule and the old
+floating background shard is gone. If you need a variation, the guidelines
+direct advanced compositions through the Brand & Marketing team.
+
+`assets/hero.jpg` is currently the 634px copy recovered from the email banner,
+which is soft above about 500px wide. **Replace it with the original photograph
+at the same path** — the frame is `object-fit: cover`, so no CSS changes are
+needed.
+
 **Typography is Lab Grotesque, self-hosted, with no web fallback in normal
 use.** Only Light (300) and Regular (400) are licensed here, so the page builds
 its hierarchy from those two weights plus size, colour and letter-spacing.
