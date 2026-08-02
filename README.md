@@ -59,12 +59,13 @@ elsewhere on the page — which is why the footer is a plain rule and the old
 floating background shard is gone. If you need a variation, the guidelines
 direct advanced compositions through the Brand & Marketing team.
 
-`assets/hero.jpg` is a 554×360 region recovered from the email banner — the
-largest crop of it that is free of the banner's own white and pale-teal
-corners, which otherwise bleed into the frame. It is soft above about 500px
-wide. **Replace it with the original photograph at the same path**; the frame
-is `object-fit: cover`, so no CSS changes are needed, though
-`.art__frame`'s `object-position` may want re-centring on the new crop.
+`assets/hero.jpg` is the supplied photograph, resized to 1600×1067 and saved
+at quality 82 — 198 KB, down from the 3.78 MB original. That covers a 2×
+display at the widest the frame ever renders (~770 CSS px on a 1920 viewport).
+The full-resolution original remains in git history at commit 36557fb if it is
+ever needed. If you replace it, re-check `.art__frame`'s `object-position`,
+which is tuned so the steep left edge of the frame does not cut through the
+firefighter.
 
 **Typography is Lab Grotesque, self-hosted, with no web fallback in normal
 use.** Only Light (300) and Regular (400) are licensed here, so the page builds
