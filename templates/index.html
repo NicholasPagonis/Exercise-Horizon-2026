@@ -55,7 +55,10 @@ header{background:var(--teal);color:var(--white);padding:2.25rem clamp(1rem,4vw,
    full height rather than sitting inset within the padding. */
 .header__art{position:absolute;top:0;right:0;bottom:0;width:47%;pointer-events:none}
 .art__shape{position:absolute;inset:0;background:var(--coast);clip-path:polygon(43.2% 0,80% 0,43.9% 100%,17.5% 100%)}
-.art__frame{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:10% 50%;clip-path:polygon(19% 14.4%,100% 0,100% 100%,43.9% 100%)}
+/* The top edge climbs to the banner's top at 80% - the same x where the Coast
+   wedge ends - then runs flat to the right edge. A single diagonal to the
+   corner would leave a sliver of dark banner above it in the top right. */
+.art__frame{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:10% 50%;clip-path:polygon(19% 14.4%,80% 0,100% 0,100% 100%,43.9% 100%)}
 
 .brandline{font-weight:400;font-size:.9rem;letter-spacing:.02em;opacity:.9;margin-bottom:.85rem}
 h1{font-weight:400;line-height:1.05;font-size:clamp(2.1rem,5vw,4.6rem);margin:0;max-width:900px;letter-spacing:-.015em}
