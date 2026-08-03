@@ -102,6 +102,17 @@ was being rendered into every iMessage, Slack and Teams preview of the link.
 1200×630 is also the aspect previewers expect, so nothing gets cropped
 arbitrarily. Regenerate the card from `hero.jpg` if the photograph changes.
 
+### Selection Process diagram
+
+The branching flow in the Selection Process card is plain HTML and CSS — no
+SVG diagram, no JavaScript. Node centres sit at 1/6, 3/6 and 5/6 of the width,
+so the fork lands at 33.3% (between the first two nodes) and the elbow ends at
+50% (the reserve node's centre). All geometry derives from `--dot`, `--lh` and
+`--row` on `.flow`, which is why the same two connector elements stay aligned
+from 320px to 1920px without a second layout. If you add or remove a node,
+update the three percentages in `.flow__spine` and `.flow__elbow` to match the
+new column count.
+
 ## Making a change
 
 Edit `event.json`, then:
