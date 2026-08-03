@@ -317,6 +317,7 @@ def build_page(cfg: dict, template: str) -> str:
     # missing, instead of the banner silently 404ing its background.
     for key, rel in [("LOGO", "assets/perth-airport-logo-white.png"),
                      ("HERO", "assets/hero.jpg"),
+                     ("SOCIAL", "assets/social-card.jpg"),
                      ("MAP", "assets/parking-map.jpg")]:
         w, h = image_size(ROOT / rel)
         values[f"{key}_W"], values[f"{key}_H"] = str(w), str(h)

@@ -9,11 +9,18 @@
 <meta name="description" content="Exercise Horizon 2026: Thursday 17 September 2026 at Forster Park Community Centre. Calendar file, parking map and participant information.">
 <meta name="theme-color" content="#19807c">
 <link rel="canonical" href="https://nicholaspagonis.github.io/Exercise-Horizon-2026/">
+<meta property="og:image" content="https://nicholaspagonis.github.io/Exercise-Horizon-2026/assets/social-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="Perth Airport">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Exercise Horizon 2026">
 <meta property="og:description" content="Thursday 17 September 2026 &ndash; Forster Park Community Centre. Calendar file, parking map and participant information.">
 <meta property="og:url" content="https://nicholaspagonis.github.io/Exercise-Horizon-2026/">
-<meta property="og:image" content="https://nicholaspagonis.github.io/Exercise-Horizon-2026/assets/parking-map.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<!-- Dedicated 1200x630 card. Not the parking map: that is participant
+     wayfinding, not something to broadcast in every link preview, and it
+     was only ever the og:image because it predated the hero photograph. -->
 <link rel="shortcut icon" href="assets/favicon.ico">
 <link rel="preload" href="assets/fonts/LabGrotesque-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/LabGrotesque-Light.woff2" as="font" type="font/woff2" crossorigin>
@@ -133,6 +140,29 @@ ol.steps li:before{content:counter(step);position:absolute;left:0;top:-.1em;widt
 
 /* table-layout:fixed + wrapping stops the long contact email forcing the
    whole grid track wider than a narrow viewport. */
+/* ---- selection process flow ------------------------------------------ */
+/* Three nodes across, with the reserve branch dropping below - the sketch's
+   layout. Geometry is driven entirely by --dot/--lh/--row, so the two
+   connector elements can be positioned by calc and percentage and stay
+   aligned at any width. Node centres sit at 1/6, 3/6 and 5/6 of the width,
+   so the fork lands at 33.3% (between the first two) and the elbow ends at
+   50% (the reserve node's centre). */
+.flow{position:relative;margin:1.5rem 0 .25rem;
+  --dot:clamp(30px,7.4vw,40px);
+  --lh:clamp(1rem,3vw,1.25rem);
+  --row:calc(var(--dot) + .55rem + 2*var(--lh));
+  --rowgap:clamp(1.3rem,4vw,2.1rem)}
+.flow__nodes{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:var(--row);row-gap:var(--rowgap);list-style:none;margin:0;padding:0}
+.fnode{display:grid;justify-items:center;align-content:start;text-align:center;gap:.55rem}
+.fnode--branch{grid-column:2;grid-row:2}
+.fnode__dot{position:relative;z-index:1;width:var(--dot);height:var(--dot);border-radius:50%;background:var(--teal);color:var(--white);display:grid;place-items:center}
+.fnode__dot svg{width:58%;height:58%;display:block}
+.fnode__label{font-size:clamp(.68rem,2.4vw,.86rem);line-height:var(--lh);color:var(--teal-deep)}
+
+.flow__spine{position:absolute;left:16.667%;right:16.667%;top:calc(var(--dot)/2);border-top:2px solid var(--coast)}
+.flow__elbow{position:absolute;left:33.333%;width:16.667%;top:calc(var(--dot)/2);height:calc(var(--row) + var(--rowgap));border-left:2px solid var(--coast);border-bottom:2px solid var(--coast);border-bottom-left-radius:14px}
+.flow__note{margin-top:1.35rem;font-size:.88rem;line-height:1.45;color:#536165}
+
 /* ---- roles accordion -------------------------------------------------- */
 /* Native <details>/<summary>: keyboard and screen-reader accessible as a
    disclosure widget with no JavaScript on the page. */
@@ -237,6 +267,46 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
 
 <main>
   <div class="stack">
+
+    <section class="card" aria-labelledby="selection">
+      <h2 id="selection">Selection Process</h2>
+      <p>
+        Every volunteer starts by submitting an expression of interest. From
+        there the Emergency Operations team either confirms your attendance and
+        assigns your details closer to the day, or places you on the reserve
+        list if the exercise is already at capacity.
+      </p>
+
+      <div class="flow">
+        <span class="flow__spine" aria-hidden="true"></span>
+        <span class="flow__elbow" aria-hidden="true"></span>
+
+        <ol class="flow__nodes">
+          <li class="fnode">
+            <span class="fnode__dot" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="fnode__label">EOI<br>Submitted</span>
+          </li>
+          <li class="fnode">
+            <span class="fnode__dot" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3.2l2.6 5.6 6 .8-4.4 4.2 1.1 6-5.3-2.9-5.3 2.9 1.1-6L3.4 9.6l6-.8z" fill="currentColor"/></svg></span>
+            <span class="fnode__label">Attendance<br>Confirmed</span>
+          </li>
+          <li class="fnode">
+            <span class="fnode__dot" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 8h14M5 12h14M5 16h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+            <span class="fnode__label">Details<br>Assigned</span>
+          </li>
+          <li class="fnode fnode--branch">
+            <span class="fnode__dot" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="8" y="6" width="3.2" height="12" rx="1.2" fill="currentColor"/><rect x="12.8" y="6" width="3.2" height="12" rx="1.2" fill="currentColor"/></svg></span>
+            <span class="fnode__label">Placed on<br>Reserve List</span>
+          </li>
+        </ol>
+      </div>
+
+      <p class="flow__note">
+        Being placed on the reserve list does not mean you are out &mdash; the
+        team contacts reserves if numbers change, and you move onto the
+        confirmed path from there.
+      </p>
+    </section>
 
     <section class="card" aria-labelledby="getting-there">
       <h2 id="getting-there">Getting there</h2>
@@ -454,7 +524,7 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
 
 <footer>
   Perth Airport &middot; Emergency Operations<br>
-  Page updated 2026-08-02
+  Page updated 2026-08-03
 </footer>
 
 </body></html>
