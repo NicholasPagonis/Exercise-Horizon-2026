@@ -149,6 +149,30 @@ the page heading. **Drop the prefix from `ics_summary` once roles and reporting
 times go out**, bump `sequence`, and republish — imported entries will rename
 themselves.
 
+### More than one calendar
+
+`event` is the participant event and also drives the web page. Additional
+audiences go in `extra_calendars`, each a full event definition plus an
+`output` path; they inherit only `contact` and `site`. There is currently one:
+`files/exercise-horizon-2026-observer.ics`, the observer day — different venue
+(Airport Experience Centre), different hours (08:00–13:15) and a bus circuit
+rather than a single location.
+
+**Every calendar needs its own `uid`.** Clients key off `UID`, so two files
+sharing one means importing the second *replaces* the first in the
+subscriber's calendar instead of adding to it. The build refuses to run if two
+calendars share a `uid` or an `output` path, so that mistake cannot ship
+quietly.
+
+The observer file is hosted but deliberately **not** listed in `downloads` —
+that list renders on the participant page, and an observer entry there invites
+participants to add the wrong event. The observer email links the file
+directly:
+
+```
+https://<pages-url>/files/exercise-horizon-2026-observer.ics
+```
+
 ### Re-issuing after the date changes
 
 Calendar clients key off `UID`. `uid` is fixed, so if you change the date and

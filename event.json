@@ -39,6 +39,56 @@
     ]
   },
 
+  "_extra_calendars_comment": "Additional audiences. Each needs its own uid and output - clients key off uid, so a shared one would replace the participant event rather than add to it. The build refuses to run if two calendars share either.",
+  "extra_calendars": [
+    {
+      "output": "files/exercise-horizon-2026-observer.ics",
+      "name": "Exercise Horizon 2026 - Observer",
+      "ics_summary": "Exercise Horizon 2026 - Observer",
+      "date": "2026-09-17",
+      "all_day": false,
+      "start": "08:00",
+      "end": "13:15",
+      "timezone": "Australia/Perth",
+      "status": "CONFIRMED",
+      "busy": true,
+      "uid": "observer.exercise-horizon-2026@perthairport.com.au",
+      "sequence": 0,
+      "location": "Airport Experience Centre, Alpha Building, 2 George Wiencke Drive, Perth Airport WA 6105",
+      "categories": ["Exercise", "Perth Airport", "Observer"],
+      "description": [
+        "Your observer place at Exercise Horizon 2026 is confirmed.",
+        "",
+        "Arrive 08:00 for registration and safety briefing.",
+        "Report to: Alpha Building, 2 George Wiencke Drive, Perth Airport WA 6105 - Ground Floor, Airport Experience Centre (AEC).",
+        "Parking: Alpha Building car park at the AEC. Use gate code 1023 to enter the staff car park. Your vehicle stays there all day and you return to it at the end.",
+        "Finish: from approximately 13:15, from the AEC.",
+        "",
+        "HOW THE DAY RUNS",
+        "08:00 - Walk in to the Alpha Building, follow the signs to the AEC and sign in for registration, safety briefing, issue of hi-vis and conduct expectations.",
+        "08:30 - Board the bus and travel to the viewing area, in position before the exercise commences.",
+        "09:00 - Observe the multi-agency response from Emergency Gate 6 and other areas of the airfield.",
+        "11:30 - Move by bus to Forster Park to observe the reunification process.",
+        "12:30 - Lunch, provided at Forster Park by the Salvation Army.",
+        "13:15 - Return by bus to the AEC and are released to depart in your own vehicle.",
+        "",
+        "BRING: enclosed footwear, weather appropriate clothing, sun protection (hat, sunglasses and sunscreen), water, photo identification, and any personal medication you may need.",
+        "",
+        "PROVIDED: hi-vis vest and observer lanyard, registration and safety briefing on arrival, escorted bus transport for the full circuit, lunch at Forster Park by the Salvation Army, and on-site first aid support.",
+        "",
+        "You remain escorted and within the monitored viewing area at all times. Follow the directions of exercise staff and airport authorised officers throughout the day. Observers are photographed and filmed during the exercise.",
+        "",
+        "Reply with any dietary or allergy requirements, and let the team know as early as possible if your availability changes.",
+        "Questions: Emergency.Exercise@perthairport.com.au or 0439 237 973"
+      ],
+      "reminders": [
+        { "trigger": "-P14D", "label": "Exercise Horizon 2026 (Observer) is in two weeks" },
+        { "trigger": "-P7D", "label": "Exercise Horizon 2026 (Observer) is in one week" },
+        { "trigger": "-P1D", "label": "Exercise Horizon 2026 (Observer) is tomorrow" }
+      ]
+    }
+  ],
+
   "contact": {
     "team": "Emergency Operations",
     "organizer_cn": "Perth Airport Exercise Planning",

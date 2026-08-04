@@ -98,11 +98,7 @@ def vtimezone(tzid: str) -> list[str]:
     ]
 
 
-def build_ics(cfg: dict, stamp: dt.datetime) -> str:
-    ev = cfg["event"]
-    contact = cfg["contact"]
-    site = cfg["site"]
-
+def build_ics(ev: dict, contact: dict, site: dict, stamp: dt.datetime) -> str:
     date = dt.date.fromisoformat(ev["date"])
     all_day = bool(ev["all_day"])
     tzid = ev["timezone"]
@@ -356,18 +352,49 @@ def write_if_changed(path: Path, content: str, *, ignore: re.Pattern | None = No
     print(f"  > {path.relative_to(ROOT)}")
 
 
+def calendars(cfg: dict) -> list[dict]:
+    """Every calendar to emit: the participant event, then any extras.
+
+    `event` stays the participant event and is what drives the web page;
+    `extra_calendars` are additional audiences (observers, staff) that share
+    the same contact and site details but nothing else.
+    """
+    primary = dict(cfg["event"])
+    primary.setdefault("output", str(ICS_OUT.relative_to(ROOT)))
+    out = [primary] + [dict(e) for e in cfg.get("extra_calendars", [])]
+
+    # A shared UID is the one mistake that would silently destroy data:
+    # calendar clients key off UID, so importing the second file would
+    # REPLACE the first event in the subscriber's calendar rather than add
+    # to it. Same for a shared output path, which would clobber on disk.
+    for field, what in [("uid", "UID"), ("output", "output path")]:
+        seen: dict[str, str] = {}
+        for ev in out:
+            value = ev[field]
+            if value in seen:
+                raise SystemExit(
+                    f"error: {ev['output']} and {seen[value]} share a {what} "
+                    f"({value!r}). Give each calendar its own — otherwise "
+                    "importing one replaces the other."
+                )
+            seen[value] = ev["output"]
+    return out
+
+
 def main() -> int:
     cfg = json.loads(CONFIG.read_text(encoding="utf-8"))
     stamp = dt.datetime.now(dt.timezone.utc)
 
     print("Building Exercise Horizon 2026 site")
-    write_if_changed(
-        ICS_OUT,
-        build_ics(cfg, stamp),
-        # These three carry the build clock. Masking them for the comparison
-        # means they only actually change when the event content does.
-        ignore=re.compile(r"^(DTSTAMP|CREATED|LAST-MODIFIED):.*$\r?\n?", re.MULTILINE),
-    )
+    for ev in calendars(cfg):
+        write_if_changed(
+            ROOT / ev["output"],
+            build_ics(ev, cfg["contact"], cfg["site"], stamp),
+            # These three carry the build clock. Masking them for the
+            # comparison means they only actually change when the event
+            # content does.
+            ignore=re.compile(r"^(DTSTAMP|CREATED|LAST-MODIFIED):.*$\r?\n?", re.MULTILINE),
+        )
     write_if_changed(PAGE_OUT, build_page(cfg, TEMPLATE.read_text(encoding="utf-8")))
     return 0
 
