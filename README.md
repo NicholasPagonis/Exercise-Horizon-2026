@@ -17,12 +17,14 @@ templates/index.html           page template ({{PLACEHOLDER}} substitution)
 scripts/build.py               generates index.html + the .ics
 index.html                     generated — do not edit by hand
 files/
-  exercise-horizon-2026.ics    generated — the calendar file
+  exercise-horizon-2026.ics           generated — participant calendar
+  exercise-horizon-2026-observer.ics  generated — observer calendar
 assets/
   perth-airport-logo.png       masked out of the email banner
   parking-map.jpg              walking route, Belmont S&RC -> Forster Park
   hero.jpg                     header photograph
   social-card.jpg              1200x630 link-preview card (og:image)
+  favicon.ico                  self-hosted, not hotlinked
   fonts/                       Lab Grotesque Light + Regular (woff2 + woff)
 ```
 
