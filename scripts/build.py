@@ -395,7 +395,14 @@ def main() -> int:
             # content does.
             ignore=re.compile(r"^(DTSTAMP|CREATED|LAST-MODIFIED):.*$\r?\n?", re.MULTILINE),
         )
-    write_if_changed(PAGE_OUT, build_page(cfg, TEMPLATE.read_text(encoding="utf-8")))
+    write_if_changed(
+        PAGE_OUT,
+        build_page(cfg, TEMPLATE.read_text(encoding="utf-8")),
+        # "Page updated" carries the build clock, like DTSTAMP in the .ics.
+        # Masking it means a rebuild on a later day with no content change
+        # leaves the page alone, instead of churning the date every time.
+        ignore=re.compile(r"Page updated \d{4}-\d{2}-\d{2}"),
+    )
     return 0
 
 
