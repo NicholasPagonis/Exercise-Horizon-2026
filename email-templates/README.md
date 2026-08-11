@@ -48,6 +48,24 @@ For the not-selected and reserve-list emails, replace the whole
 hundreds of thousands of characters — with the matching URL above. Change
 nothing else. Then confirm the file is under 102 KB.
 
+## Recipient mix
+
+The list is mostly Gmail, Outlook and `our.ecu.edu.au` (ECU, on Microsoft
+365). Behaviour across those three:
+
+| Client | External images | Notes |
+| --- | --- | --- |
+| Gmail (web and app) | Shown by default | Proxied via googleusercontent since 2013. Will **not** render `data:` URIs, and clips at ~102 KB — hosting is the only option that works here at all. |
+| Outlook.com / M365 web (incl. ECU) | Generally shown | Can be turned off by org policy. |
+| Outlook desktop (Windows) | Blocked until clicked | Applies to senders outside the organisation. Internal Perth Airport recipients usually auto-download. |
+
+Because a share of recipients will read these with images off at least once,
+the emails are built to survive it. Everything load-bearing is HTML text, not
+pixels: the step tracker, the details table (role, arrival time, location,
+parking address) and the important-information list all render with images
+blocked. The only thing lost is the map, and its street address sits in the
+table directly above it.
+
 ## One trade-off
 
 Hosted images are external references, so some clients (Outlook desktop
