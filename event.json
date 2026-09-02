@@ -60,12 +60,17 @@
       "parking": "Alpha Building car park at the AEC",
       "gate_code": "1023",
       "categories": ["Exercise", "Perth Airport", "Observer"],
+      "attachments": [
+        { "path": "assets/email/horizon-map-alpha-building.jpg", "fmttype": "image/jpeg", "filename": "alpha-building-access-and-parking.jpg" }
+      ],
       "description": [
         "Your observer place at Exercise Horizon 2026 is confirmed.",
         "",
         "Arrive 08:00 for registration and safety briefing.",
         "Report to: Alpha Building, 2 George Wiencke Drive, Perth Airport WA 6105 - Ground Floor, Airport Experience Centre (AEC).",
         "Parking: Alpha Building car park at the AEC. Use gate code 1023 to enter the staff car park. Your vehicle stays there all day and you return to it at the end.",
+        "A map of the access gate, the car park and the building entrance is attached to this invitation, and is also at:",
+        "https://nicholaspagonis.github.io/Exercise-Horizon-2026/assets/email/horizon-map-alpha-building.jpg",
         "Finish: from approximately 13:15, from the AEC.",
         "",
         "HOW THE DAY RUNS",
@@ -331,6 +336,13 @@
       "label": "Add to Calendar",
       "description": "Observer calendar file (.ics) for Outlook, Google Calendar, Apple Calendar",
       "primary": true,
+      "audience": "observer"
+    },
+    {
+      "path": "assets/email/horizon-map-alpha-building.jpg",
+      "label": "Alpha Building Map",
+      "description": "Driving route through the access gate to Alpha Building parking, and the walk to the entrance",
+      "primary": false,
       "audience": "observer"
     },
     {

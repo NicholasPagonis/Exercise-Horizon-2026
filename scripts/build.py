@@ -415,7 +415,12 @@ def build_page(cfg: dict, template: str) -> str:
     for key, rel in [("LOGO", "assets/perth-airport-logo-white.png"),
                      ("HERO", "assets/hero.jpg"),
                      ("SOCIAL", "assets/social-card.jpg"),
-                     ("MAP", "assets/parking-map.jpg")]:
+                     ("MAP", "assets/parking-map.jpg"),
+                     # Shared with the observer email rather than copied into
+                     # assets/: it is the same map, already hosted at a stable
+                     # path, and two copies would drift the first time one is
+                     # redrawn.
+                     ("MAP_OBS", "assets/email/horizon-map-alpha-building.jpg")]:
         w, h = image_size(ROOT / rel)
         values[f"{key}_W"], values[f"{key}_H"] = str(w), str(h)
 

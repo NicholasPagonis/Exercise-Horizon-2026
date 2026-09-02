@@ -17,9 +17,9 @@ END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
 UID:observer.exercise-horizon-2026@perthairport.com.au
-DTSTAMP:20260804T112146Z
-CREATED:20260804T112146Z
-LAST-MODIFIED:20260804T112146Z
+DTSTAMP:20260902T041009Z
+CREATED:20260902T041009Z
+LAST-MODIFIED:20260902T041009Z
 SEQUENCE:0
 DTSTART;TZID=Australia/Perth:20260917T080000
 DTEND;TZID=Australia/Perth:20260917T131500
@@ -31,27 +31,30 @@ DESCRIPTION:Your observer place at Exercise Horizon 2026 is confirmed.\n\nA
  ng\, 2 George Wiencke Drive\, Perth Airport WA 6105 - Ground Floor\, Airpo
  rt Experience Centre (AEC).\nParking: Alpha Building car park at the AEC. 
  Use gate code 1023 to enter the staff car park. Your vehicle stays there a
- ll day and you return to it at the end.\nFinish: from approximately 13:15\
- , from the AEC.\n\nHOW THE DAY RUNS\n08:00 - Walk in to the Alpha Building
- \, follow the signs to the AEC and sign in for registration\, safety brief
- ing\, issue of hi-vis and conduct expectations.\n08:30 - Board the bus and
-  travel to the viewing area\, in position before the exercise commences.\n
- 09:00 - Observe the multi-agency response from Emergency Gate 6 and other 
- areas of the airfield.\n11:30 - Move by bus to Forster Park to observe the
-  reunification process.\n12:30 - Lunch\, provided at Forster Park by the S
- alvation Army.\n13:15 - Return by bus to the AEC and are released to depar
- t in your own vehicle.\n\nBRING: enclosed footwear\, weather appropriate c
- lothing\, sun protection (hat\, sunglasses and sunscreen)\, water\, photo 
- identification\, and any personal medication you may need.\n\nPROVIDED: hi
- -vis vest and observer lanyard\, registration and safety briefing on arriv
- al\, escorted bus transport for the full circuit\, lunch at Forster Park b
- y the Salvation Army\, and on-site first aid support.\n\nYou remain escort
- ed and within the monitored viewing area at all times. Follow the directio
- ns of exercise staff and airport authorised officers throughout the day. O
- bservers are photographed and filmed during the exercise.\n\nReply with an
- y dietary or allergy requirements\, and let the team know as early as poss
- ible if your availability changes.\nQuestions: Emergency.Exercise@perthair
- port.com.au or 0439 237 973
+ ll day and you return to it at the end.\nA map of the access gate\, the ca
+ r park and the building entrance is attached to this invitation\, and is a
+ lso at:\nhttps://nicholaspagonis.github.io/Exercise-Horizon-2026/assets/em
+ ail/horizon-map-alpha-building.jpg\nFinish: from approximately 13:15\, fro
+ m the AEC.\n\nHOW THE DAY RUNS\n08:00 - Walk in to the Alpha Building\, fo
+ llow the signs to the AEC and sign in for registration\, safety briefing\,
+  issue of hi-vis and conduct expectations.\n08:30 - Board the bus and trav
+ el to the viewing area\, in position before the exercise commences.\n09:00
+  - Observe the multi-agency response from Emergency Gate 6 and other areas
+  of the airfield.\n11:30 - Move by bus to Forster Park to observe the reun
+ ification process.\n12:30 - Lunch\, provided at Forster Park by the Salvat
+ ion Army.\n13:15 - Return by bus to the AEC and are released to depart in 
+ your own vehicle.\n\nBRING: enclosed footwear\, weather appropriate clothi
+ ng\, sun protection (hat\, sunglasses and sunscreen)\, water\, photo ident
+ ification\, and any personal medication you may need.\n\nPROVIDED: hi-vis 
+ vest and observer lanyard\, registration and safety briefing on arrival\, 
+ escorted bus transport for the full circuit\, lunch at Forster Park by the
+  Salvation Army\, and on-site first aid support.\n\nYou remain escorted an
+ d within the monitored viewing area at all times. Follow the directions of
+  exercise staff and airport authorised officers throughout the day. Observ
+ ers are photographed and filmed during the exercise.\n\nReply with any die
+ tary or allergy requirements\, and let the team know as early as possible 
+ if your availability changes.\nQuestions: Emergency.Exercise@perthairport.
+ com.au or 0439 237 973
 URL:https://nicholaspagonis.github.io/Exercise-Horizon-2026
 STATUS:CONFIRMED
 TRANSP:OPAQUE
@@ -60,6 +63,9 @@ CLASS:PUBLIC
 ORGANIZER;CN=Perth Airport Exercise Planning:mailto:Emergency.Exercise@pert
  hairport.com.au
 CATEGORIES:Exercise,Perth Airport,Observer
+ATTACH;FMTTYPE=image/jpeg;X-FILENAME=alpha-building-access-and-parking.jpg:
+ https://nicholaspagonis.github.io/Exercise-Horizon-2026/assets/email/horiz
+ on-map-alpha-building.jpg
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Exercise Horizon 2026 (Observer) is in two weeks

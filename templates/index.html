@@ -450,10 +450,24 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
         Alpha Building to the Airport Experience Centre on the ground floor.
       </p>
       <p>
-        Park in the <strong>{{OBS_PARKING}}</strong>, using gate code
-        <strong>{{OBS_GATE_CODE}}</strong> to enter the staff car park. Your
-        vehicle stays there all day and you return to it at the end.
+        Drive in past the roundabout to the <strong>Alpha Building access
+        gate</strong> and use gate code <strong>{{OBS_GATE_CODE}}</strong> to
+        enter the staff car park. Park in the {{OBS_PARKING}}, then walk the
+        short route to the building entrance. Your vehicle stays there all day
+        and you return to it at the end.
       </p>
+      <!-- The same file the observer email uses. It is already hosted at a
+           stable path, so the page points at it rather than carrying a second
+           copy that would drift when one of them is redrawn. -->
+      <figure>
+        <img class="map" src="assets/email/horizon-map-alpha-building.jpg"
+             width="{{MAP_OBS_W}}" height="{{MAP_OBS_H}}" loading="lazy"
+             alt="Aerial map of the Alpha Building. A teal line marks the driving route in from the roundabout to the Alpha Building access gate and on to the car park. A blue line marks the short walk from the car park to the Alpha Building entrance.">
+        <figcaption>
+          Teal: the drive in through the access gate to Alpha Building parking.
+          Blue: the walk from the car park to the entrance.
+        </figcaption>
+      </figure>
       <p class="flow__note">
         Bus transport is provided for the whole circuit, so you do not drive
         between the viewing area and Forster Park.
