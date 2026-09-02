@@ -267,6 +267,9 @@ body[data-audience] .mode-banner{display:flex}
   width:1.45rem;height:1.45rem;border-radius:50%;background:var(--teal);color:var(--white);
   display:grid;place-items:center;font-size:.74rem;line-height:1}
 .cardkey strong{color:var(--teal-deep)}
+/* For anything the example card happens not to carry, so it can be explained
+   without taking a number the card does not show. */
+.cardkey__note{margin:.9rem 0 0;font-size:.88rem;line-height:1.5;color:#536165}
 .cardembed{margin:1.1rem 0 0}
 /* max-width is doing real work, not decoration.
  *
@@ -279,18 +282,13 @@ body[data-audience] .mode-banner{display:flex}
  * room than it wants, so it renders at its designed proportions and simply
  * stacks. Centred, because a card narrower than the modal should sit in the
  * middle rather than hug one edge. */
-/* Tall enough that the card does not scroll inside its own frame. A frame
- * scrolling inside a modal that also scrolls is two scrollbars for one piece
- * of content, and the inner one is the harder to notice and the easier to
- * get stuck in.
- *
- * Until the card manager posts its height back, this number is a guess, so
- * it is a generous one: it trades some empty space under the shorter cards
- * for a single scrollbar instead of two. Deliberately min-height and not
- * height, and with no scrolling="no" on the element - if the guess is too
- * small the frame gets its scrollbar back, which is merely the old
- * behaviour, where clamping it would cut the bottom off the card instead. */
-.cardembed__frame{display:block;width:100%;max-width:460px;margin:0 auto;min-height:1250px;
+/* The card manager posts its real height once the card has laid out, and the
+ * listener below applies it, so this is only what the frame shows in the
+ * moment before that arrives. It stays a min-height rather than a height: if
+ * the message never comes - an older browser, a blocked frame - the frame
+ * keeps its own scrollbar and the card is still readable, where a fixed
+ * height would cut the bottom off it. */
+.cardembed__frame{display:block;width:100%;max-width:460px;margin:0 auto;min-height:640px;
   border:1px solid var(--mist);border-radius:14px;background:var(--cloud)}
 .cardembed__note{margin:.75rem 0 0;font-size:.86rem;line-height:1.45;color:#536165}
 
@@ -646,12 +644,12 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
                   <li><strong>Card number, role and group.</strong> Printed on both halves. Your group is your arrival time &mdash; quote the card number if you need to ask us anything.</li>
                   <li><strong>Your numbers on reassessment.</strong> The fuller set of observations taken when a clinician comes back to you. For the responders to read, not for you to recite.</li>
                   <li><strong>What a clinician finds.</strong> The injuries they will discover on examination. Your moulage is made up to match this.</li>
-                  <li><strong>If you are not treated.</strong> Your cue. If nobody has treated you within ten minutes, change your behaviour the way this box describes.</li>
                   <li><strong>NO DUFF.</strong> The stop phrase for a genuine emergency. Say &ldquo;NO DUFF&rdquo; loudly, stop acting, and show this side of the card to the nearest Safety Advisor or Exercise Controller.</li>
                   <li><strong>Personal details.</strong> The identity you are playing. Give these if a responder asks who you are.</li>
                   <li><strong>Presentation.</strong> How to behave, where you are found and what is visible. This is the part worth learning before the day.</li>
                   <li><strong>First look.</strong> Airway, breathing rate, capillary refill and pulse &mdash; the quick observations a responder takes on first contact.</li>
                 </ol>
+                <p class="cardkey__note">Some patient cards also carry an <strong>If you are not treated</strong> box, telling you how to change your behaviour if nobody has treated you within ten minutes. This example does not have one, so it takes no number above.</p>
               </div>
             </div>
             <p class="cardembed__note">
@@ -779,10 +777,10 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
               <div>
                 <p class="cardkey__intro">Family and friend cards are red, so they are easy to tell apart from the passenger cards at the Survivor Reception. Numbered below in the order you meet them scrolling the card.</p>
                 <ol class="cardkey">
+                  <li><strong>NO DUFF.</strong> The stop phrase for a genuine emergency. Say &ldquo;NO DUFF&rdquo; loudly, stop acting, and show this side of the card to the nearest Safety Advisor or Exercise Controller.</li>
                   <li><strong>Card number and role.</strong> Family and friend card numbers start with F. Quote it if you need to ask us anything.</li>
                   <li><strong>Personal details.</strong> The identity you are playing for the day &mdash; your name, age and date of birth.</li>
                   <li><strong>Who you are looking for.</strong> The passenger you are matched with: their name, card number, age, date of birth and flight number. This is what you give the reunification team, and what confirms the match when they are brought back.</li>
-                  <li><strong>NO DUFF.</strong> The stop phrase for a genuine emergency. Say &ldquo;NO DUFF&rdquo; loudly, stop acting, and show this side of the card to the nearest Safety Advisor or Exercise Controller.</li>
                 </ol>
               </div>
             </div>
