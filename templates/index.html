@@ -218,7 +218,7 @@ body[data-audience] .mode-banner{display:flex}
 .role-buttons{display:grid;gap:.85rem;margin:1.35rem 0 0}
 @media(min-width:620px){.role-buttons{grid-template-columns:repeat(3,1fr)}}
 
-.modal{width:min(680px,calc(100% - 2rem))}
+.modal{width:min(780px,calc(100% - 2rem))}
 .modal__inner{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
   padding:clamp(1.3rem,3.5vw,2.1rem);max-height:calc(100vh - 3rem);overflow-y:auto}
 .modal__head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.4rem}
@@ -232,6 +232,25 @@ body[data-audience] .mode-banner{display:flex}
 .role__meta span{font-weight:400;color:var(--teal-deep)}
 .subsection{margin-top:1.6rem;padding-top:1.3rem;border-top:1px solid #e6ecee}
 .subsection h3{margin-bottom:.55rem}
+
+/* ---- embedded example card -------------------------------------------- */
+/* The card itself, rendered by the card manager and framed here.
+ *
+ * It is a different origin, so this page cannot measure it: the frame opens
+ * at a workable minimum height and grows only if the framed document posts
+ * its own height back - see the message listener in the script below. If it
+ * never posts, the minimum stands and the card manager's own scrollbar
+ * takes over, which is why the minimum is generous.
+ *
+ * The src is attached when a modal is first opened rather than sitting in
+ * the markup, so a reader who never opens a role does not fetch three
+ * cards, and the frames cost nothing on the initial page load. */
+.cardembed{margin:1.1rem 0 0}
+.cardembed__frame{display:block;width:100%;min-height:540px;border:1px solid var(--mist);
+  border-radius:14px;background:var(--cloud)}
+.cardembed__note{margin:.75rem 0 0;font-size:.86rem;line-height:1.45;color:#536165}
+/* The key runs longer than a normal tick list, so it needs more air. */
+.modal ul.ticks{gap:.8rem;margin-top:1.1rem}
 
 /* ---- arrival times ---------------------------------------------------- */
 .arrivals{width:100%;border-collapse:collapse;font-size:.94rem;margin-top:1.2rem}
@@ -566,6 +585,38 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
             <span>Cards:</span> patient card only, with your details and injury
             information. <span>Linked family member:</span> none.
           </p>
+
+          <div class="subsection">
+            <h3>How to read your card</h3>
+            <div class="cardembed">
+              <iframe class="cardembed__frame" title="Example Patient card"
+                      data-src="{{CARD_PATIENT}}" referrerpolicy="no-referrer"></iframe>
+              <p class="cardembed__note">
+                An example card, not anybody&rsquo;s real allocation. Yours folds
+                down the middle, and both halves carry your card number, role and
+                group, so it reads the same whichever way you pick it up.
+                <a class="maplink" href="{{CARD_PATIENT}}" target="_blank" rel="noopener">Open
+                it in a new tab</a> if it does not load here.
+              </p>
+            </div>
+
+            <ul class="ticks">
+              <li><strong>Card number, role and group.</strong> Printed on both halves. Your group is your arrival time &mdash; quote the card number if you need to ask us anything.</li>
+              <li><strong>Personal details.</strong> The identity you are playing. Give these if a responder asks who you are.</li>
+              <li><strong>Presentation.</strong> How to behave, where you are found and what is visible. This is the part worth learning before the day.</li>
+              <li><strong>First look.</strong> Airway, breathing rate, capillary refill and pulse &mdash; the quick observations a responder takes on first contact.</li>
+              <li><strong>Your numbers on reassessment.</strong> The fuller set taken when a clinician comes back to you. For the responders to read, not for you to recite.</li>
+              <li><strong>What a clinician finds.</strong> The injuries they will discover on examination. Your moulage is made up to match this.</li>
+              <li><strong>If you are not treated.</strong> Your cue. If nobody has treated you within ten minutes, change your behaviour the way this box describes.</li>
+              <li><strong>NO DUFF.</strong> The stop phrase for a genuine emergency. Say &ldquo;NO DUFF&rdquo; loudly, stop acting, and show this side of the card to the nearest Safety Advisor or Exercise Controller.</li>
+            </ul>
+            <p class="cardembed__note">
+              A patient card carries no reunification block. Nobody is waiting for
+              you at the Survivor Reception, so there is no linked family member
+              on it.
+            </p>
+          </div>
+
           <div class="subsection">
             <h3>Reunification</h3>
             <p>
@@ -598,6 +649,34 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
             holding your identity and reunification details.
             <span>Linked family member:</span> one.
           </p>
+
+          <div class="subsection">
+            <h3>How to read your card</h3>
+            <div class="cardembed">
+              <iframe class="cardembed__frame" title="Example Passenger and Patient card"
+                      data-src="{{CARD_PASSENGER}}" referrerpolicy="no-referrer"></iframe>
+              <p class="cardembed__note">
+                An example card, not anybody&rsquo;s real allocation. Yours folds
+                down the middle, and both halves carry your card number, role and
+                group, so it reads the same whichever way you pick it up.
+                <a class="maplink" href="{{CARD_PASSENGER}}" target="_blank" rel="noopener">Open
+                it in a new tab</a> if it does not load here.
+              </p>
+            </div>
+
+            <ul class="ticks">
+              <li><strong>Card number, role and group.</strong> Printed on both halves. Your group is your arrival time &mdash; quote the card number if you need to ask us anything.</li>
+              <li><strong>Personal details.</strong> The identity you are playing. Give these if a responder asks who you are.</li>
+              <li><strong>Presentation.</strong> How to behave, where you are found and what is visible. This is the part worth learning before the day.</li>
+              <li><strong>First look.</strong> Airway, breathing rate, capillary refill and pulse &mdash; the quick observations a responder takes on first contact.</li>
+              <li><strong>Your numbers on reassessment.</strong> The fuller set taken when a clinician comes back to you. For the responders to read, not for you to recite.</li>
+              <li><strong>What a clinician finds.</strong> The injuries they will discover on examination. Your moulage is made up to match this.</li>
+              <li><strong>If you are not treated.</strong> Your cue. If nobody has treated you within ten minutes, change your behaviour the way this box describes.</li>
+              <li><strong>Who is meeting you.</strong> The family member or friend you are matched with at the Survivor Reception. Their card number starts with F.</li>
+              <li><strong>NO DUFF.</strong> The stop phrase for a genuine emergency. Say &ldquo;NO DUFF&rdquo; loudly, stop acting, and show this side of the card to the nearest Safety Advisor or Exercise Controller.</li>
+            </ul>
+          </div>
+
           <div class="subsection">
             <h3>Reunification</h3>
             <p>
@@ -638,6 +717,34 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
             <span>Cards:</span> a single red family/friend card with the details
             you need to complete the match. <span>Linked passenger:</span> one.
           </p>
+
+          <div class="subsection">
+            <h3>How to read your card</h3>
+            <div class="cardembed">
+              <iframe class="cardembed__frame" title="Example Family and Friend card"
+                      data-src="{{CARD_FAMILY}}" referrerpolicy="no-referrer"></iframe>
+              <p class="cardembed__note">
+                An example card, not anybody&rsquo;s real allocation. Family and
+                friend cards are red, so they are easy to tell apart from the
+                passenger cards at the Survivor Reception.
+                <a class="maplink" href="{{CARD_FAMILY}}" target="_blank" rel="noopener">Open
+                it in a new tab</a> if it does not load here.
+              </p>
+            </div>
+
+            <ul class="ticks">
+              <li><strong>Card number and role.</strong> Family and friend card numbers start with F. Quote it if you need to ask us anything.</li>
+              <li><strong>Personal details.</strong> The identity you are playing for the day &mdash; your name, age and date of birth.</li>
+              <li><strong>Who you are looking for.</strong> The passenger you are matched with: their name, card number, age, date of birth and flight number. This is what you give the reunification team, and what confirms the match when they are brought back.</li>
+              <li><strong>NO DUFF.</strong> The stop phrase for a genuine emergency. Say &ldquo;NO DUFF&rdquo; loudly, stop acting, and show this side of the card to the nearest Safety Advisor or Exercise Controller.</li>
+            </ul>
+            <p class="cardembed__note">
+              There are no clinical observations on a family or friend card. You
+              are not treated and you do not go to the airfield, so it carries
+              identity and matching details only.
+            </p>
+          </div>
+
           <div class="subsection">
             <h3>Reunification</h3>
             <p>
@@ -892,16 +999,108 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
 
   document.getElementById("mode-switch").addEventListener("click", ask);
 
+  /*
+   * Deep links.
+   *
+   * A link to /#roles should land on that section, not on the chooser. The
+   * audience is read off the target itself rather than assumed, so /#runsheet
+   * puts an observer on the run sheet instead of dropping them into the
+   * participant view where it is hidden. Anything shared, or a fragment that
+   * matches nothing, falls back to participant - and an unrecognised fragment
+   * still gets the chooser, because a typo should not silently pick a view.
+   */
+  function hashTarget() {
+    var id = (location.hash || "").slice(1);
+    if (!id) return null;
+    var el = document.getElementById(id);
+    if (el) return el;
+    try { return document.getElementById(decodeURIComponent(id)); }
+    catch (e) { return null; }
+  }
+
+  function audienceFor(el) {
+    var owner = el.closest("[data-for]");
+    if (!owner) return "participant";
+    var who = (owner.getAttribute("data-for") || "").split(/\s+/);
+    if (who.indexOf("participant") !== -1) return "participant";
+    if (who.indexOf("observer") !== -1) return "observer";
+    return "participant";
+  }
+
+  /* The browser already tried to scroll here while the section was still
+     display:none, so it went nowhere. Repeat it now the section has a box. */
+  function scrollToHash(el) {
+    if (el && typeof el.scrollIntoView === "function") {
+      el.scrollIntoView({ block: "start" });
+    }
+  }
+
+  var target = hashTarget();
   var stored = read();
-  if (stored === "participant" || stored === "observer") apply(stored);
-  else ask();
+
+  if (target) {
+    var who = audienceFor(target);
+    apply(who);
+    /* Only remembered when nothing was stored. A link someone was sent
+       should not quietly overwrite a choice they made themselves. */
+    if (stored !== "participant" && stored !== "observer") save(who);
+    scrollToHash(target);
+  } else if (stored === "participant" || stored === "observer") {
+    apply(stored);
+  } else {
+    ask();
+  }
+
+  /* Same treatment for a fragment that arrives after load, so a deep link
+     behaves the same whether it is opened cold or followed on the page. */
+  window.addEventListener("hashchange", function () {
+    var el = hashTarget();
+    if (!el) return;
+    apply(audienceFor(el));
+    if (gate && gate.open) gate.close();
+    scrollToHash(el);
+  });
+
+  /* An example card's src is attached the first time its modal opens. Left
+     in the markup it would be three cross-origin requests on every page
+     load, for cards most readers never open. */
+  function loadFrames(root) {
+    Array.prototype.forEach.call(root.querySelectorAll("iframe[data-src]"), function (f) {
+      f.src = f.getAttribute("data-src");
+      f.removeAttribute("data-src");
+    });
+  }
+
+  /* The framed card is on another origin, so this page cannot measure it.
+     If the card manager posts its height we use it; if it never does, the
+     CSS min-height stands and the frame scrolls itself. The source is
+     matched against the frame's own contentWindow rather than a hardcoded
+     hostname, so changing the card manager's domain in event.json is the
+     only edit that needs making.
+
+     For the card manager end, the message to post is:
+       parent.postMessage({ type: "horizon-card-height",
+                            height: document.documentElement.scrollHeight },
+                          "<this page's origin>"); */
+  window.addEventListener("message", function (e) {
+    var data = e.data;
+    if (!data || data.type !== "horizon-card-height") return;
+    var height = parseInt(data.height, 10);
+    if (!height || height < 200 || height > 5000) return;
+    Array.prototype.forEach.call(document.querySelectorAll(".cardembed__frame"), function (f) {
+      if (f.contentWindow === e.source) f.style.height = height + "px";
+    });
+  });
 
   /* Role modals. Ordinary dialogs: close button, ESC and backdrop all work. */
   document.addEventListener("click", function (e) {
     var opener = e.target.closest("[data-modal]");
     if (opener) {
       var dlg = document.getElementById(opener.getAttribute("data-modal"));
-      if (dlg && typeof dlg.showModal === "function") dlg.showModal();
+      if (dlg && typeof dlg.showModal === "function") {
+        loadFrames(dlg);
+        dlg.showModal();
+      }
       return;
     }
     var closer = e.target.closest("[data-close]");
