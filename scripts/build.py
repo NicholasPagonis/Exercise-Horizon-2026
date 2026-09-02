@@ -170,6 +170,32 @@ def build_ics(ev: dict, contact: dict, site: dict, stamp: dt.datetime) -> str:
             "CATEGORIES:" + ",".join(ics_escape(c) for c in ev["categories"])
         )
 
+    # Attachments are sent as a URI, never inlined as base64. A photograph
+    # encoded into the .ics would multiply its size several times over and
+    # land it in the same trap the email templates hit, where Gmail clips the
+    # message; a link costs nothing and every client can follow it. The same
+    # URL is also written into the description, because a handful of clients
+    # (notably some Outlook versions) quietly ignore ATTACH altogether.
+    for att in ev.get("attachments", []):
+        if "url" in att:
+            url = att["url"]
+        else:
+            rel = att["path"].lstrip("/")
+            if not (ROOT / rel).exists():
+                raise SystemExit(
+                    f"error: {ev['output']} attaches {rel!r}, which does not "
+                    "exist. Add the file or drop the attachment."
+                )
+            url = f"{site['base_url'].rstrip('/')}/{rel}"
+
+        params = ""
+        if att.get("fmttype"):
+            params += f";FMTTYPE={att['fmttype']}"
+        if att.get("filename"):
+            params += f";X-FILENAME={ics_param(att['filename'])}"
+        # An ATTACH value is a URI, not TEXT, so it takes no backslash escaping.
+        lines.append(f"ATTACH{params}:{url}")
+
     for reminder in ev.get("reminders", []):
         # Accept a bare trigger string or {"trigger": ..., "label": ...}.
         if isinstance(reminder, str):
@@ -252,6 +278,20 @@ def format_date(date: dt.date) -> str:
     return f"{date.strftime('%A')} {date.day} {date.strftime('%B %Y')}"
 
 
+def audience_attr(item: dict) -> str:
+    """`data-for` for a block that belongs to only some audiences.
+
+    Omitted entirely when the item is for everybody, so the CSS rule that
+    hides unmatched blocks never touches it.
+    """
+    who = item.get("audience")
+    if not who:
+        return ""
+    if isinstance(who, list):
+        who = " ".join(who)
+    return f' data-for="{html.escape(who, quote=True)}"'
+
+
 def download_cards(downloads: list[dict]) -> str:
     cards = []
     for item in downloads:
@@ -265,7 +305,7 @@ def download_cards(downloads: list[dict]) -> str:
         variant = "dl--primary" if item.get("primary") else "dl--secondary"
 
         cards.append(
-            f'      <div class="dl-item">\n'
+            f'      <div class="dl-item"{audience_attr(item)}>\n'
             f'        <a class="dl {variant}" href="{html.escape(item["path"])}" download>\n'
             f'          <span class="dl__label">{html.escape(item["label"])}</span>\n'
             f'          <span class="dl__meta">{meta}</span>\n'
@@ -276,8 +316,61 @@ def download_cards(downloads: list[dict]) -> str:
     return "\n".join(cards)
 
 
+def arrival_rows(cfg: dict) -> str:
+    """The arrival-time table, built from the calendars that declare one.
+
+    Reporting times live on the calendar entries rather than being written
+    out again in the template, so a time can never be right in the .ics and
+    wrong on the page.
+    """
+    rows = []
+    for ev in cfg.get("extra_calendars", []):
+        arrival = ev.get("arrival")
+        if not arrival:
+            continue
+
+        path = ROOT / ev["output"]
+        if not path.exists():
+            # First run, before the .ics has been written. The build writes
+            # calendars before the page, so this only bites on a fresh clone.
+            meta = "ICS"
+        else:
+            meta = f"ICS &middot; {human_size(path.stat().st_size)}"
+
+        rows.append(
+            f'          <tr>\n'
+            f'            <th scope="row">{html.escape(arrival["label"])}</th>\n'
+            f'            <td class="arrival__time">{html.escape(arrival["time"])}</td>\n'
+            f'            <td class="arrival__who">{html.escape(arrival["who"])}</td>\n'
+            f'            <td class="arrival__get">\n'
+            f'              <a class="arrival__dl" href="{html.escape(ev["output"])}" download>\n'
+            f'                Add to calendar <span class="dl__meta">{meta}</span>\n'
+            f"              </a>\n"
+            f"            </td>\n"
+            f"          </tr>"
+        )
+    return "\n".join(rows)
+
+
+def calendar_by_id(cfg: dict, ident: str) -> dict:
+    """One entry from extra_calendars, by its `id`.
+
+    Looked up by name rather than list position so reordering the calendars,
+    or slotting a new audience in among them, cannot silently repoint the
+    page at the wrong event.
+    """
+    for ev in cfg.get("extra_calendars", []):
+        if ev.get("id") == ident:
+            return ev
+    raise SystemExit(
+        f"error: no calendar in extra_calendars has id {ident!r}, and the "
+        "page needs one to fill in that audience's details."
+    )
+
+
 def build_page(cfg: dict, template: str) -> str:
     ev, contact, site = cfg["event"], cfg["contact"], cfg["site"]
+    obs = calendar_by_id(cfg, "observer")
     date = dt.date.fromisoformat(ev["date"])
 
     if ev["all_day"]:
@@ -288,6 +381,7 @@ def build_page(cfg: dict, template: str) -> str:
     values = {
         "EVENT_NAME": html.escape(ev["name"]),
         "TAGLINE": html.escape(site["tagline"]),
+        "TAGLINE_OBS": html.escape(site["tagline_observer"]),
         "DATE_LONG": html.escape(format_date(date)),
         "DATE_BIG": f"{date.day} {date.strftime('%B %Y')}",
         "DATE_WEEKDAY": date.strftime("%A"),
@@ -305,6 +399,13 @@ def build_page(cfg: dict, template: str) -> str:
         "PHONE_HREF": tel_href(contact["phone"]),
         "BASE_URL": html.escape(site["base_url"].rstrip("/")),
         "DOWNLOADS": download_cards(cfg["downloads"]),
+        "ARRIVALS": arrival_rows(cfg),
+        "OBS_LOCATION": html.escape(obs["location"]),
+        "OBS_LOCATION_SHORT": html.escape(obs["location_short"]),
+        "OBS_TIME_TEXT": f"{obs['start']} &ndash; {obs['end']} AWST",
+        "OBS_START": html.escape(obs["start"]),
+        "OBS_PARKING": html.escape(obs["parking"]),
+        "OBS_GATE_CODE": html.escape(obs["gate_code"]),
         "BUILT_ON": dt.date.today().isoformat(),
     }
 

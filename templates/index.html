@@ -167,29 +167,101 @@ ol.steps li:before{content:counter(step);position:absolute;left:0;top:-.1em;widt
 .flow__elbow{position:absolute;left:33.333%;width:16.667%;top:calc(var(--dot)/2);height:calc(var(--row) + var(--rowgap));border-left:2px solid var(--coast);border-bottom:2px solid var(--coast);border-bottom-left-radius:14px}
 .flow__note{margin-top:1.35rem;font-size:.88rem;line-height:1.45;color:#536165}
 
-/* ---- roles accordion -------------------------------------------------- */
-/* Native <details>/<summary>: keyboard and screen-reader accessible as a
-   disclosure widget with no JavaScript on the page. */
-.accordion{margin:1.35rem 0 0;border:1px solid var(--mist);border-radius:14px;background:var(--white);overflow:hidden}
-.accordion details+details{border-top:1px solid var(--mist)}
-.accordion summary{font-weight:400;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 1.3rem;cursor:pointer;color:var(--ocean);list-style:none;transition:background .15s}
-.accordion summary::-webkit-details-marker{display:none}
-.accordion summary:hover{background:var(--coast20)}
-.accordion details[open]>summary{color:var(--teal-deep)}
-.accordion summary::after{content:"";flex:none;width:.46rem;height:.46rem;margin-right:.2rem;border-right:1.5px solid var(--teal);border-bottom:1.5px solid var(--teal);transform:translateY(-.14rem) rotate(45deg);transition:transform .18s}
-.accordion details[open]>summary::after{transform:translateY(.1rem) rotate(-135deg)}
-.acc__body{padding:0 1.3rem 1.3rem}
-.acc__body p{line-height:1.55}
-.role__meta{margin:.6rem 0 0;font-size:.88rem;line-height:1.45;color:#536165}
+/* ---- audience gating -------------------------------------------------- */
+/* Sections carry data-for="participant" or data-for="observer". Anything
+   tagged stays hidden until the reader has said which they are. With no
+   JavaScript the <noscript> block in the body reveals all of it, so the page
+   degrades to the single document it was before the split rather than to a
+   page with its middle missing. */
+[data-for]{display:none}
+body[data-audience="participant"] [data-for~="participant"],
+body[data-audience="observer"] [data-for~="observer"]{display:block}
+
+/* The chooser. Deliberately not dismissible: no close control, ESC is
+   cancelled in script, and a <dialog> backdrop does not dismiss by default.
+   Choosing one of the two is the only way through. */
+.gate::backdrop,.modal::backdrop{background:rgba(10,73,99,.55)}
+.gate,.modal{border:0;padding:0;background:transparent;color:inherit}
+.gate{width:min(560px,calc(100% - 2rem))}
+.gate__inner{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(1.4rem,4vw,2.25rem)}
+.gate__lead{margin:0 0 1.4rem;color:#536165;line-height:1.5}
+.gate__options{display:grid;gap:.85rem}
+@media(min-width:520px){.gate__options{grid-template-columns:1fr 1fr}}
+
+/* ---- teal pick button ------------------------------------------------- */
+/* Shared by the audience chooser and the three role buttons: icon above the
+   label, both inside the button. */
+.pick{display:grid;justify-items:center;align-content:start;gap:.55rem;text-align:center;
+  padding:1.3rem 1rem;border:0;border-radius:18px;cursor:pointer;font:inherit;font-size:1rem;
+  background:var(--teal);color:var(--white);box-shadow:0 10px 24px rgba(25,128,124,.28);
+  transition:transform .15s,box-shadow .15s,background .15s}
+.pick:hover,.pick:focus-visible{background:var(--teal-deep);transform:translateY(-2px);box-shadow:0 14px 30px rgba(25,128,124,.34)}
+.pick svg{width:2rem;height:2rem;display:block}
+.pick__label{line-height:1.25}
+.pick__sub{font-size:.8rem;line-height:1.35;color:rgba(255,255,255,.86)}
+
+/* ---- mode banner ------------------------------------------------------ */
+/* Pinned to the bottom rather than the top: the header carries the reversed
+   logo, and a bar across it would sit on the brand mark. */
+.mode-banner{position:fixed;left:50%;bottom:1rem;transform:translateX(-50%);z-index:60;
+  display:none;align-items:center;gap:.6rem;max-width:calc(100% - 2rem);
+  padding:.45rem .5rem .45rem 1rem;border-radius:999px;
+  background:rgba(18,94,91,.96);color:var(--white);font-size:.86rem;line-height:1;
+  box-shadow:0 10px 30px rgba(10,73,99,.3)}
+body[data-audience] .mode-banner{display:flex}
+.mode-banner__text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mode-banner__switch{flex:none;border:0;cursor:pointer;font:inherit;font-size:.82rem;
+  padding:.42rem .85rem;border-radius:999px;background:rgba(255,255,255,.18);color:var(--white)}
+.mode-banner__switch:hover,.mode-banner__switch:focus-visible{background:rgba(255,255,255,.3)}
+
+/* ---- role buttons and modals ------------------------------------------ */
+.role-buttons{display:grid;gap:.85rem;margin:1.35rem 0 0}
+@media(min-width:620px){.role-buttons{grid-template-columns:repeat(3,1fr)}}
+
+.modal{width:min(680px,calc(100% - 2rem))}
+.modal__inner{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(1.3rem,3.5vw,2.1rem);max-height:calc(100vh - 3rem);overflow-y:auto}
+.modal__head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.4rem}
+.modal__head h2{margin:0}
+.modal__close{flex:none;width:2.1rem;height:2.1rem;border:0;border-radius:50%;cursor:pointer;
+  background:var(--cloud);color:var(--ocean);display:grid;place-items:center}
+.modal__close svg{width:1rem;height:1rem;display:block}
+.modal__close:hover,.modal__close:focus-visible{background:var(--coast20)}
+.modal p{line-height:1.55}
+.role__meta{margin:.7rem 0 0;font-size:.88rem;line-height:1.45;color:#536165}
 .role__meta span{font-weight:400;color:var(--teal-deep)}
-.subsection{margin-top:1.85rem;padding-top:1.5rem;border-top:1px solid #e6ecee}
+.subsection{margin-top:1.6rem;padding-top:1.3rem;border-top:1px solid #e6ecee}
 .subsection h3{margin-bottom:.55rem}
+
+/* ---- arrival times ---------------------------------------------------- */
+.arrivals{width:100%;border-collapse:collapse;font-size:.94rem;margin-top:1.2rem}
+.arrivals th,.arrivals td{text-align:left;padding:.8rem .55rem;border-bottom:1px solid #e7eef0;vertical-align:middle}
+.arrivals tr:last-child th,.arrivals tr:last-child td{border-bottom:0}
+.arrivals th{color:var(--ocean);font-weight:400;white-space:nowrap}
+.arrival__time{color:var(--teal-deep);font-variant-numeric:tabular-nums;white-space:nowrap}
+.arrival__who{color:#536165}
+.arrival__get{text-align:right}
+.arrival__dl{display:inline-flex;align-items:center;gap:.5rem;white-space:nowrap;text-decoration:none;
+  background:var(--ocean20);color:var(--ocean);padding:.5rem .9rem;border-radius:999px;font-size:.88rem}
+.arrival__dl:hover,.arrival__dl:focus-visible{background:var(--coast20)}
+/* Below 600px the table stops being a table: four columns cannot hold their
+   shape on a phone, so each row stacks into its own block. */
+@media(max-width:600px){
+  .arrivals,.arrivals tbody,.arrivals tr,.arrivals th,.arrivals td{display:block;width:auto}
+  .arrivals tr{padding:.8rem 0;border-bottom:1px solid #e7eef0}
+  .arrivals tr:last-child{border-bottom:0}
+  .arrivals th,.arrivals td{border:0;padding:.12rem 0}
+  .arrival__get{text-align:left;margin-top:.55rem}
+}
 
 .mini-table{width:100%;border-collapse:collapse;font-size:.94rem;table-layout:fixed}
 .mini-table td{overflow-wrap:anywhere}
 .mini-table th,.mini-table td{text-align:left;padding:.7rem .55rem;border-bottom:1px solid #e7eef0;vertical-align:top}
 .mini-table tr:last-child th,.mini-table tr:last-child td{border-bottom:0}
 .mini-table th{color:var(--ocean);width:34%;font-weight:400}
+/* The run sheet's first column is a clock time rather than a label, so it
+   needs far less room than the 34% a two-column mini-table gives it. */
+.runsheet th{width:4.6rem;white-space:nowrap;color:var(--teal-deep);font-variant-numeric:tabular-nums}
 
 /* ---- contact / footer ------------------------------------------------ */
 .contact{display:grid;gap:.35rem;line-height:1.5}
@@ -244,23 +316,66 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
   main{width:100%;margin:0;grid-template-columns:1fr;gap:1rem}
   .card{box-shadow:none;border:1px solid #ccc;break-inside:avoid;backdrop-filter:none}
   .key-card{position:static}
-  /* Force every role open on paper - a collapsed accordion would print as
-     three empty rows. ::details-content covers engines that hide the panel
-     via content-visibility; the display rule covers the rest. */
-  details::details-content{content-visibility:visible!important}
-  details>*:not(summary){display:block!important}
-  .accordion summary::after{display:none}
+  /* The role descriptions live in <dialog>s, which a browser never prints.
+     Unpack them onto the page so a printed copy still carries all three,
+     and drop the controls that would only be dead pills on paper. */
+  .modal{display:block!important;position:static;width:auto;max-height:none}
+  .modal__inner{max-height:none;overflow:visible;box-shadow:none;border:1px solid #ccc;padding:1rem}
+  .modal__head{margin-bottom:.6rem}
+  .role-buttons,.modal__close,.mode-banner,.gate{display:none!important}
+  /* Paper has no audience switch, so both sets print whichever was on
+     screen. */
+  [data-for]{display:block!important}
 }
 </style></head>
 
 <body>
+
+<noscript>
+  <!-- No JavaScript means no chooser and no way to switch, so every
+       audience-specific section is revealed and the page reads as the single
+       continuous document it was before the split. Better a reader sees the
+       observer run sheet they did not need than a page with its middle
+       missing. -->
+  <style>[data-for]{display:block!important}.gate,.mode-banner{display:none!important}</style>
+</noscript>
+
+<dialog class="gate" id="gate" aria-labelledby="gate-title">
+  <div class="gate__inner">
+    <h2 id="gate-title">Which are you?</h2>
+    <p class="gate__lead">
+      This page carries two different sets of details. Tell us which one you
+      need and the page will show you that version &mdash; you can switch
+      whenever you like.
+    </p>
+    <div class="gate__options">
+      <button class="pick" type="button" data-choose="participant">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7.8" r="3.4" fill="currentColor"/><path d="M4.8 20.4a7.2 7.2 0 0 1 14.4 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        <span class="pick__label">Participant</span>
+        <span class="pick__sub">Playing a casualty, passenger, family member or friend</span>
+      </button>
+      <button class="pick" type="button" data-choose="observer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.4 12S6.1 5.8 12 5.8 21.6 12 21.6 12 17.9 18.2 12 18.2 2.4 12 2.4 12Z" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+        <span class="pick__label">Observer</span>
+        <span class="pick__sub">Watching the exercise from the viewing area</span>
+      </button>
+    </div>
+  </div>
+</dialog>
+
+<div class="mode-banner" id="mode-banner">
+  <span class="mode-banner__text" id="mode-banner-text"></span>
+  <button class="mode-banner__switch" type="button" id="mode-switch">Change</button>
+</div>
+
 <header>
   <img class="logo" src="assets/perth-airport-logo-white.png" width="{{LOGO_W}}" height="{{LOGO_H}}" alt="Perth Airport">
   <div class="header__body">
     <!-- Brandline retired: the reversed logo on the banner already says
          Perth Airport, so the line above the title was repeating it. -->
     <h1>{{EVENT_NAME}}</h1>
-    <p class="subtitle">{{TAGLINE}}</p>
+    <p class="subtitle" data-for="participant">{{TAGLINE}}</p>
+    <p class="subtitle" data-for="observer">{{TAGLINE_OBS}}</p>
   </div>
   <div class="header__art">
     <span class="art__shape" aria-hidden="true"></span>
@@ -272,7 +387,7 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
 <main>
   <div class="stack">
 
-    <section class="card" aria-labelledby="selection">
+    <section class="card" data-for="participant" aria-labelledby="selection">
       <h2 id="selection">Selection Process</h2>
       <p>
         Every volunteer starts by submitting an expression of interest. From
@@ -312,7 +427,7 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
       </p>
     </section>
 
-    <section class="card" aria-labelledby="getting-there">
+    <section class="card" data-for="participant" aria-labelledby="getting-there">
       <h2 id="getting-there">Getting there</h2>
       <p>
         Park at <strong><a class="maplink" href="{{PARKING_URL}}" target="_blank"
@@ -328,37 +443,134 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
       </figure>
     </section>
 
-    <section class="card" aria-labelledby="roles">
+    <section class="card" data-for="observer" aria-labelledby="getting-there-obs">
+      <h2 id="getting-there-obs">Getting there</h2>
+      <p>
+        Report to <strong>{{OBS_LOCATION}}</strong>. Follow the signs inside the
+        Alpha Building to the Airport Experience Centre on the ground floor.
+      </p>
+      <p>
+        Park in the <strong>{{OBS_PARKING}}</strong>, using gate code
+        <strong>{{OBS_GATE_CODE}}</strong> to enter the staff car park. Your
+        vehicle stays there all day and you return to it at the end.
+      </p>
+      <p class="flow__note">
+        Bus transport is provided for the whole circuit, so you do not drive
+        between the viewing area and Forster Park.
+      </p>
+    </section>
+
+    <section class="card" data-for="observer" aria-labelledby="runsheet">
+      <h2 id="runsheet">How the day runs</h2>
+      <table class="mini-table runsheet">
+        <tbody>
+          <tr>
+            <th scope="row">08:00</th>
+            <td>Walk in to the Alpha Building, follow the signs to the AEC and
+              sign in. Registration, safety briefing, issue of hi-vis and
+              conduct expectations.</td>
+          </tr>
+          <tr>
+            <th scope="row">08:30</th>
+            <td>Board the bus and travel to the viewing area, in position before
+              the exercise commences.</td>
+          </tr>
+          <tr>
+            <th scope="row">09:00</th>
+            <td>Observe the multi-agency response from Emergency Gate 6 and
+              other areas of the airfield.</td>
+          </tr>
+          <tr>
+            <th scope="row">11:30</th>
+            <td>Move by bus to Forster Park to observe the reunification
+              process.</td>
+          </tr>
+          <tr>
+            <th scope="row">12:30</th>
+            <td>Lunch, provided at Forster Park by the Salvation Army.</td>
+          </tr>
+          <tr>
+            <th scope="row">13:15</th>
+            <td>Return by bus to the AEC, and are released to depart in your own
+              vehicle.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="flow__note">
+        You remain escorted and within the monitored viewing area at all times.
+        Follow the directions of exercise staff and airport authorised officers
+        throughout the day.
+      </p>
+    </section>
+
+    <section class="card" data-for="participant" aria-labelledby="roles">
       <h2 id="roles">Roles</h2>
       <p>
         Volunteers take one of three roles, differing in start time, where you
         go and which cards you carry. Your role is allocated by the Emergency
-        Operations team and sent to you closer to the exercise date.
+        Operations team and sent to you closer to the exercise date. Open a
+        role below to read what the day looks like in it.
       </p>
 
-      <div class="accordion">
-        <details>
-          <summary>Patient</summary>
-          <div class="acc__body">
+      <div class="role-buttons">
+        <button class="pick" type="button" data-modal="role-patient">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.6 3h4.8v6.6H21v4.8h-6.6V21H9.6v-6.6H3V9.6h6.6z" fill="currentColor"/></svg>
+          <span class="pick__label">Patient</span>
+        </button>
+        <button class="pick" type="button" data-modal="role-passenger">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15.5v-2L13.6 9V3.9a1.6 1.6 0 0 0-3.2 0V9L3 13.5v2l7.4-2.2v4.3l-2.2 1.5v1.6l3.8-1 3.8 1v-1.6l-2.2-1.5v-4.3z" fill="currentColor"/></svg>
+          <span class="pick__label">Patient and Passenger</span>
+        </button>
+        <button class="pick" type="button" data-modal="role-family">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.1" fill="currentColor"/><circle cx="17.2" cy="9.4" r="2.4" fill="currentColor"/><path d="M2.8 19.6a6.2 6.2 0 0 1 12.4 0" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/><path d="M16 14.6a5 5 0 0 1 5.2 4.6" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/></svg>
+          <span class="pick__label">Family / Friend</span>
+        </button>
+      </div>
+
+      <dialog class="modal" id="role-patient" aria-labelledby="role-patient-title">
+        <div class="modal__inner">
+          <div class="modal__head">
+            <h2 id="role-patient-title">Patient</h2>
+            <button class="modal__close" type="button" data-close aria-label="Close">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+            </button>
+          </div>
           <p>
             You play a simulated casualty at the centre of the scenario. Report
-            to the check-in point at Forster Park for moulage (injury makeup) &mdash;
-            start times are staggered by how much your injuries need, heaviest
-            first. You then move out to the airfield incident site, where
-            St John WA, ARFFS, DFES and other responders triage and treat you as
-            they would in a real emergency, ending either at a notional hospital
+            to the check-in point at Forster Park for moulage (injury makeup)
+            &mdash; arrival times are staggered by how much your injuries need,
+            heaviest first, so come at the time you are given rather than
+            earlier.
+          </p>
+          <p>
+            You then move out to the airfield incident site, where St John WA,
+            ARFFS, DFES and other responders triage and treat you as they would
+            in a real emergency. Your morning ends either at a notional hospital
             or cleared on scene.
           </p>
           <p class="role__meta">
             <span>Cards:</span> patient card only, with your details and injury
             information. <span>Linked family member:</span> none.
           </p>
+          <div class="subsection">
+            <h3>Reunification</h3>
+            <p>
+              You are not part of the reunification process. Without a linked
+              passenger identity there is nobody waiting for you at the Survivor
+              Reception, so your day finishes at the incident site.
+            </p>
           </div>
-        </details>
+        </div>
+      </dialog>
 
-        <details>
-          <summary>Patient and Passenger</summary>
-          <div class="acc__body">
+      <dialog class="modal" id="role-passenger" aria-labelledby="role-passenger-title">
+        <div class="modal__inner">
+          <div class="modal__head">
+            <h2 id="role-passenger-title">Patient and Passenger</h2>
+            <button class="modal__close" type="button" data-close aria-label="Close">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+            </button>
+          </div>
           <p>
             A combined role: treated in the field, then reunified with a family
             member. You start at Forster Park with the other patients, take your
@@ -368,53 +580,92 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
             Survivor Reception to meet your allocated family member or friend.
           </p>
           <p class="role__meta">
-            <span>Cards:</span> your patient card, plus a passenger (PAX)
-            card holding your identity and reunification details.
+            <span>Cards:</span> your patient card, plus a passenger (PAX) card
+            holding your identity and reunification details.
             <span>Linked family member:</span> one.
           </p>
+          <div class="subsection">
+            <h3>Reunification</h3>
+            <p>
+              Reunification brings the two halves of the exercise back together
+              at the Survivor Reception at Forster Park. Once you are cleared at
+              the incident site you are bussed back to the family and friends
+              who have been waiting there since late morning.
+            </p>
+            <p>
+              You are matched to exactly one Family / Friend, and the two of you
+              complete the match using your cards &mdash; your PAX card carries
+              your identity and reunification details, their red card what they
+              need to confirm it. Because the pairing is one-to-one, both halves
+              need to attend, so tell the Emergency Operations team early if
+              your availability changes.
+            </p>
           </div>
-        </details>
+        </div>
+      </dialog>
 
-        <details>
-          <summary>Family / Friend</summary>
-          <div class="acc__body">
+      <dialog class="modal" id="role-family" aria-labelledby="role-family-title">
+        <div class="modal__inner">
+          <div class="modal__head">
+            <h2 id="role-family-title">Family / Friend</h2>
+            <button class="modal__close" type="button" data-close aria-label="Close">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+            </button>
+          </div>
           <p>
             You represent the loved ones arriving at the airport for news of
             someone on the aircraft, which is what puts the reunification process
-            to the test. You do not go to the airfield. Arrive later in the day
-            &mdash; around 11am to midday &mdash; and report to Forster Park for
-            a brief from the Volunteer Coordinators, then wait at the Survivor
-            Reception for your matched passenger to be discharged and
-            transported back.
+            to the test. You do not go to the airfield. Arrive at 11:00 and
+            report to Forster Park for a brief from the Volunteer Coordinators,
+            then wait at the Survivor Reception for your matched passenger to be
+            discharged and transported back.
           </p>
           <p class="role__meta">
             <span>Cards:</span> a single red family/friend card with the details
             you need to complete the match. <span>Linked passenger:</span> one.
           </p>
+          <div class="subsection">
+            <h3>Reunification</h3>
+            <p>
+              Reunification brings the two halves of the exercise back together
+              at the Survivor Reception at Forster Park. Cleared passengers are
+              bussed back from the incident site to the family and friends
+              waiting there since late morning.
+            </p>
+            <p>
+              You are matched to exactly one Patient and Passenger, and the two
+              of you complete the match using your cards &mdash; their PAX card
+              carries the passenger&rsquo;s identity and reunification details,
+              your red card what you need to confirm it. Because the pairing is
+              one-to-one, both halves need to attend, so tell the Emergency
+              Operations team early if your availability changes.
+            </p>
           </div>
-        </details>
-      </div>
-
-      <div class="subsection">
-        <h3>Reunification</h3>
-        <p>
-          Reunification brings the two halves of the exercise back together at
-          the Survivor Reception at Forster Park: cleared passengers are bussed
-          back from the incident site to the family and friends waiting there
-          since late morning.
-        </p>
-        <p>
-          Each Patient and Passenger is matched to exactly one Family / Friend,
-          and the pair complete the match using their cards &mdash; the PAX
-          card carries the passenger&rsquo;s identity and reunification details,
-          the red card what the family member needs to confirm it. Because the
-          pairing is one-to-one, both halves need to attend, so tell the
-          Emergency Operations team early if your availability changes.
-        </p>
-      </div>
+        </div>
+      </dialog>
     </section>
 
-    <section class="card" aria-labelledby="what-to-bring">
+    <section class="card" data-for="participant" aria-labelledby="arrivals">
+      <h2 id="arrivals">Arrival times</h2>
+      <p>
+        Casualty roles are called in three moulage groups, staggered by how much
+        injury makeup the role needs. Family and friends come later, for
+        reunification only. The Emergency Operations team tells you which group
+        you are in &mdash; take the calendar entry that matches, and it will
+        replace the hold-the-date one.
+      </p>
+      <table class="arrivals">
+        <tbody>
+{{ARRIVALS}}
+        </tbody>
+      </table>
+      <p class="flow__note">
+        Please arrive at your allocated time rather than earlier. The moulage
+        team works to this schedule, and an early arrival waits.
+      </p>
+    </section>
+
+    <section class="card" data-for="participant" aria-labelledby="what-to-bring">
       <h2 id="what-to-bring">What to bring</h2>
       <div class="columns">
         <div>
@@ -438,6 +689,33 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
       </div>
     </section>
 
+    <section class="card" data-for="observer" aria-labelledby="what-to-bring-obs">
+      <h2 id="what-to-bring-obs">What to bring</h2>
+      <div class="columns">
+        <div>
+          <h3>Bring with you</h3>
+          <ul class="ticks">
+            <li>Enclosed footwear</li>
+            <li>Weather appropriate clothing</li>
+            <li>Sun protection &mdash; hat, sunglasses and sunscreen</li>
+            <li>Water</li>
+            <li>Photo identification</li>
+            <li>Any personal medication you may need</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Provided on the day</h3>
+          <ul class="ticks">
+            <li>Hi-vis vest and observer lanyard</li>
+            <li>Registration and safety briefing on arrival</li>
+            <li>Escorted bus transport for the full circuit</li>
+            <li>Lunch at Forster Park by the Salvation Army</li>
+            <li>On-site first aid support</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <section class="card" aria-labelledby="important">
       <h2 id="important">Important information</h2>
       <ol class="steps">
@@ -452,12 +730,18 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
           with their line manager before the exercise. Please ensure you have
           approval to be released from your usual duties on the day.
         </li>
-        <li>
+        <li data-for="participant">
           Your attendance is confirmed, however your specific role, reporting time
           and location have <strong class="underline">not</strong> yet been
           assigned. These details are allocated at the discretion of the Emergency
           Operations team and will be sent to you in a separate email closer to
           the exercise date.
+        </li>
+        <li data-for="observer">
+          You remain escorted and within the monitored viewing area for the whole
+          day, and the bus circuit runs to a fixed schedule. There is no option to
+          move between locations independently, so please stay with your group and
+          follow the directions of exercise staff throughout.
         </li>
       </ol>
     </section>
@@ -487,22 +771,34 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
   <aside class="card key-card" aria-labelledby="key-details">
     <p class="eyebrow" id="key-details">Exercise date</p>
     <div class="date-big"><time datetime="{{DATE_ISO}}">{{DATE_BIG}}</time></div>
-    <p class="date-meta">{{DATE_WEEKDAY}} &middot; {{TIME_TEXT}}</p>
+    <p class="date-meta" data-for="participant">{{DATE_WEEKDAY}} &middot; {{TIME_TEXT}}</p>
+    <p class="date-meta" data-for="observer">{{DATE_WEEKDAY}} &middot; {{OBS_TIME_TEXT}}</p>
 
     <div class="downloads">
 {{DOWNLOADS}}
     </div>
 
-    <ul class="detail-list">
+    <!-- Two lists rather than tagged rows: the audience rule sets display to
+         block, which would flatten the flex row a tagged <li> relies on. -->
+    <ul class="detail-list" data-for="participant">
       <li><span>Location</span><strong>{{LOCATION_FULL}}</strong></li>
       <li><span>Parking</span><strong><a class="maplink" href="{{PARKING_URL}}" target="_blank" rel="noopener">{{PARKING_NAME}}</a><br>{{PARKING_ADDRESS}}</strong></li>
     </ul>
+    <ul class="detail-list" data-for="observer">
+      <li><span>Report to</span><strong>{{OBS_LOCATION}}</strong></li>
+      <li><span>Parking</span><strong>{{OBS_PARKING}}<br>Gate code {{OBS_GATE_CODE}}</strong></li>
+    </ul>
 
-    <div class="notice">
+    <div class="notice" data-for="participant">
       The exercise runs {{TIME_TEXT}}. Your own role and reporting time within
       that window are assigned by the Emergency Operations team and will be
       emailed to you closer to the date &mdash; until then the calendar entry
       stays marked <strong>[AWAITING EXTRA INFO]</strong>.
+    </div>
+    <div class="notice" data-for="observer">
+      Observers arrive at {{OBS_START}} for registration and the safety briefing,
+      and are released from approximately 13:15. The bus circuit runs to a fixed
+      schedule, so a late arrival cannot be accommodated.
     </div>
 
     <p class="source">
@@ -517,5 +813,98 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
   {{CONTACT_ORG}} &middot; {{CONTACT_TEAM}}<br>
   Page updated {{BUILT_ON}}
 </footer>
+
+<script>
+/*
+ * Audience switching and the role modals.
+ *
+ * The page is one document with both audiences' sections in it; this only
+ * decides which set is shown. Everything degrades: with no JavaScript the
+ * <noscript> style reveals all of it, and on a browser without <dialog> the
+ * reader is put on the participant view rather than left staring at a
+ * chooser that cannot open.
+ */
+(function () {
+  "use strict";
+
+  var STORE = "horizon26-audience";
+  var LABELS = {
+    participant: "Viewing participant details",
+    observer: "Viewing observer details"
+  };
+
+  var body = document.body;
+  var gate = document.getElementById("gate");
+  var bannerText = document.getElementById("mode-banner-text");
+  var hasDialog = gate && typeof gate.showModal === "function";
+
+  /* localStorage throws outright in some privacy modes, so every access is
+     guarded and a failure just means the chooser asks again next visit. */
+  function read() {
+    try { return localStorage.getItem(STORE); } catch (e) { return null; }
+  }
+  function save(value) {
+    try { localStorage.setItem(STORE, value); } catch (e) { /* not fatal */ }
+  }
+
+  function apply(who) {
+    body.setAttribute("data-audience", who);
+    bannerText.textContent = LABELS[who] || "";
+  }
+
+  function ask() {
+    if (!hasDialog) { apply("participant"); return; }
+    if (!gate.open) gate.showModal();
+  }
+
+  if (gate) {
+    /* ESC is blocked only while no choice has been made - that is the
+       "cannot be dismissed" requirement. Once the reader has an audience,
+       reopening it from the banner is an ordinary dialog they can back out
+       of without being forced to re-pick. */
+    gate.addEventListener("cancel", function (e) {
+      if (!body.hasAttribute("data-audience")) e.preventDefault();
+    });
+
+    gate.addEventListener("click", function (e) {
+      var choice = e.target.closest("[data-choose]");
+      if (!choice) return;
+      var who = choice.getAttribute("data-choose");
+      apply(who);
+      save(who);
+      gate.close();
+    });
+  }
+
+  document.getElementById("mode-switch").addEventListener("click", ask);
+
+  var stored = read();
+  if (stored === "participant" || stored === "observer") apply(stored);
+  else ask();
+
+  /* Role modals. Ordinary dialogs: close button, ESC and backdrop all work. */
+  document.addEventListener("click", function (e) {
+    var opener = e.target.closest("[data-modal]");
+    if (opener) {
+      var dlg = document.getElementById(opener.getAttribute("data-modal"));
+      if (dlg && typeof dlg.showModal === "function") dlg.showModal();
+      return;
+    }
+    var closer = e.target.closest("[data-close]");
+    if (closer) {
+      var owner = closer.closest("dialog");
+      if (owner) owner.close();
+    }
+  });
+
+  /* A dialog's box is only the panel, so a click reported against the dialog
+     itself landed on the backdrop around it. */
+  Array.prototype.forEach.call(document.querySelectorAll(".modal"), function (dlg) {
+    dlg.addEventListener("click", function (e) {
+      if (e.target === dlg) dlg.close();
+    });
+  });
+})();
+</script>
 
 </body></html>

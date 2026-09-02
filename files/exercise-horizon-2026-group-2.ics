@@ -1,0 +1,68 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Perth Airport//Exercise Horizon 2026//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Exercise Horizon 2026 - Group 2
+X-WR-TIMEZONE:Australia/Perth
+BEGIN:VTIMEZONE
+TZID:Australia/Perth
+X-LIC-LOCATION:Australia/Perth
+BEGIN:STANDARD
+TZOFFSETFROM:+0800
+TZOFFSETTO:+0800
+TZNAME:AWST
+DTSTART:19700101T000000
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:group-2.exercise-horizon-2026@perthairport.com.au
+DTSTAMP:20260902T035925Z
+CREATED:20260902T035925Z
+LAST-MODIFIED:20260902T035925Z
+SEQUENCE:0
+DTSTART;TZID=Australia/Perth:20260917T073000
+DTEND;TZID=Australia/Perth:20260917T140000
+SUMMARY:Exercise Horizon 2026 - Group 2 (arrive 07:30)
+LOCATION:Forster Park Community Centre\, Forster Park\, Belmont WA 6104
+DESCRIPTION:Your reporting time for Exercise Horizon 2026 is confirmed.\n\n
+ MOULAGE GROUP 2 - ARRIVE 07:30 AWST\nReport to Forster Park Community Cent
+ re\, Forster Park\, Belmont WA 6104.\n\nArrival times are staggered by how
+  much moulage (injury makeup) your role needs\, heaviest first. Please arr
+ ive at your allocated time and not earlier - the moulage team works to thi
+ s schedule.\n\nPARKING\nBelmont Sports & Recreation Club\, 400 Abernethy R
+ d\, Cloverdale WA 6105.\nParking location: https://maps.app.goo.gl/FGvVXhE
+ oM1re1Fv18\nThen walk north across Abernethy Road to Forster Park. The wal
+ king route is attached to this invitation\, and is also at:\nhttps://nicho
+ laspagonis.github.io/Exercise-Horizon-2026/assets/parking-map.jpg\n\nHOW T
+ HE DAY RUNS\nCheck in at Forster Park and collect your lanyard and drawstr
+ ing bag.\nMoulage is applied\, then you are briefed before moving out to t
+ he airfield incident site.\nSt John WA\, ARFFS\, DFES and other responders
+  triage and treat you as they would in a real emergency.\nLunch is provide
+ d at Forster Park.\nThe exercise finishes at 14:00.\n\nBRING: enclosed foo
+ twear\, a reusable water bottle\, older clothing you don't mind getting di
+ rty\, and any personal medication you may need.\n\nFull details and role d
+ escriptions: https://nicholaspagonis.github.io/Exercise-Horizon-2026\nQues
+ tions: Emergency.Exercise@perthairport.com.au or 0439 237 973
+URL:https://nicholaspagonis.github.io/Exercise-Horizon-2026
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+X-MICROSOFT-CDO-BUSYSTATUS:BUSY
+CLASS:PUBLIC
+ORGANIZER;CN=Perth Airport Exercise Planning:mailto:Emergency.Exercise@pert
+ hairport.com.au
+CATEGORIES:Exercise,Perth Airport,Participant
+ATTACH;FMTTYPE=image/jpeg;X-FILENAME=walking-route-to-forster-park.jpg:http
+ s://nicholaspagonis.github.io/Exercise-Horizon-2026/assets/parking-map.jpg
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Exercise Horizon 2026 is in one week - Group 2\, arrive 07:30
+TRIGGER:-P7D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Exercise Horizon 2026 is tomorrow - Group 2\, arrive 07:30
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+END:VCALENDAR

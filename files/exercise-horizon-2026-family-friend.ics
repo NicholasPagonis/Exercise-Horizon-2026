@@ -1,0 +1,73 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Perth Airport//Exercise Horizon 2026//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Exercise Horizon 2026 - Family / Friend
+X-WR-TIMEZONE:Australia/Perth
+BEGIN:VTIMEZONE
+TZID:Australia/Perth
+X-LIC-LOCATION:Australia/Perth
+BEGIN:STANDARD
+TZOFFSETFROM:+0800
+TZOFFSETTO:+0800
+TZNAME:AWST
+DTSTART:19700101T000000
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:family-friend.exercise-horizon-2026@perthairport.com.au
+DTSTAMP:20260902T035925Z
+CREATED:20260902T035925Z
+LAST-MODIFIED:20260902T035925Z
+SEQUENCE:0
+DTSTART;TZID=Australia/Perth:20260917T110000
+DTEND;TZID=Australia/Perth:20260917T140000
+SUMMARY:Exercise Horizon 2026 - Family / Friend (arrive 11:00)
+LOCATION:Forster Park Community Centre\, Forster Park\, Belmont WA 6104
+DESCRIPTION:Your reporting time for Exercise Horizon 2026 is confirmed.\n\n
+ FAMILY / FRIEND - ARRIVE 11:00 AWST\nReport to Forster Park Community Cent
+ re\, Forster Park\, Belmont WA 6104.\n\nYou represent the loved ones arriv
+ ing at the airport for news of someone on the aircraft\, which is what put
+ s the reunification process to the test. You do not go to the airfield.\n\
+ nPARKING\nBelmont Sports & Recreation Club\, 400 Abernethy Rd\, Cloverdale
+  WA 6105.\nParking location: https://maps.app.goo.gl/FGvVXhEoM1re1Fv18\nTh
+ en walk north across Abernethy Road to Forster Park. The walking route is 
+ attached to this invitation\, and is also at:\nhttps://nicholaspagonis.git
+ hub.io/Exercise-Horizon-2026/assets/parking-map.jpg\n\nHOW THE DAY RUNS\nA
+ rrive at Forster Park and check in with the Volunteer Coordinators for you
+ r briefing.\nYou are issued a red family/friend card carrying the details 
+ you need to complete the match.\nYou then wait at the Survivor Reception f
+ or your matched passenger to be discharged and bussed back from the incide
+ nt site.\nLunch is provided at Forster Park.\nThe exercise finishes at 14:
+ 00.\n\nEach Family / Friend is matched to exactly one Patient and Passenge
+ r\, so both halves need to attend. Tell the Emergency Operations team as e
+ arly as possible if your availability changes.\n\nBRING: enclosed footwear
+ \, a reusable water bottle\, and any personal medication you may need.\n\n
+ Full details and role descriptions: https://nicholaspagonis.github.io/Exer
+ cise-Horizon-2026\nQuestions: Emergency.Exercise@perthairport.com.au or 04
+ 39 237 973
+URL:https://nicholaspagonis.github.io/Exercise-Horizon-2026
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+X-MICROSOFT-CDO-BUSYSTATUS:BUSY
+CLASS:PUBLIC
+ORGANIZER;CN=Perth Airport Exercise Planning:mailto:Emergency.Exercise@pert
+ hairport.com.au
+CATEGORIES:Exercise,Perth Airport,Participant
+ATTACH;FMTTYPE=image/jpeg;X-FILENAME=walking-route-to-forster-park.jpg:http
+ s://nicholaspagonis.github.io/Exercise-Horizon-2026/assets/parking-map.jpg
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Exercise Horizon 2026 is in one week - Family / Friend\, arrive
+  11:00
+TRIGGER:-P7D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Exercise Horizon 2026 is tomorrow - Family / Friend\, arrive 11
+ :00
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+END:VCALENDAR
