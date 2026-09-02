@@ -892,9 +892,67 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
 
   document.getElementById("mode-switch").addEventListener("click", ask);
 
+  /*
+   * Deep links.
+   *
+   * A link to /#roles should land on that section, not on the chooser. The
+   * audience is read off the target itself rather than assumed, so /#runsheet
+   * puts an observer on the run sheet instead of dropping them into the
+   * participant view where it is hidden. Anything shared, or a fragment that
+   * matches nothing, falls back to participant - and an unrecognised fragment
+   * still gets the chooser, because a typo should not silently pick a view.
+   */
+  function hashTarget() {
+    var id = (location.hash || "").slice(1);
+    if (!id) return null;
+    var el = document.getElementById(id);
+    if (el) return el;
+    try { return document.getElementById(decodeURIComponent(id)); }
+    catch (e) { return null; }
+  }
+
+  function audienceFor(el) {
+    var owner = el.closest("[data-for]");
+    if (!owner) return "participant";
+    var who = (owner.getAttribute("data-for") || "").split(/\s+/);
+    if (who.indexOf("participant") !== -1) return "participant";
+    if (who.indexOf("observer") !== -1) return "observer";
+    return "participant";
+  }
+
+  /* The browser already tried to scroll here while the section was still
+     display:none, so it went nowhere. Repeat it now the section has a box. */
+  function scrollToHash(el) {
+    if (el && typeof el.scrollIntoView === "function") {
+      el.scrollIntoView({ block: "start" });
+    }
+  }
+
+  var target = hashTarget();
   var stored = read();
-  if (stored === "participant" || stored === "observer") apply(stored);
-  else ask();
+
+  if (target) {
+    var who = audienceFor(target);
+    apply(who);
+    /* Only remembered when nothing was stored. A link someone was sent
+       should not quietly overwrite a choice they made themselves. */
+    if (stored !== "participant" && stored !== "observer") save(who);
+    scrollToHash(target);
+  } else if (stored === "participant" || stored === "observer") {
+    apply(stored);
+  } else {
+    ask();
+  }
+
+  /* Same treatment for a fragment that arrives after load, so a deep link
+     behaves the same whether it is opened cold or followed on the page. */
+  window.addEventListener("hashchange", function () {
+    var el = hashTarget();
+    if (!el) return;
+    apply(audienceFor(el));
+    if (gate && gate.open) gate.close();
+    scrollToHash(el);
+  });
 
   /* Role modals. Ordinary dialogs: close button, ESC and backdrop all work. */
   document.addEventListener("click", function (e) {
