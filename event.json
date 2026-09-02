@@ -12,6 +12,7 @@
     "status": "CONFIRMED",
     "busy": true,
     "uid": "emergency.exercise@perthairport.com.au",
+    "variant_group": "participant-arrival",
     "sequence": 3,
     "location": "Forster Park Community Centre, Forster Park, Belmont WA 6104",
     "location_short": "Forster Park Community Centre",
@@ -39,7 +40,7 @@
     ]
   },
 
-  "_extra_calendars_comment": "Additional audiences. Each needs its own uid and output - clients key off uid, so a shared one would replace the participant event rather than add to it. The build refuses to run if two calendars share either.",
+  "_extra_calendars_comment": "Additional audiences, and the participant arrival variants. Output paths are always unique. UIDs are unique too, EXCEPT between calendars declaring the same variant_group. A calendar client keys off uid, so a shared one makes the second file UPDATE the first in the reader's calendar rather than add a second entry. That is destructive between participant and observer, and is exactly what is wanted between the arrival times: a volunteer has one role and one arrival time, so they should hold one Exercise Horizon entry, and taking their group's file should move it rather than leave them with two events at different times. If an arrival variant is reissued after invitations have gone out, bump sequence on ALL of them together, so the new file supersedes whichever one the reader already has.",
   "extra_calendars": [
     {
       "id": "observer",
@@ -110,8 +111,9 @@
       "timezone": "Australia/Perth",
       "status": "CONFIRMED",
       "busy": true,
-      "uid": "group-1.exercise-horizon-2026@perthairport.com.au",
-      "sequence": 0,
+      "uid": "emergency.exercise@perthairport.com.au",
+      "variant_group": "participant-arrival",
+      "sequence": 4,
       "location": "Forster Park Community Centre, Forster Park, Belmont WA 6104",
       "categories": ["Exercise", "Perth Airport", "Participant"],
       "attachments": [
@@ -162,8 +164,9 @@
       "timezone": "Australia/Perth",
       "status": "CONFIRMED",
       "busy": true,
-      "uid": "group-2.exercise-horizon-2026@perthairport.com.au",
-      "sequence": 0,
+      "uid": "emergency.exercise@perthairport.com.au",
+      "variant_group": "participant-arrival",
+      "sequence": 4,
       "location": "Forster Park Community Centre, Forster Park, Belmont WA 6104",
       "categories": ["Exercise", "Perth Airport", "Participant"],
       "attachments": [
@@ -214,8 +217,9 @@
       "timezone": "Australia/Perth",
       "status": "CONFIRMED",
       "busy": true,
-      "uid": "group-3.exercise-horizon-2026@perthairport.com.au",
-      "sequence": 0,
+      "uid": "emergency.exercise@perthairport.com.au",
+      "variant_group": "participant-arrival",
+      "sequence": 4,
       "location": "Forster Park Community Centre, Forster Park, Belmont WA 6104",
       "categories": ["Exercise", "Perth Airport", "Participant"],
       "attachments": [
@@ -266,8 +270,9 @@
       "timezone": "Australia/Perth",
       "status": "CONFIRMED",
       "busy": true,
-      "uid": "family-friend.exercise-horizon-2026@perthairport.com.au",
-      "sequence": 0,
+      "uid": "emergency.exercise@perthairport.com.au",
+      "variant_group": "participant-arrival",
+      "sequence": 4,
       "location": "Forster Park Community Centre, Forster Park, Belmont WA 6104",
       "categories": ["Exercise", "Perth Airport", "Participant"],
       "attachments": [
