@@ -296,18 +296,29 @@ def audience_attr(item: dict) -> str:
 def download_cards(downloads: list[dict]) -> str:
     cards = []
     for item in downloads:
-        path = ROOT / item["path"]
-        if not path.exists():
-            print(f"  ! skipping missing download: {item['path']}", file=sys.stderr)
-            continue
+        # An entry carrying `href` points somewhere on the page rather than at
+        # a file: no download attribute, and no size to read off disk. Used so
+        # the calendar button can send a reader to the arrival times rather
+        # than handing them a calendar that may not be the one they want.
+        if "href" in item:
+            href = html.escape(item["href"], quote=True)
+            meta = html.escape(item.get("meta", ""))
+            download_attr = ""
+        else:
+            path = ROOT / item["path"]
+            if not path.exists():
+                print(f"  ! skipping missing download: {item['path']}", file=sys.stderr)
+                continue
+            href = html.escape(item["path"])
+            suffix = path.suffix.lstrip(".").upper()
+            meta = f"{suffix} &middot; {human_size(path.stat().st_size)}"
+            download_attr = " download"
 
-        suffix = path.suffix.lstrip(".").upper()
-        meta = f"{suffix} &middot; {human_size(path.stat().st_size)}"
         variant = "dl--primary" if item.get("primary") else "dl--secondary"
 
         cards.append(
             f'      <div class="dl-item"{audience_attr(item)}>\n'
-            f'        <a class="dl {variant}" href="{html.escape(item["path"])}" download>\n'
+            f'        <a class="dl {variant}" href="{href}"{download_attr}>\n'
             f'          <span class="dl__label">{html.escape(item["label"])}</span>\n'
             f'          <span class="dl__meta">{meta}</span>\n'
             f"        </a>\n"

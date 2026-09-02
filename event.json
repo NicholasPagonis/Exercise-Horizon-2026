@@ -340,9 +340,10 @@
   "_downloads_comment": "The key card's download buttons. `audience` limits a button to one view of the page; omit it and the button shows to everybody. The per-group calendars are not here - they are listed in the arrival times table instead, built from extra_calendars.",
   "downloads": [
     {
-      "path": "files/exercise-horizon-2026.ics",
+      "href": "#arrivals",
       "label": "Add to Calendar",
-      "description": "Hold the date. Swap it for your group's calendar below once your arrival time is assigned.",
+      "meta": "Choose your time",
+      "description": "Four arrival times below. Take the one matching the group you have been assigned.",
       "primary": true,
       "audience": "participant"
     },
