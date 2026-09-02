@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import datetime as dt
 import html
+import itertools
 import json
 import re
 import sys
@@ -484,21 +485,62 @@ def calendars(cfg: dict) -> list[dict]:
     primary.setdefault("output", str(ICS_OUT.relative_to(ROOT)))
     out = [primary] + [dict(e) for e in cfg.get("extra_calendars", [])]
 
-    # A shared UID is the one mistake that would silently destroy data:
-    # calendar clients key off UID, so importing the second file would
-    # REPLACE the first event in the subscriber's calendar rather than add
-    # to it. Same for a shared output path, which would clobber on disk.
-    for field, what in [("uid", "UID"), ("output", "output path")]:
-        seen: dict[str, str] = {}
-        for ev in out:
-            value = ev[field]
-            if value in seen:
-                raise SystemExit(
-                    f"error: {ev['output']} and {seen[value]} share a {what} "
-                    f"({value!r}). Give each calendar its own — otherwise "
-                    "importing one replaces the other."
-                )
-            seen[value] = ev["output"]
+    # Two calendars writing the same file would clobber on disk. No calendar
+    # ever has a reason to share an output path, so this one is absolute.
+    seen_out: dict[str, bool] = {}
+    for ev in out:
+        if ev["output"] in seen_out:
+            raise SystemExit(
+                f"error: {ev['output']} is written by two calendars. Give "
+                "each its own output path."
+            )
+        seen_out[ev["output"]] = True
+
+    # UID is the consequential one. A calendar client keys off UID, so two
+    # files sharing one means importing the second UPDATES the first in the
+    # subscriber's calendar instead of adding to it.
+    #
+    # Between the participant and observer events that would destroy one
+    # with the other. Between the arrival times it is the entire point: a
+    # volunteer has one role and one arrival time, so they should hold a
+    # single Exercise Horizon entry, and opening their group's file should
+    # move it rather than leave them with two events at different hours —
+    # which is the mistake that puts somebody at Forster Park at 07:00 when
+    # they were moved to 08:00.
+    #
+    # So sharing is permitted, but only where both calendars say they are
+    # variants of one event.
+    for a, b in itertools.combinations(out, 2):
+        if a["uid"] != b["uid"]:
+            continue
+        group = a.get("variant_group")
+        if not group or group != b.get("variant_group"):
+            raise SystemExit(
+                f"error: {a['output']} and {b['output']} share a UID "
+                f"({a['uid']!r}) but are not declared variants of one event, "
+                "so importing one would silently replace the other. Give "
+                'them separate UIDs, or set the same "variant_group" on '
+                "both if that replacement is what you want."
+            )
+
+    # And the converse. A variant that has drifted onto its own UID stops
+    # replacing its siblings and starts stacking beside them — the exact
+    # failure the grouping exists to prevent, and invisible in the output.
+    groups: dict[str, dict[str, str]] = {}
+    for ev in out:
+        group = ev.get("variant_group")
+        if group:
+            groups.setdefault(group, {})[ev["uid"]] = ev["output"]
+    for group, uids in groups.items():
+        if len(uids) > 1:
+            listing = ", ".join(f"{out_path} ({uid})" for uid, out_path in sorted(uids.items()))
+            raise SystemExit(
+                f"error: the {group!r} variants do not all share a UID: "
+                f"{listing}. They are meant to be one event, so a reader "
+                "holds one entry — differing UIDs would give them one per "
+                "file."
+            )
+
     return out
 
 
