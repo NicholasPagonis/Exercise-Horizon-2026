@@ -42,6 +42,7 @@
   "_extra_calendars_comment": "Additional audiences. Each needs its own uid and output - clients key off uid, so a shared one would replace the participant event rather than add to it. The build refuses to run if two calendars share either.",
   "extra_calendars": [
     {
+      "id": "observer",
       "output": "files/exercise-horizon-2026-observer.ics",
       "name": "Exercise Horizon 2026 - Observer",
       "ics_summary": "Exercise Horizon 2026 - Observer",
@@ -55,13 +56,21 @@
       "uid": "observer.exercise-horizon-2026@perthairport.com.au",
       "sequence": 0,
       "location": "Airport Experience Centre, Alpha Building, 2 George Wiencke Drive, Perth Airport WA 6105",
+      "location_short": "Airport Experience Centre",
+      "parking": "Alpha Building car park at the AEC",
+      "gate_code": "1023",
       "categories": ["Exercise", "Perth Airport", "Observer"],
+      "attachments": [
+        { "path": "assets/email/horizon-map-alpha-building.jpg", "fmttype": "image/jpeg", "filename": "alpha-building-access-and-parking.jpg" }
+      ],
       "description": [
         "Your observer place at Exercise Horizon 2026 is confirmed.",
         "",
         "Arrive 08:00 for registration and safety briefing.",
         "Report to: Alpha Building, 2 George Wiencke Drive, Perth Airport WA 6105 - Ground Floor, Airport Experience Centre (AEC).",
         "Parking: Alpha Building car park at the AEC. Use gate code 1023 to enter the staff car park. Your vehicle stays there all day and you return to it at the end.",
+        "A map of the access gate, the car park and the building entrance is attached to this invitation, and is also at:",
+        "https://nicholaspagonis.github.io/Exercise-Horizon-2026/assets/email/horizon-map-alpha-building.jpg",
         "Finish: from approximately 13:15, from the AEC.",
         "",
         "HOW THE DAY RUNS",
@@ -86,6 +95,216 @@
         { "trigger": "-P7D", "label": "Exercise Horizon 2026 (Observer) is in one week" },
         { "trigger": "-P1D", "label": "Exercise Horizon 2026 (Observer) is tomorrow" }
       ]
+    },
+
+    {
+      "id": "group-1",
+      "output": "files/exercise-horizon-2026-group-1.ics",
+      "name": "Exercise Horizon 2026 - Group 1",
+      "ics_summary": "Exercise Horizon 2026 - Group 1 (arrive 07:00)",
+      "arrival": { "label": "Group 1", "time": "07:00", "who": "Patients and Passengers" },
+      "date": "2026-09-17",
+      "all_day": false,
+      "start": "07:00",
+      "end": "14:00",
+      "timezone": "Australia/Perth",
+      "status": "CONFIRMED",
+      "busy": true,
+      "uid": "group-1.exercise-horizon-2026@perthairport.com.au",
+      "sequence": 0,
+      "location": "Forster Park Community Centre, Forster Park, Belmont WA 6104",
+      "categories": ["Exercise", "Perth Airport", "Participant"],
+      "attachments": [
+        { "path": "assets/parking-map.jpg", "fmttype": "image/jpeg", "filename": "walking-route-to-forster-park.jpg" }
+      ],
+      "description": [
+        "Your reporting time for Exercise Horizon 2026 is confirmed.",
+        "",
+        "MOULAGE GROUP 1 - ARRIVE 07:00 AWST",
+        "Report to Forster Park Community Centre, Forster Park, Belmont WA 6104.",
+        "",
+        "Arrival times are staggered by how much moulage (injury makeup) your role needs, heaviest first. Please arrive at your allocated time and not earlier - the moulage team works to this schedule.",
+        "",
+        "PARKING",
+        "Belmont Sports & Recreation Club, 400 Abernethy Rd, Cloverdale WA 6105.",
+        "Parking location: https://maps.app.goo.gl/FGvVXhEoM1re1Fv18",
+        "Then walk north across Abernethy Road to Forster Park. The walking route is attached to this invitation, and is also at:",
+        "https://nicholaspagonis.github.io/Exercise-Horizon-2026/assets/parking-map.jpg",
+        "",
+        "HOW THE DAY RUNS",
+        "Check in at Forster Park and collect your lanyard and drawstring bag.",
+        "Moulage is applied, then you are briefed before moving out to the airfield incident site.",
+        "St John WA, ARFFS, DFES and other responders triage and treat you as they would in a real emergency.",
+        "Lunch is provided at Forster Park.",
+        "The exercise finishes at 14:00.",
+        "",
+        "BRING: enclosed footwear, a reusable water bottle, older clothing you don't mind getting dirty, and any personal medication you may need.",
+        "",
+        "Full details and role descriptions: https://nicholaspagonis.github.io/Exercise-Horizon-2026",
+        "Questions: Emergency.Exercise@perthairport.com.au or 0439 237 973"
+      ],
+      "reminders": [
+        { "trigger": "-P7D", "label": "Exercise Horizon 2026 is in one week - Group 1, arrive 07:00" },
+        { "trigger": "-P1D", "label": "Exercise Horizon 2026 is tomorrow - Group 1, arrive 07:00" }
+      ]
+    },
+
+    {
+      "id": "group-2",
+      "output": "files/exercise-horizon-2026-group-2.ics",
+      "name": "Exercise Horizon 2026 - Group 2",
+      "ics_summary": "Exercise Horizon 2026 - Group 2 (arrive 07:30)",
+      "arrival": { "label": "Group 2", "time": "07:30", "who": "Patients and Passengers" },
+      "date": "2026-09-17",
+      "all_day": false,
+      "start": "07:30",
+      "end": "14:00",
+      "timezone": "Australia/Perth",
+      "status": "CONFIRMED",
+      "busy": true,
+      "uid": "group-2.exercise-horizon-2026@perthairport.com.au",
+      "sequence": 0,
+      "location": "Forster Park Community Centre, Forster Park, Belmont WA 6104",
+      "categories": ["Exercise", "Perth Airport", "Participant"],
+      "attachments": [
+        { "path": "assets/parking-map.jpg", "fmttype": "image/jpeg", "filename": "walking-route-to-forster-park.jpg" }
+      ],
+      "description": [
+        "Your reporting time for Exercise Horizon 2026 is confirmed.",
+        "",
+        "MOULAGE GROUP 2 - ARRIVE 07:30 AWST",
+        "Report to Forster Park Community Centre, Forster Park, Belmont WA 6104.",
+        "",
+        "Arrival times are staggered by how much moulage (injury makeup) your role needs, heaviest first. Please arrive at your allocated time and not earlier - the moulage team works to this schedule.",
+        "",
+        "PARKING",
+        "Belmont Sports & Recreation Club, 400 Abernethy Rd, Cloverdale WA 6105.",
+        "Parking location: https://maps.app.goo.gl/FGvVXhEoM1re1Fv18",
+        "Then walk north across Abernethy Road to Forster Park. The walking route is attached to this invitation, and is also at:",
+        "https://nicholaspagonis.github.io/Exercise-Horizon-2026/assets/parking-map.jpg",
+        "",
+        "HOW THE DAY RUNS",
+        "Check in at Forster Park and collect your lanyard and drawstring bag.",
+        "Moulage is applied, then you are briefed before moving out to the airfield incident site.",
+        "St John WA, ARFFS, DFES and other responders triage and treat you as they would in a real emergency.",
+        "Lunch is provided at Forster Park.",
+        "The exercise finishes at 14:00.",
+        "",
+        "BRING: enclosed footwear, a reusable water bottle, older clothing you don't mind getting dirty, and any personal medication you may need.",
+        "",
+        "Full details and role descriptions: https://nicholaspagonis.github.io/Exercise-Horizon-2026",
+        "Questions: Emergency.Exercise@perthairport.com.au or 0439 237 973"
+      ],
+      "reminders": [
+        { "trigger": "-P7D", "label": "Exercise Horizon 2026 is in one week - Group 2, arrive 07:30" },
+        { "trigger": "-P1D", "label": "Exercise Horizon 2026 is tomorrow - Group 2, arrive 07:30" }
+      ]
+    },
+
+    {
+      "id": "group-3",
+      "output": "files/exercise-horizon-2026-group-3.ics",
+      "name": "Exercise Horizon 2026 - Group 3",
+      "ics_summary": "Exercise Horizon 2026 - Group 3 (arrive 08:00)",
+      "arrival": { "label": "Group 3", "time": "08:00", "who": "Patients and Passengers" },
+      "date": "2026-09-17",
+      "all_day": false,
+      "start": "08:00",
+      "end": "14:00",
+      "timezone": "Australia/Perth",
+      "status": "CONFIRMED",
+      "busy": true,
+      "uid": "group-3.exercise-horizon-2026@perthairport.com.au",
+      "sequence": 0,
+      "location": "Forster Park Community Centre, Forster Park, Belmont WA 6104",
+      "categories": ["Exercise", "Perth Airport", "Participant"],
+      "attachments": [
+        { "path": "assets/parking-map.jpg", "fmttype": "image/jpeg", "filename": "walking-route-to-forster-park.jpg" }
+      ],
+      "description": [
+        "Your reporting time for Exercise Horizon 2026 is confirmed.",
+        "",
+        "MOULAGE GROUP 3 - ARRIVE 08:00 AWST",
+        "Report to Forster Park Community Centre, Forster Park, Belmont WA 6104.",
+        "",
+        "Arrival times are staggered by how much moulage (injury makeup) your role needs, heaviest first. Please arrive at your allocated time and not earlier - the moulage team works to this schedule.",
+        "",
+        "PARKING",
+        "Belmont Sports & Recreation Club, 400 Abernethy Rd, Cloverdale WA 6105.",
+        "Parking location: https://maps.app.goo.gl/FGvVXhEoM1re1Fv18",
+        "Then walk north across Abernethy Road to Forster Park. The walking route is attached to this invitation, and is also at:",
+        "https://nicholaspagonis.github.io/Exercise-Horizon-2026/assets/parking-map.jpg",
+        "",
+        "HOW THE DAY RUNS",
+        "Check in at Forster Park and collect your lanyard and drawstring bag.",
+        "Moulage is applied, then you are briefed before moving out to the airfield incident site.",
+        "St John WA, ARFFS, DFES and other responders triage and treat you as they would in a real emergency.",
+        "Lunch is provided at Forster Park.",
+        "The exercise finishes at 14:00.",
+        "",
+        "BRING: enclosed footwear, a reusable water bottle, older clothing you don't mind getting dirty, and any personal medication you may need.",
+        "",
+        "Full details and role descriptions: https://nicholaspagonis.github.io/Exercise-Horizon-2026",
+        "Questions: Emergency.Exercise@perthairport.com.au or 0439 237 973"
+      ],
+      "reminders": [
+        { "trigger": "-P7D", "label": "Exercise Horizon 2026 is in one week - Group 3, arrive 08:00" },
+        { "trigger": "-P1D", "label": "Exercise Horizon 2026 is tomorrow - Group 3, arrive 08:00" }
+      ]
+    },
+
+    {
+      "id": "family-friend",
+      "output": "files/exercise-horizon-2026-family-friend.ics",
+      "name": "Exercise Horizon 2026 - Family / Friend",
+      "ics_summary": "Exercise Horizon 2026 - Family / Friend (arrive 11:00)",
+      "arrival": { "label": "Family / Friend", "time": "11:00", "who": "Family and friends" },
+      "date": "2026-09-17",
+      "all_day": false,
+      "start": "11:00",
+      "end": "14:00",
+      "timezone": "Australia/Perth",
+      "status": "CONFIRMED",
+      "busy": true,
+      "uid": "family-friend.exercise-horizon-2026@perthairport.com.au",
+      "sequence": 0,
+      "location": "Forster Park Community Centre, Forster Park, Belmont WA 6104",
+      "categories": ["Exercise", "Perth Airport", "Participant"],
+      "attachments": [
+        { "path": "assets/parking-map.jpg", "fmttype": "image/jpeg", "filename": "walking-route-to-forster-park.jpg" }
+      ],
+      "description": [
+        "Your reporting time for Exercise Horizon 2026 is confirmed.",
+        "",
+        "FAMILY / FRIEND - ARRIVE 11:00 AWST",
+        "Report to Forster Park Community Centre, Forster Park, Belmont WA 6104.",
+        "",
+        "You represent the loved ones arriving at the airport for news of someone on the aircraft, which is what puts the reunification process to the test. You do not go to the airfield.",
+        "",
+        "PARKING",
+        "Belmont Sports & Recreation Club, 400 Abernethy Rd, Cloverdale WA 6105.",
+        "Parking location: https://maps.app.goo.gl/FGvVXhEoM1re1Fv18",
+        "Then walk north across Abernethy Road to Forster Park. The walking route is attached to this invitation, and is also at:",
+        "https://nicholaspagonis.github.io/Exercise-Horizon-2026/assets/parking-map.jpg",
+        "",
+        "HOW THE DAY RUNS",
+        "Arrive at Forster Park and check in with the Volunteer Coordinators for your briefing.",
+        "You are issued a red family/friend card carrying the details you need to complete the match.",
+        "You then wait at the Survivor Reception for your matched passenger to be discharged and bussed back from the incident site.",
+        "Lunch is provided at Forster Park.",
+        "The exercise finishes at 14:00.",
+        "",
+        "Each Family / Friend is matched to exactly one Patient and Passenger, so both halves need to attend. Tell the Emergency Operations team as early as possible if your availability changes.",
+        "",
+        "BRING: enclosed footwear, a reusable water bottle, and any personal medication you may need.",
+        "",
+        "Full details and role descriptions: https://nicholaspagonis.github.io/Exercise-Horizon-2026",
+        "Questions: Emergency.Exercise@perthairport.com.au or 0439 237 973"
+      ],
+      "reminders": [
+        { "trigger": "-P7D", "label": "Exercise Horizon 2026 is in one week - Family / Friend, arrive 11:00" },
+        { "trigger": "-P1D", "label": "Exercise Horizon 2026 is tomorrow - Family / Friend, arrive 11:00" }
+      ]
     }
   ],
 
@@ -99,21 +318,39 @@
 
   "site": {
     "base_url": "https://nicholaspagonis.github.io/Exercise-Horizon-2026",
-    "tagline": "Participant information and downloads"
+    "tagline": "Participant information and downloads",
+    "tagline_observer": "Observer information and downloads"
   },
 
+  "_downloads_comment": "The key card's download buttons. `audience` limits a button to one view of the page; omit it and the button shows to everybody. The per-group calendars are not here - they are listed in the arrival times table instead, built from extra_calendars.",
   "downloads": [
     {
       "path": "files/exercise-horizon-2026.ics",
       "label": "Add to Calendar",
-      "description": "Calendar file (.ics) for Outlook, Google Calendar, Apple Calendar",
-      "primary": true
+      "description": "Hold the date. Swap it for your group's calendar below once your arrival time is assigned.",
+      "primary": true,
+      "audience": "participant"
+    },
+    {
+      "path": "files/exercise-horizon-2026-observer.ics",
+      "label": "Add to Calendar",
+      "description": "Observer calendar file (.ics) for Outlook, Google Calendar, Apple Calendar",
+      "primary": true,
+      "audience": "observer"
+    },
+    {
+      "path": "assets/email/horizon-map-alpha-building.jpg",
+      "label": "Alpha Building Map",
+      "description": "Driving route through the access gate to Alpha Building parking, and the walk to the entrance",
+      "primary": false,
+      "audience": "observer"
     },
     {
       "path": "assets/parking-map.jpg",
       "label": "Parking Map",
       "description": "Walking route from Belmont Sports & Recreation Club to Forster Park",
-      "primary": false
+      "primary": false,
+      "audience": "participant"
     }
   ]
 }
