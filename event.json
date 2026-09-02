@@ -322,6 +322,16 @@
     "tagline_observer": "Observer information and downloads"
   },
 
+  "_card_examples_comment": "Example cards embedded in the role modals, served by the card manager. These are static demonstration cards, not anybody's real allocation. The embedded=true flag tells the card manager to render the card on its own, without the surrounding participant page.",
+  "card_examples": {
+    "base_url": "https://cards.nicholaspagonis.com/participant",
+    "cards": {
+      "passenger": "P001",
+      "patient": "P002",
+      "family": "F001"
+    }
+  },
+
   "_downloads_comment": "The key card's download buttons. `audience` limits a button to one view of the page; omit it and the button shows to everybody. The per-group calendars are not here - they are listed in the arrival times table instead, built from extra_calendars.",
   "downloads": [
     {

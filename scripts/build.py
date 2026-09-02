@@ -368,6 +368,18 @@ def calendar_by_id(cfg: dict, ident: str) -> dict:
     )
 
 
+def example_card_url(cfg: dict, role: str) -> str:
+    """The card manager URL for one role's example card.
+
+    Escaped with quote=True so the ampersand between the two query
+    parameters becomes &amp; - a bare & in an attribute is an unterminated
+    entity, and browsers only forgive it by accident.
+    """
+    ex = cfg["card_examples"]
+    card = ex["cards"][role]
+    return html.escape(f"{ex['base_url']}?card={card}&embedded=true", quote=True)
+
+
 def build_page(cfg: dict, template: str) -> str:
     ev, contact, site = cfg["event"], cfg["contact"], cfg["site"]
     obs = calendar_by_id(cfg, "observer")
@@ -406,6 +418,9 @@ def build_page(cfg: dict, template: str) -> str:
         "OBS_START": html.escape(obs["start"]),
         "OBS_PARKING": html.escape(obs["parking"]),
         "OBS_GATE_CODE": html.escape(obs["gate_code"]),
+        "CARD_PASSENGER": example_card_url(cfg, "passenger"),
+        "CARD_PATIENT": example_card_url(cfg, "patient"),
+        "CARD_FAMILY": example_card_url(cfg, "family"),
         "BUILT_ON": dt.date.today().isoformat(),
     }
 
