@@ -389,7 +389,7 @@ def example_card_url(cfg: dict, role: str) -> str:
     """
     ex = cfg["card_examples"]
     card = ex["cards"][role]
-    return html.escape(f"{ex['base_url']}?card={card}&embedded=true", quote=True)
+    return html.escape(f"{ex['base_url']}?card={card}&{ex['params']}", quote=True)
 
 
 def build_page(cfg: dict, template: str) -> str:
