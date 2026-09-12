@@ -25,9 +25,16 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG = ROOT / "event.json"
-TEMPLATE = ROOT / "templates" / "index.html"
-PAGE_OUT = ROOT / "index.html"
 ICS_OUT = ROOT / "files" / "exercise-horizon-2026.ics"
+
+# Every page built from templates/, as (template, output). Both are filled
+# from the same values, so a token means the same thing wherever it appears.
+# The second lands in its own directory so the URL is /what-to-expect/ with
+# no .html on the end.
+PAGES = [
+    ("index.html", "index.html"),
+    ("what-to-expect.html", "what-to-expect/index.html"),
+]
 
 PRODID = "-//Perth Airport//Exercise Horizon 2026//EN"
 
@@ -364,6 +371,55 @@ def arrival_rows(cfg: dict) -> str:
     return "\n".join(rows)
 
 
+def video_player(cfg: dict) -> str:
+    """The player for the what-to-expect page, or a holding message.
+
+    Three states, chosen by what is configured. Generating the markup here
+    rather than in the template means the page cannot ship an empty <video>
+    element that renders as a broken player before the file exists - a
+    volunteer seeing that would reasonably assume the site was broken, not
+    that the video was still coming.
+    """
+    v = cfg["video"]
+
+    if v.get("embed"):
+        return (
+            '        <div class="vid-frame">\n'
+            f'          <iframe src="{html.escape(v["embed"], quote=True)}"\n'
+            f'                  title="{html.escape(v["title"], quote=True)}"\n'
+            '                  allow="accelerometer; encrypted-media; picture-in-picture; fullscreen"\n'
+            '                  referrerpolicy="strict-origin-when-cross-origin"\n'
+            '                  allowfullscreen loading="lazy"></iframe>\n'
+            "        </div>"
+        )
+
+    if v.get("src"):
+        src = html.escape(v["src"], quote=True)
+        poster = (f' poster="{html.escape(v["poster"], quote=True)}"'
+                  if v.get("poster") else "")
+        # preload="none" so a phone on airport wifi does not start pulling a
+        # large file from every visit to the page, watched or not.
+        track = ""
+        if v.get("captions"):
+            track = (
+                f'\n          <track kind="captions" src="{html.escape(v["captions"], quote=True)}"'
+                ' srclang="en-AU" label="English" default>'
+            )
+        return (
+            f'        <video class="vid" controls playsinline preload="none"{poster}>\n'
+            f'          <source src="{src}" type="video/mp4">{track}\n'
+            "          <p>Your browser cannot play this video. "
+            f'<a href="{src}" download>Download it instead</a>.</p>\n'
+            "        </video>"
+        )
+
+    return (
+        '        <p class="vid-holding">The briefing video is being put together '
+        "and will appear here before the exercise. Nothing else on this page "
+        "depends on it.</p>"
+    )
+
+
 def calendar_by_id(cfg: dict, ident: str) -> dict:
     """One entry from extra_calendars, by its `id`.
 
@@ -433,6 +489,9 @@ def build_page(cfg: dict, template: str) -> str:
         "CARD_PASSENGER": example_card_url(cfg, "passenger"),
         "CARD_PATIENT": example_card_url(cfg, "patient"),
         "CARD_FAMILY": example_card_url(cfg, "family"),
+        "VIDEO_TITLE": html.escape(cfg["video"]["title"]),
+        "VIDEO_INTRO": html.escape(cfg["video"]["intro"]),
+        "VIDEO_PLAYER": video_player(cfg),
         "BUILT_ON": dt.date.today().isoformat(),
     }
 
@@ -569,14 +628,16 @@ def main() -> int:
             # content does.
             ignore=re.compile(r"^(DTSTAMP|CREATED|LAST-MODIFIED):.*$\r?\n?", re.MULTILINE),
         )
-    write_if_changed(
-        PAGE_OUT,
-        build_page(cfg, TEMPLATE.read_text(encoding="utf-8")),
-        # "Page updated" carries the build clock, like DTSTAMP in the .ics.
-        # Masking it means a rebuild on a later day with no content change
-        # leaves the page alone, instead of churning the date every time.
-        ignore=re.compile(r"Page updated \d{4}-\d{2}-\d{2}"),
-    )
+    for template_name, out_name in PAGES:
+        template = (ROOT / "templates" / template_name).read_text(encoding="utf-8")
+        write_if_changed(
+            ROOT / out_name,
+            build_page(cfg, template),
+            # "Page updated" carries the build clock, like DTSTAMP in the .ics.
+            # Masking it means a rebuild on a later day with no content change
+            # leaves the page alone, instead of churning the date every time.
+            ignore=re.compile(r"Page updated \d{4}-\d{2}-\d{2}"),
+        )
     return 0
 
 

@@ -338,6 +338,16 @@
     }
   },
 
+  "_video_comment": "The what-to-expect briefing video. Set EITHER `embed` to a player URL (YouTube, Vimeo, Cloudflare Stream) OR `src` to a video file; with both empty the page shows a holding message rather than a broken player, so it is safe to publish before the video exists. Before committing a file here: GitHub refuses any single file over 100MB, and Pages serves 100GB a month across the whole site - a few hundred volunteers streaming a large briefing is a real fraction of that, so anything substantial belongs on a video host and `embed` is the field to use. `captions` takes a WebVTT file, and matters: a briefing that cannot be followed without sound excludes the people most likely to need it.",
+  "video": {
+    "title": "What to expect on the day",
+    "intro": "A short briefing on how Exercise Horizon 2026 runs, what the roles involve and what the day looks like from arrival to finish. Worth watching before you come.",
+    "embed": "",
+    "src": "",
+    "poster": "",
+    "captions": ""
+  },
+
   "_downloads_comment": "The key card's download buttons. `audience` limits a button to one view of the page; omit it and the button shows to everybody. The per-group calendars are not here - they are listed in the arrival times table instead, built from extra_calendars.",
   "downloads": [
     {
