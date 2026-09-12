@@ -9,12 +9,12 @@
 -->
 <html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{{VIDEO_TITLE}} &ndash; {{EVENT_NAME}}</title>
-<meta name="description" content="{{VIDEO_TITLE}}: a short briefing on how {{EVENT_NAME}} runs and what the day looks like.">
+<meta name="description" content="{{VIDEO_TITLE}}: footage from the previous exercise, showing what the day looks like before you come to {{EVENT_NAME}}.">
 <meta name="theme-color" content="#19807c">
 <link rel="canonical" href="{{BASE_URL}}/what-to-expect/">
 <meta property="og:type" content="video.other">
 <meta property="og:title" content="{{VIDEO_TITLE}} &ndash; {{EVENT_NAME}}">
-<meta property="og:description" content="A short briefing on how the day runs, before you come.">
+<meta property="og:description" content="Footage from the previous exercise, showing what the day looks like.">
 <meta property="og:url" content="{{BASE_URL}}/what-to-expect/">
 <meta property="og:image" content="{{BASE_URL}}/assets/social-card.jpg">
 <meta property="og:image:width" content="{{SOCIAL_W}}">
@@ -103,10 +103,7 @@ footer{width:min(900px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem;
     <h2 id="briefing" class="visually-hidden" hidden>Briefing video</h2>
     <p class="lead">{{VIDEO_INTRO}}</p>
 {{VIDEO_PLAYER}}
-    <p class="vid-note">
-      Watching this does not replace the briefing you get on the day. You will
-      be briefed again on arrival, and there will be staff to ask throughout.
-    </p>
+    <p class="vid-note">{{VIDEO_NOTE}}</p>
   </section>
 
   <section class="card" aria-labelledby="next">
