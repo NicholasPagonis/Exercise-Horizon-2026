@@ -491,6 +491,7 @@ def build_page(cfg: dict, template: str) -> str:
         "CARD_FAMILY": example_card_url(cfg, "family"),
         "VIDEO_TITLE": html.escape(cfg["video"]["title"]),
         "VIDEO_INTRO": html.escape(cfg["video"]["intro"]),
+        "VIDEO_NOTE": html.escape(cfg["video"]["note"]),
         "VIDEO_PLAYER": video_player(cfg),
         "BUILT_ON": dt.date.today().isoformat(),
     }

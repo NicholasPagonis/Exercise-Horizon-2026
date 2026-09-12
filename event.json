@@ -341,7 +341,8 @@
   "_video_comment": "The what-to-expect briefing video. Set EITHER `embed` to a player URL (YouTube, Vimeo, Cloudflare Stream) OR `src` to a video file; with both empty the page shows a holding message rather than a broken player, so it is safe to publish before the video exists. Before committing a file here: GitHub refuses any single file over 100MB, and Pages serves 100GB a month across the whole site - a few hundred volunteers streaming a large briefing is a real fraction of that, so anything substantial belongs on a video host and `embed` is the field to use. `captions` takes a WebVTT file, and matters: a briefing that cannot be followed without sound excludes the people most likely to need it.",
   "video": {
     "title": "What to expect on the day",
-    "intro": "A short briefing on how Exercise Horizon 2026 runs, what the roles involve and what the day looks like from arrival to finish. Worth watching before you come.",
+    "intro": "Footage from Exercise Hermes 2024, the last exercise we ran. Horizon 2026 follows the same pattern, so it is the clearest picture of what the day actually looks like: the scale of the response, the moulage, and how casualties are treated and moved.",
+    "note": "Because this is 2024 footage, do not take any detail in it as this year's. Your role, arrival time and where to report for Horizon 2026 are on the exercise information page. It also does not replace the briefing you get on arrival, and there are staff to ask throughout the day.",
     "embed": "https://www.youtube-nocookie.com/embed/chw_4Y9dkpw",
     "src": "",
     "poster": "",

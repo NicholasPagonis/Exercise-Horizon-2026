@@ -303,10 +303,6 @@ body[data-audience] .mode-banner{display:flex}
 .arrival__dl{display:inline-flex;align-items:center;gap:.5rem;white-space:nowrap;text-decoration:none;
   background:var(--ocean20);color:var(--ocean);padding:.5rem .9rem;border-radius:999px;font-size:.88rem}
 .arrival__dl:hover,.arrival__dl:focus-visible{background:var(--coast20)}
-/* A link to another page of the site, as opposed to a file download. */
-.pagelink{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;background:var(--ocean20);
-  color:var(--ocean);padding:.62rem 1.15rem;border-radius:999px;font-size:.94rem}
-.pagelink:hover,.pagelink:focus-visible{background:var(--coast20)}
 /* Below 600px the table stops being a table: four columns cannot hold their
    shape on a phone, so each row stacks into its own block. */
 @media(max-width:600px){
@@ -449,14 +445,6 @@ footer{width:min(1180px,calc(100% - 2rem));margin:0 auto 3rem;padding-top:1.4rem
 
 <main>
   <div class="stack">
-
-    <!-- Untagged, so both audiences see it: the briefing is as useful to an
-         observer deciding what they are turning up to as to a participant. -->
-    <section class="card" aria-labelledby="briefing-video">
-      <h2 id="briefing-video">What to expect on the day</h2>
-      <p>A short briefing on how Exercise Horizon 2026 runs, what the roles involve and what the day looks like from arrival to finish. Worth watching before you come.</p>
-      <p><a class="pagelink" href="what-to-expect/">Watch the briefing &rarr;</a></p>
-    </section>
 
     <section class="card" data-for="participant" aria-labelledby="selection">
       <h2 id="selection">Selection Process</h2>
